@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.input.KeyCodeCombination?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane fx:id="bp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1010.0" stylesheets="@tema%20Oscuro.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.FXMLVentanaPrincipalController">
+   <top>
+      <MenuBar opacity="0.88" BorderPane.alignment="CENTER">
+        <menus>
+            <Menu mnemonicParsing="false" text="Grafo de Lugares">
+              <items>
+                <MenuItem fx:id="MI_GLugares_Agregar" mnemonicParsing="false" onAction="#MI_GLugares_Agregar" text="Agregar Lugar" />
+                  <MenuItem fx:id="MI_GLugares_Eliminar" mnemonicParsing="false" onAction="#MI_GLugares_Eliminar" text="Eliminar Lugar" />
+                  <MenuItem fx:id="MI_GLugares_Mostrar" mnemonicParsing="false" onAction="#MI_GLugares_Mostrar" text="Mostrar Lugares" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Mantenimiento  de Establecimientos">
+               <items>
+                  <Menu mnemonicParsing="false" text="Restaurantes">
+                    <items>
+                        <MenuItem fx:id="MI_Restaurantes_Agregar" mnemonicParsing="false" onAction="#MI_Restaurantes_Agregar" text="Agregar Restaurante" />
+                        <MenuItem fx:id="MI_Restaurantes_Modificar" mnemonicParsing="false" onAction="#MI_Restaurantes_Modificar" text="Modificar Restaurante" />
+                        <MenuItem fx:id="MI_Restaurantes_Eliminar" mnemonicParsing="false" onAction="#MI_Restaurantes_Eliminar" text="Eliminar Restaurante" />
+                        <MenuItem fx:id="MI_Restaurantes_Mostrar" mnemonicParsing="false" onAction="#MI_Restaurantes_Mostrar" text="Mostrar Restaurantes" />
+                    </items>
+                  </Menu>
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <Menu mnemonicParsing="false" text="Supermercados">
+                    <items>
+                        <MenuItem fx:id="MI_Supermercado_Agregar" mnemonicParsing="false" onAction="#MI_Supermercado_Agregar" text="Agregar Supermercado" />
+                        <MenuItem fx:id="MI_Supermercado_Modificar" mnemonicParsing="false" onAction="#MI_Supermercado_Modificar" text="Modificar Supermercado" />
+                        <MenuItem fx:id="MI_Supermercado_Eliminar" mnemonicParsing="false" onAction="#MI_Supermercado_Eliminar" text="Eliminar Supermercado" />
+                        <MenuItem fx:id="MI_Supermercado_Mostrar" mnemonicParsing="false" onAction="#MI_Supermercado_Mostrar" text="Mostrar Supermercados" />
+                    </items>
+                  </Menu>
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Mantenimiento de Mercancia">
+               <items>
+                  <Menu mnemonicParsing="false" text="Comidas">
+                    <items>
+                        <MenuItem fx:id="MI_Comida_Agregar" mnemonicParsing="false" onAction="#MI_Comida_Agregar" text="Agregar Comida" />
+                        <MenuItem fx:id="MI_Comida_Modificar" mnemonicParsing="false" onAction="#MI_Comida_Modificar" text="Modificar Comida" />
+                        <MenuItem fx:id="MI_Comida_Eliminar" mnemonicParsing="false" onAction="#MI_Comida_Eliminar" text="Eliminar Comida" />
+                        <MenuItem fx:id="MI_Comida_Mostrar" mnemonicParsing="false" onAction="#MI_Comida_Mostrar" text="Mostrar Comidas" />
+                    </items>
+                  </Menu>
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <Menu mnemonicParsing="false" text="Productos">
+                    <items>
+                        <MenuItem fx:id="MI_Producto_Agregar" mnemonicParsing="false" onAction="#MI_Producto_Agregar" text="Agregar Producto" />
+                        <MenuItem fx:id="MI_Producto_Modificar" mnemonicParsing="false" onAction="#MI_Producto_Modificar" text="Modificar Producto" />
+                        <MenuItem fx:id="MI_Producto_Eliminar" mnemonicParsing="false" onAction="#MI_Producto_Eliminar" text="Eliminar Producto" />
+                        <MenuItem fx:id="MI_Producto_Mostrar" mnemonicParsing="false" onAction="#MI_Producto_Mostrar" text="Mostrar Productos" />
+                    </items>
+                  </Menu>
+               </items>
+            </Menu>
+            <Menu fx:id="MI_Busqueda" mnemonicParsing="false" onAction="#MI_Busqueda" text="Busqueda" />
+            <Menu mnemonicParsing="false" text="Reportes">
+              <items>
+                <MenuItem fx:id="MI_Rep_Restaurantes_Supermercados" mnemonicParsing="false" onAction="#MI_Rep_Restaurantes_Supermercados" text="Reporte de Restaurantes y Supermercados" />
+                  <MenuItem fx:id="MI_Rep_Comidas_Productos" mnemonicParsing="false" onAction="#MI_Rep_Comidas_Productos" text="Reporte de Comidas y Productos" />
+                  <MenuItem fx:id="MI_Rep_Busquedas" mnemonicParsing="false" onAction="#MI_Rep_Busquedas" text="Reporte de Busquedas" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Opciones">
+              <items>
+                <MenuItem fx:id="Mi_Options_close" mnemonicParsing="false" onAction="#Mi_Options_close" text="Cerrar seción">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="ESCAPE" control="UP" meta="ANY" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
+                  <MenuItem fx:id="Mi_Options_finish" mnemonicParsing="false" onAction="#Mi_Options_finish" text="Cerrar programa" />
+              </items>
+            </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <center>
+      <AnchorPane fx:id="ap" prefHeight="560.0" prefWidth="1013.0" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>
