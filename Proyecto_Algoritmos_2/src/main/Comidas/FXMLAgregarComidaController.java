@@ -72,6 +72,7 @@ public class FXMLAgregarComidaController implements Initializable {
                 a.showAndWait();
                 textFieldNombre.setText("");
                 textFieldPrecio.setText("");
+                //JJ
     }
     }
 
