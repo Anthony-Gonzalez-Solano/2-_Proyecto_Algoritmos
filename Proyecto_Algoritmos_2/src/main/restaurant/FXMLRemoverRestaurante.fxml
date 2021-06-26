@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@../tema%20Oscuro.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.restaurant.FXMLRemoverRestauranteController">
+   <children>
+      <ComboBox fx:id="comboRestaurantes" layoutX="394.0" layoutY="59.0" onAction="#comboRestaurantes" prefHeight="53.0" prefWidth="192.0" promptText="Restaurantes" />
+      <Button fx:id="btnRemover" layoutX="155.0" layoutY="302.0" mnemonicParsing="false" onAction="#btnRemover" prefHeight="75.0" prefWidth="199.0" text="Remover">
+         <font>
+            <Font size="41.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
