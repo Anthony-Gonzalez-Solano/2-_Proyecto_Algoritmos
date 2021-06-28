@@ -10,8 +10,11 @@ import domain.list.CircularLinkedList;
 import domain.list.DoublyLinkedList;
 import domain.list.SinglyLinkedList;
 import domain.Security;
+import domain.Supermarket;
 import domain.graph.AdjacencyListGraph;
 import domain.graph.AdjacencyMatrixGraph;
+import domain.graph.GraphException;
+import domain.list.ListException;
 import domain.tree.BST;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -147,7 +150,7 @@ public class Utility {
 //    public static void setIntro(Student s){introStudent = s;}
 //    public static Student getIntro(){return introStudent;}
     
-    public static void fillList(){  //metodo para cargar todas las listas necesarios al iniciar
+    public static void fillList() throws GraphException, ListException{  //metodo para cargar todas las listas necesarios al iniciar
         FileTXT file = new FileTXT();
         ArrayList<String> list = new ArrayList<>();
         
@@ -163,6 +166,13 @@ public class Utility {
             for (int i = 0; i < list.size(); i++) {
                 String[] datos = list.get(i).split(",");
                 getUsers().add(new Security(datos[0], desBinaryCodify(datos[1])));
+            }
+        }
+        if(file.existFile("Supermarket.txt")){
+            list = file.readFile("Supermarket.txt");
+            for (int i = 0; i < list.size(); i++) {
+                String[] datos = list.get(i).split(",");
+                getlGraphRestaurants_Supermarkets().addVertex(new Supermarket(datos[0], datos[1]));;
             }
         }
     }
