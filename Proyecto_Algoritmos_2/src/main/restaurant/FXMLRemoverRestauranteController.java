@@ -69,8 +69,8 @@ public class FXMLRemoverRestauranteController implements Initializable {
             Restaurant r = new Restaurant(comboRestaurantes.getSelectionModel().getSelectedItem().getName(), comboRestaurantes.getSelectionModel().getSelectedItem().getLocation());
             
             Alert a = new Alert(Alert.AlertType.INFORMATION);
-            a.setHeaderText("¿Esta seguro que quiere remover la carrera?");
-            ButtonType yes = new ButtonType("Sí");
+            a.setHeaderText("¿Esta seguro que quiere remover el restaurante: "+ comboRestaurantes.getSelectionModel().getSelectedItem().getName()+"?");
+            ButtonType yes = new ButtonType("Si");
             ButtonType no = new ButtonType("No");
             a.getButtonTypes().clear();
             a.getButtonTypes().addAll(yes, no);
@@ -78,7 +78,7 @@ public class FXMLRemoverRestauranteController implements Initializable {
             Optional<ButtonType> option = a.showAndWait();
             if (option.get() == yes) {
                 try {
-                    util.Utility.getlGraphRestaurants_Supermarkets().removeVertex(comboRestaurantes.getSelectionModel().getSelectedItem().getName());
+                    util.Utility.getlGraphRestaurants_Supermarkets().removeVertex(comboRestaurantes.getSelectionModel().getSelectedItem().secondToString());
                     txt.removeElement("restaurantes.txt", comboRestaurantes.getSelectionModel().getSelectedItem().secondToString());
                     
                     int x = comboRestaurantes.getSelectionModel().getSelectedIndex(); // tomamos el valor del indice
@@ -95,7 +95,10 @@ public class FXMLRemoverRestauranteController implements Initializable {
         }
     }
  @FXML
-    private void comboRestaurantes(ActionEvent event) throws ListException {
-        
+    private void comboRestaurantes(ActionEvent event)  {
+        if(comboRestaurantes.getSelectionModel().getSelectedIndex()!=-1){
+            
+        }
+            
     }
 }

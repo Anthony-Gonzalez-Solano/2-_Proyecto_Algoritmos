@@ -51,14 +51,16 @@ public class FXMLModificarRestauranteController implements Initializable {
             }
             // TODO
         } catch (ListException ex) {
-            Logger.getLogger(FXMLModificarRestauranteController.class.getName()).log(Level.SEVERE, null, ex);
+              Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setHeaderText("No hay restaurantes agregados");
+            a.showAndWait();
         }
     }
 
     @FXML
     private void btnModificar(ActionEvent event) {
         if (textFieldNombre.getText().isEmpty()) { //validamos campos vacios
-            Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+            Alert a = new Alert(Alert.AlertType.INFORMATION);
             a.setHeaderText("Debe ingresar un restaurante para poder modificarlo");
             a.showAndWait();
         } else {
@@ -67,7 +69,7 @@ public class FXMLModificarRestauranteController implements Initializable {
             txt.modifyFile("restaurantes.txt", comboRestaurantes.getSelectionModel().getSelectedItem().secondToString(), r.secondToString());// se modifica el archivo
             int x = comboRestaurantes.getSelectionModel().getSelectedIndex(); // tomamos el valor del indice
             comboRestaurantes.getItems().remove(x); // se remueve
-            comboRestaurantes.getItems().add(x, r);// se agregan de nuevo al comBox el restaurante modificada
+            comboRestaurantes.getItems().add(x, r);// se agregan de nuevo al comBox el restaurante modificado
             comboRestaurantes.getSelectionModel().clearSelection();//limpiamos el comboBox
             textFieldNombre.setText("");
 

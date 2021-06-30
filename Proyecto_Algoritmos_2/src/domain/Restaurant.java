@@ -14,9 +14,10 @@ public class Restaurant {
     private static int autoId;
     private String name;
     private String location;
+        private int id;
 
     public Restaurant(String name, String location) {
-
+       this.id=autoId;
         this.name = name;
         this.location=location;
         autoId++;
@@ -56,6 +57,6 @@ public class Restaurant {
     }
 
     public String secondToString() {
-        return name + "," + location;
+        return name + "," + location+","+ id;
     }
 }

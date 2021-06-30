@@ -30,12 +30,13 @@ import util.FileTXT;
  */
 public class FXMLAgregarRestauranteController implements Initializable {
 
+    private static int autoID;
     private util.FileTXT txt;
     @FXML
     private Button btnAgregar;
     @FXML
     private TextField textFieldNombre;
-    private TextField textFieldLocation;
+
     @FXML
     private ComboBox<Place> comboLugares;
 
@@ -48,11 +49,12 @@ public class FXMLAgregarRestauranteController implements Initializable {
 
         try {
             for (int i = 0; i < util.Utility.getmGraphPlace().size(); i++) {
-
                 comboLugares.getItems().add((Place) util.Utility.getmGraphPlace().getVertexByIndex(i).data);
-            } //recorremos la lista de restaurantes para agregarlas al comboBox
+            } //recorremos la lista deLlugares para agregarlas al comboBox
         } catch (ListException ex) {
-            Logger.getLogger(FXMLAgregarComidaController.class.getName()).log(Level.SEVERE, null, ex);
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setHeaderText("No hay lugares agregados");
+            a.showAndWait();
         }
     }
 
@@ -72,12 +74,11 @@ public class FXMLAgregarRestauranteController implements Initializable {
                 util.Utility.getlGraphRestaurants_Supermarkets().addVertex(r);
                 txt.writeFile("restaurantes.txt", r.secondToString());// escribimos en los txt
                 Alert a = new Alert(Alert.AlertType.CONFIRMATION);
-                a.setHeaderText("Restaurante agregado correctamente");
+                a.setHeaderText(" El restaurante " + textFieldNombre.getText() + " fue agregado correctamente!!");
                 a.showAndWait();
-                textFieldLocation.setText("");
                 textFieldNombre.setText("");
             } else {
-                Restaurant r = new Restaurant(this.textFieldNombre.getText(), this.textFieldLocation.getText());
+                Restaurant r = new Restaurant(this.textFieldNombre.getText(), comboLugares.getSelectionModel().getSelectedItem().getName());
                 if (!util.Utility.getlGraphRestaurants_Supermarkets().containsVertex(r)) {
                     util.Utility.getlGraphRestaurants_Supermarkets().addVertex(r);
                     for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
@@ -89,28 +90,25 @@ public class FXMLAgregarRestauranteController implements Initializable {
                             }
                         }
                     }
-
                 }
                 txt.writeFile("restaurantes.txt", r.secondToString());// escribimos en los txt
                 Alert a = new Alert(Alert.AlertType.CONFIRMATION);
                 a.setHeaderText("Restaurante agregado correctamente");
                 a.showAndWait();
-               comboLugares.getSelectionModel().clearSelection();
+                comboLugares.getSelectionModel().clearSelection();
                 textFieldNombre.setText("");
-
+                autoID++;
             }
-
         } catch (GraphException | ListException ex) {
             Logger.getLogger(FXMLAgregarRestauranteController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
     @FXML
     private void comboLugares(ActionEvent event) {
-         if (comboLugares.getSelectionModel().getSelectedIndex() != -1) {
-         
-         }
+        if (comboLugares.getSelectionModel().getSelectedIndex() != -1) {
+
+        }
     }
 
 }
