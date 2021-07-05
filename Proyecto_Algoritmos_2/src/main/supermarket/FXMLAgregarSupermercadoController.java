@@ -56,7 +56,18 @@ public class FXMLAgregarSupermercadoController implements Initializable {
             a.setHeaderText("No debe dejar campos vacios");
             a.showAndWait();
         }else{
+            if(util.Utility.getlGraphRestaurants_Supermarkets().isEmpty())
         util.Utility.getlGraphRestaurants_Supermarkets().addVertex(new Supermarket(txtFieldName.getText(),cBoxPlace.getValue().getName()));
+            else{
+                util.Utility.getlGraphRestaurants_Supermarkets().addVertex(new Supermarket(txtFieldName.getText(),cBoxPlace.getValue().getName()));
+                Supermarket sT2=new Supermarket(txtFieldName.getText(),cBoxPlace.getValue().getName());
+                Supermarket sT=null;
+                for (int i = 1; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
+                    sT=(Supermarket)util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
+                    if(!(sT.getName().equals(txtFieldName.getText()))&&!(sT.getLocation().equals(cBoxPlace.getValue().getName())))
+                        util.Utility.getlGraphRestaurants_Supermarkets().addEdge(sT2, sT);
+                }
+            }
     }
     }
     
