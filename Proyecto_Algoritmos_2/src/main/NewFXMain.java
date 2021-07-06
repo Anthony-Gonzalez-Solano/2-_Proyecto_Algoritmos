@@ -5,6 +5,8 @@
  */
 package main;
 
+import domain.graph.GraphException;
+import domain.list.ListException;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,8 +40,8 @@ public class NewFXMain extends Application {
             primaryStage.setResizable(false);
             primaryStage.show();
            
-            //util.Utility.fillList();
-        } catch (IOException ex) {
+            util.Utility.fillList();
+        } catch (IOException | GraphException | ListException ex) {
             Logger.getLogger(NewFXMain.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

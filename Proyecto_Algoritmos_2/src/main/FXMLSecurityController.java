@@ -20,10 +20,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Point2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -41,6 +43,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import javax.swing.JOptionPane;
 import org.icepdf.ri.common.FileExtensionUtils;
 import util.FileTXT;
 
@@ -53,135 +56,274 @@ public class FXMLSecurityController implements Initializable {
 
 
     private String temporalPass;
-    
     @FXML
     private Pane P_selection;
     @FXML
-    private Button btn_admin;
-    @FXML
-    private Button btn_student;
-    private Pane P_student;
-    private TextField tf_canet;
-    private Pane P_admin;
-    private TextField tf_user;
-    private Button btn_acept;
-    private PasswordField tf_password;
-    @FXML
     private BorderPane bp;
     @FXML
-    private Button btn_newStudent;
-    private Pane P_NewSudent;
-    private TextField tf_carnet_newStudent;
-    private PasswordField tf_password_newSudent;
-    private PasswordField tf_passwordConfirm_newStudent;
-    private TextField tf_Password_Student;
-    private Pane P_ChangePasswors;
-    private Pane P_ChangePassword_1;
-    private TextField P_ChangePassword_1_carnet;
-    private Pane P_ChangePassword_2;
-    private TextField P_ChangePassword_2_tfTemporalPass;
-    private TextField P_ChangePassword_2_tfConformPass;
-    private PasswordField P_ChangePanel_2_tfNewPass;
+    private Button btn_SingIn;
+    @FXML
+    private Button btn_LogIn;
+    @FXML
+    private TextField tf_SingIn_User;
+    @FXML
+    private TextField tf_SingIn_Password;
+    @FXML
+    private Button btn_SingIn_SingIn;
+    @FXML
+    private Button btn_SingIn_Cancel;
+    @FXML
+    private Pane P_SingIn;
+    @FXML
+    private TextField tf_SingIn_PasswordComfirm;
+    @FXML
+    private Pane P_LogIn;
+    @FXML
+    private TextField tf_LogIn_User;
+    @FXML
+    private TextField tf_LogIn_Password;
+    @FXML
+    private Button btn_LogIn_LogIn;
+    @FXML
+    private Button btn_LogIn_Cancel;
+    @FXML
+    private Pane P_Check;
+    @FXML
+    private Pane P_Check_1;
+    @FXML
+    private TextField tf_Check_Password;
+    @FXML
+    private TextField tf_Check_PasswordConfirm;
+    @FXML
+    private Button btn_Check_Save;
+    @FXML
+    private TextField tf_Check_Mail;
+    @FXML
+    private TextField tf_Check_TempPass;
+    @FXML
+    private Button btn_Check_check;
+    @FXML
+    private Button btn_Check_send;
+    @FXML
+    private Pane p_Check_2;
+    @FXML
+    private Button btn_Check_Cancel;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       
+     
     }    
-
+    
     @FXML
-    private void btn_admin(ActionEvent event) {
+    private void btn_SingIn(ActionEvent event) {
         P_selection.setVisible(false);
-        P_admin.setVisible(true);
+        P_LogIn.setVisible(true);
     }
 
     @FXML
-    private void btn_student(ActionEvent event) {
-//        if(!util.Utility.getEstudiantes().isEmpty()){ // no permite consultas si no hay estudiantes
-//            P_selection.setVisible(false);
-//            P_student.setVisible(true);
-//        }else{
-//            Alert a = new Alert(Alert.AlertType.ERROR);
-//            a.setHeaderText("no hay estudiantes registrados\npara usar esta opcion");
-//            a.showAndWait();
-//
-//        }
+    private void btn_LogIn(ActionEvent event) {
+        P_selection.setVisible(false);
+        P_SingIn.setVisible(true);
     }
 
     @FXML
-    private void btn_newStudent(ActionEvent event) {
-//        if(!util.Utility.getEstudiantes().isEmpty()){
-//            P_selection.setVisible(false);
-//            P_NewSudent.setVisible(true);
-//        }else{
-//            Alert a = new Alert(Alert.AlertType.ERROR);
-//            a.setHeaderText("no hay estudiantes registrados\npara usar esta opcion");
-//            a.showAndWait();
-//
-//        }
-    }
-
-    private void btn_acept_newStudent(ActionEvent event) {
-        if(!tf_carnet_newStudent.getText().isEmpty() && !tf_passwordConfirm_newStudent.getText().isEmpty() && 
-                !tf_password_newSudent.getText().isEmpty()){// verificamos que los espacios no esten en blanco
+    private void btn_SingIn_SingIn(ActionEvent event) {
+        Alert a = new Alert(Alert.AlertType.ERROR);
+        DialogPane dp = a.getDialogPane();
+        dp.getStylesheets().add(getClass().getResource("myDialogs.css").toExternalForm());
+        dp.getStyleClass().add("myDialog");
+        if(!tf_SingIn_User.getText().isEmpty() && !tf_SingIn_Password.getText().isEmpty() && !tf_SingIn_PasswordComfirm.getText().isEmpty()){
             try {
-                boolean register=true;
-                for (int i = 1; i <= util.Utility.getUsers().size(); i++) {  // revisamos que el estudiantes exista y que no tiene contraseña como usuario
-                    Security s = (Security)util.Utility.getUsers().getNode(i).data;
-                    if(tf_carnet_newStudent.getText().equals(s.getUser()) && s.getPassword().equals("-")){
-                        register=false;
+                boolean register = false;
+                for (int i = 1; i <= util.Utility.getUsers().size(); i++) {
+                    Security s = (Security) util.Utility.getUsers().getNode(i).data;
+                    if(tf_SingIn_User.getText().equals(s.getUser())){
+                        register=true;
+                        break;
                     }
                 }
-                FileTXT file = new FileTXT();
-                if(register==false){ // si no esta registrado
-                    if(tf_password_newSudent.getText().equals(tf_passwordConfirm_newStudent.getText())){ //confirmamos que las contraseñas coinciden
-                        for (int i = 1; i <= util.Utility.getUsers().size(); i++) {
-                            Security s = (Security)util.Utility.getUsers().getNode(i).data;
-                            if(tf_carnet_newStudent.getText().equals(s.getUser())){ //bscamos el usuario y le agregamos la contraseña
-                                file.modifyFile("Users.txt", s, new Security(tf_carnet_newStudent.getText(),tf_password_newSudent.getText())) ;
-                                s.setPassword(tf_password_newSudent.getText());
-                                util.Utility.getUsers().getNode(i).data = s;
-                                
-                                P_NewSudent.setVisible(false);
-                                P_selection.setVisible(true);
-                                Alert a = new Alert(Alert.AlertType.INFORMATION);
-                                a.setHeaderText("Se a guardado con exito la contraseña");
-                                a.setContentText("ahora puede ingresar a hacer consultas");
-                                a.showAndWait();
-                            }
-                        }   
+                if(register==false){
+                    if(tf_SingIn_Password.getText().equals(tf_SingIn_PasswordComfirm.getText())){
+                        if(util.Utility.checkPass(tf_SingIn_Password.getText())){
+                            FileTXT txt = new FileTXT();
+                            Security s = new Security(tf_SingIn_User.getText(), tf_SingIn_Password.getText());
+                            txt.writeFile("Users.txt", s.toString());
+                            util.Utility.getUsers().add(s);
+                            
+                            a.setAlertType(Alert.AlertType.INFORMATION);
+                            a.setHeaderText("Se ha registrado de manera exitosa !!");
+                            a.setContentText("Ahora puede ingresar a los servicios");
+                            a.showAndWait();
+                            P_SingIn.setVisible(false);
+                            P_selection.setVisible(true);
+                            cleanTFs();
+                        }else{
+                           a.setHeaderText("Contraseña invalida");
+                            a.setContentText("La contraseña debe tener\n- Almenos 8 caracteres\n-Numeros"
+                                            + "- Mayusculas [A-Z]\n-Minusculas [a-z]\n-Signos ! # $ . , * + -");
+                            a.showAndWait(); 
+                        }
                     }else{
-                        Alert a = new Alert(Alert.AlertType.ERROR);
-                        a.setHeaderText("La contrseña y su confirmación no coinciden");
+                        a.setHeaderText("La contraseña no coincide");
+                        a.setContentText("Verifique que la haya ingresado correctamente");
                         a.showAndWait();
                     }
                 }else{
-                    Alert a = new Alert(Alert.AlertType.ERROR);
-                    a.setHeaderText("El estudiante indicado no se a podido encontrar\no ya tiene una contraseña registrada");
+                    a.setHeaderText("El usuario ingesado ya exite");
+                    a.setContentText("Debe de cambiarlo");
                     a.showAndWait();
-                }  
+                }
             } catch (ListException ex) {
                 Logger.getLogger(FXMLSecurityController.class.getName()).log(Level.SEVERE, null, ex);
-            } 
+            }
         }else{
-            Alert a = new Alert(Alert.AlertType.ERROR);
             a.setHeaderText("No debe dejar espacios en blanco");
+             a.setContentText(" ");
             a.showAndWait();
         }
     }
 
-    private void btn_cancel_newStudent(ActionEvent event) {
-        tf_carnet_newStudent.setText("");
-        tf_password_newSudent.setText("");
-        tf_passwordConfirm_newStudent.setText("");
+    @FXML
+    private void btn_SingIn_Cancel(ActionEvent event) {
+        cleanTFs();
+        P_SingIn.setVisible(false);
         P_selection.setVisible(true);
-        P_NewSudent.setVisible(false);
     }
+
+    @FXML
+    private void btn_LogIn_LogIn(ActionEvent event) {
+        Alert a = new Alert(Alert.AlertType.ERROR);
+        DialogPane dp = a.getDialogPane();
+        dp.getStylesheets().add(getClass().getResource("myDialogs.css").toExternalForm());
+        dp.getStyleClass().add("myDialog");
+        if(!tf_LogIn_User.getText().isEmpty() && !tf_LogIn_Password.getText().isEmpty()){
+            try {
+                Security s=null;
+                boolean register = false;
+                for (int i = 1; i <= util.Utility.getUsers().size(); i++) {
+                    s=(Security) util.Utility.getUsers().getNode(i).data;
+                    if(tf_LogIn_User.getText().equals(s.getUser())){
+                        register=true;
+                        break;
+                    }
+                }
+                if(register==true){
+                    if(tf_LogIn_Password.getText().equals(s.getPassword())){
+                        JOptionPane.showMessageDialog(null, "xd");
+                        
+                        //carga el otro
+                        
+                        
+                        
+                    }else{
+                        a.setHeaderText("Contraseña incorrecta");
+                        a.setContentText(" ");
+                        a.showAndWait();
+                        tf_LogIn_Password.clear();
+                    }
+                }else{
+                    a.setHeaderText("El nombre de usuario ingresado\nno existe");
+                    a.setContentText("Verfique que sea correcto o\nregistrelo");
+                    a.showAndWait();  
+                }
+            } catch (ListException ex) {
+                Logger.getLogger(FXMLSecurityController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            a.setHeaderText("No debe dejar espacios en blanco");
+            a.setContentText(" ");
+            a.showAndWait();
+        }
+    }
+
+    @FXML
+    private void btn_LogIn_Cancel(ActionEvent event) {
+        cleanTFs();
+        P_LogIn.setVisible(false);
+        P_selection.setVisible(true);
+    }
+
+    @FXML
+    private void btn_Check_Save(ActionEvent event) {
+    }
+
+    @FXML
+    private void btn_Check_send(ActionEvent event) {
+    }
+
+    @FXML
+    private void btn_Check_check(ActionEvent event) {
+    }
+
+    @FXML
+    private void btn_Check_Cancel(ActionEvent event) {
+    }
+
+    private void cleanTFs(){
+        tf_Check_Mail.clear();
+        tf_Check_Password.clear();
+        tf_Check_PasswordConfirm.clear();
+        tf_Check_TempPass.clear();
+        tf_LogIn_Password.clear();
+        tf_LogIn_User.clear();
+        tf_SingIn_Password.clear();
+        tf_SingIn_PasswordComfirm.clear();
+        tf_SingIn_User.clear();
+    }
+//    private void btn_acept_newStudent(ActionEvent event) {
+//        if(!tf_carnet_newStudent.getText().isEmpty() && !tf_passwordConfirm_newStudent.getText().isEmpty() && 
+//                !tf_password_newSudent.getText().isEmpty()){// verificamos que los espacios no esten en blanco
+//            try {
+//                boolean register=true;
+//                for (int i = 1; i <= util.Utility.getUsers().size(); i++) {  // revisamos que el estudiantes exista y que no tiene contraseña como usuario
+//                    Security s = (Security)util.Utility.getUsers().getNode(i).data;
+//                    if(tf_carnet_newStudent.getText().equals(s.getUser()) && s.getPassword().equals("-")){
+//                        register=false;
+//                    }
+//                }
+//                FileTXT file = new FileTXT();
+//                if(register==false){ // si no esta registrado
+//                    if(tf_password_newSudent.getText().equals(tf_passwordConfirm_newStudent.getText())){ //confirmamos que las contraseñas coinciden
+//                        for (int i = 1; i <= util.Utility.getUsers().size(); i++) {
+//                            Security s = (Security)util.Utility.getUsers().getNode(i).data;
+//                            if(tf_carnet_newStudent.getText().equals(s.getUser())){ //bscamos el usuario y le agregamos la contraseña
+//                                file.modifyFile("Users.txt", s, new Security(tf_carnet_newStudent.getText(),tf_password_newSudent.getText())) ;
+//                                s.setPassword(tf_password_newSudent.getText());
+//                                util.Utility.getUsers().getNode(i).data = s;
+//                                
+//                                P_NewSudent.setVisible(false);
+//                                P_selection.setVisible(true);
+//                                Alert a = new Alert(Alert.AlertType.INFORMATION);
+//                                a.setHeaderText("Se a guardado con exito la contraseña");
+//                                a.setContentText("ahora puede ingresar a hacer consultas");
+//                                a.showAndWait();
+//                            }
+//                        }   
+//                    }else{
+//                        Alert a = new Alert(Alert.AlertType.ERROR);
+//                        a.setHeaderText("La contrseña y su confirmación no coinciden");
+//                        a.showAndWait();
+//                    }
+//                }else{
+//                    Alert a = new Alert(Alert.AlertType.ERROR);
+//                    a.setHeaderText("El estudiante indicado no se a podido encontrar\no ya tiene una contraseña registrada");
+//                    a.showAndWait();
+//                }  
+//            } catch (ListException ex) {
+//                Logger.getLogger(FXMLSecurityController.class.getName()).log(Level.SEVERE, null, ex);
+//            } 
+//        }else{
+//            Alert a = new Alert(Alert.AlertType.ERROR);
+//            a.setHeaderText("No debe dejar espacios en blanco");
+//            a.showAndWait();
+//        }
+//    }
 //-----------------------------------------------Proceso cambio de contraseña
-    private void btn_Enviar_ChangePassword_1(ActionEvent event) {
-        if(!P_ChangePassword_1_carnet.getText().isEmpty()){
+//    private void btn_Enviar_ChangePassword_1(ActionEvent event) {
+//        if(!P_ChangePassword_1_carnet.getText().isEmpty()){
 //            try {
 //                boolean tf = false;
 //                for (int i = 1; i <= util.Utility.getEstudiantes().size(); i++) {  // revisamos que el carnet exista
@@ -210,25 +352,20 @@ public class FXMLSecurityController implements Initializable {
 //            } catch (ListException ex) {
 //                Logger.getLogger(FXMLSecurityController.class.getName()).log(Level.SEVERE, null, ex);
 //            }
-        }else{
-            Alert a = new Alert(Alert.AlertType.ERROR);
-            a.setHeaderText("No deje el espacio en blanco");
-            a.showAndWait();
-        }
-        
-    }
+//        }else{
+//            Alert a = new Alert(Alert.AlertType.ERROR);
+//            a.setHeaderText("No deje el espacio en blanco");
+//            a.showAndWait();
+//        }
+//        
+//    }
 
-    private void btn_Cancel_P_ChangePassword_1(ActionEvent event) {
-        P_ChangePasswors.setVisible(false);
-        P_selection.setVisible(true);
-    }
-
-    private void P_ChangePanel_2_btnSave(ActionEvent event) {
-        if(!P_ChangePassword_2_tfTemporalPass.getText().isEmpty() && !P_ChangePanel_2_tfNewPass.getText().isEmpty() && 
-                !P_ChangePassword_2_tfConformPass.getText().isEmpty()){ //revisamos qu los espacios no esten vacios
-            
-            if(P_ChangePassword_2_tfTemporalPass.getText().equals(temporalPass)){ // revisamos que la contraseña temporal coincide
-                if(P_ChangePanel_2_tfNewPass.getText().equals(P_ChangePassword_2_tfConformPass.getText())){ // confirmamos que las constraseñas coinciden
+//    private void P_ChangePanel_2_btnSave(ActionEvent event) {
+//        if(!P_ChangePassword_2_tfTemporalPass.getText().isEmpty() && !P_ChangePanel_2_tfNewPass.getText().isEmpty() && 
+//                !P_ChangePassword_2_tfConformPass.getText().isEmpty()){ //revisamos qu los espacios no esten vacios
+//            
+//            if(P_ChangePassword_2_tfTemporalPass.getText().equals(temporalPass)){ // revisamos que la contraseña temporal coincide
+//                if(P_ChangePanel_2_tfNewPass.getText().equals(P_ChangePassword_2_tfConformPass.getText())){ // confirmamos que las constraseñas coinciden
 //                    try {
 //                        Security s = null;
 //                        Security s2 = new Security(stud.getStudentID(), P_ChangePanel_2_tfNewPass.getText());
@@ -254,35 +391,35 @@ public class FXMLSecurityController implements Initializable {
 //                    } catch (ListException ex) {
 //                        Logger.getLogger(FXMLSecurityController.class.getName()).log(Level.SEVERE, null, ex);
 //                    }
-                }else{
-                    Alert a = new Alert(Alert.AlertType.ERROR);
-                    a.setHeaderText("La confirmacion de contraseña no coincide");
-                    a.showAndWait(); 
-                }
-            }else{
-                Alert a = new Alert(Alert.AlertType.ERROR);
-                a.setHeaderText("La contraseña temporal no coincide");
-                a.setContentText("Verifique en su correo que sea correcta");
-                a.showAndWait(); 
-            }
-        }else{
-            Alert a = new Alert(Alert.AlertType.ERROR);
-            a.setHeaderText("No deje el espacio en blanco");
-            a.showAndWait(); 
-        }
-    }
-
-    private void P_ChangePanel_2_btnCancel(ActionEvent event) {
-        P_ChangePasswors.setVisible(false);
-        P_ChangePassword_1.setVisible(true);
-        P_ChangePassword_2.setVisible(false);
-        P_selection.setVisible(true);
-    }
-
-    private void lostPasword(MouseEvent event) {
-        P_ChangePasswors.setVisible(true);
-        P_student.setVisible(false);
-    }
+//                }else{
+//                    Alert a = new Alert(Alert.AlertType.ERROR);
+//                    a.setHeaderText("La confirmacion de contraseña no coincide");
+//                    a.showAndWait(); 
+//                }
+//            }else{
+//                Alert a = new Alert(Alert.AlertType.ERROR);
+//                a.setHeaderText("La contraseña temporal no coincide");
+//                a.setContentText("Verifique en su correo que sea correcta");
+//                a.showAndWait(); 
+//            }
+//        }else{
+//            Alert a = new Alert(Alert.AlertType.ERROR);
+//            a.setHeaderText("No deje el espacio en blanco");
+//            a.showAndWait(); 
+//        }
+//    }
+//
+//    private void P_ChangePanel_2_btnCancel(ActionEvent event) {
+//        P_ChangePasswors.setVisible(false);
+//        P_ChangePassword_1.setVisible(true);
+//        P_ChangePassword_2.setVisible(false);
+//        P_selection.setVisible(true);
+//    }
+//
+//    private void lostPasword(MouseEvent event) {
+//        P_ChangePasswors.setVisible(true);
+//        P_student.setVisible(false);
+//    }
     
 //        public void sendEmail() throws ListException{
 //    // Recipient's email ID needs to be mentioned.
@@ -360,4 +497,10 @@ public class FXMLSecurityController implements Initializable {
 //        }
 //
 //    }
+
+    @FXML
+    private void txt_change(MouseEvent event) {
+    }
+
+
 }

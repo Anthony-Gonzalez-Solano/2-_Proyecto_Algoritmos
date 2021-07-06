@@ -156,8 +156,34 @@ public class Utility {
         }
         return false; //en cualquier otro caso
     }
+    
+    public static boolean checkPass(String pass) {
+        boolean number=false;
+        boolean leeterG=false;
+        boolean leeterL=false;
+        boolean sings=false;
+        
+        if(pass.length()<8) // verifica que la clave tenga el tamaño minimo
+            return false;
+            
+        for (int i = 0; i < pass.length(); i++) {
+            int x = pass.charAt(i);
+            
+            if ((47 < x && x < 58)) // Verifica si tiene numeros
+                number=true;
+            if ((64 < x && x < 91)) // Verifica si tiene Letras Mayusculas
+                leeterG=true;
+            if ((96 < x && x < 123)) // Verifica si tiene Letras Minusculas
+                leeterL=true;
+            if ((32 < x && x < 44)) // Verifica si tiene Signos
+                sings=true;
+        }
+        
+        return number && leeterG && leeterL && sings;
+    }
 
     //-------------------------------------------Metodos para las listas -------------------------------------------------------
+    
     private static CircularLinkedList listUsers = new CircularLinkedList();
     private static AdjacencyMatrixGraph mGraphPlace = new AdjacencyMatrixGraph(20);
     private static AdjacencyListGraph lGraphRestaurants_Supermarkets = new AdjacencyListGraph(50);
@@ -253,4 +279,5 @@ public class Utility {
         }
         return text;
     }
+
 }
