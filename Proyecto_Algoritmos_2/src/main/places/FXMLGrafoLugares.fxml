@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" fx:id="ap" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.places.FXMLGrafoLugaresController">
+   <children>
+      <Label layoutX="14.0" layoutY="14.0" text="Listado de Lugares" />
+      <CheckBox fx:id="chbCartago" layoutX="14.0" layoutY="38.0" mnemonicParsing="false" text="Cartago" />
+      <CheckBox fx:id="chbCaballoBlanco" layoutX="14.0" layoutY="62.0" mnemonicParsing="false" text="Caballo Blanco" />
+      <CheckBox fx:id="chbTierraBlanca" layoutX="161.0" layoutY="38.0" mnemonicParsing="false" text="Tierra Blanca" />
+      <CheckBox fx:id="chbSantaRosa" layoutX="161.0" layoutY="62.0" mnemonicParsing="false" text="Santa Rosa" />
+      <CheckBox fx:id="chbParaiso" layoutX="300.0" layoutY="38.0" mnemonicParsing="false" text="Paraíso" />
+      <CheckBox fx:id="chbOrosi" layoutX="300.0" layoutY="62.0" mnemonicParsing="false" text="Orosi" />
+      <CheckBox fx:id="chbCachi" layoutX="394.0" layoutY="38.0" mnemonicParsing="false" text="Cachí" />
+      <CheckBox fx:id="chbUjarras" layoutX="394.0" layoutY="62.0" mnemonicParsing="false" text="Ujarrás" />
+      <CheckBox fx:id="chbCervantes" layoutX="487.0" layoutY="38.0" mnemonicParsing="false" text="Cervantes" />
+      <CheckBox fx:id="chbTurrialba" layoutX="487.0" layoutY="62.0" mnemonicParsing="false" text="Turrialba" />
+      <Button fx:id="btnGenerarGrafo" layoutX="14.0" layoutY="90.0" mnemonicParsing="false" onAction="#btnGenerarGrafo" text="Generar Grafo" />
+      <AnchorPane fx:id="apGraph" layoutX="6.0" layoutY="124.0" prefHeight="270.0" prefWidth="358.0">
+         <children>
+            <TextField fx:id="txtVertexGraph" layoutX="233.0" layoutY="14.0" prefHeight="24.0" prefWidth="105.0" visible="false" />
+            <Button fx:id="btnDistancias" layoutX="261.0" layoutY="232.0" mnemonicParsing="false" onAction="#btnDistancias" text="Distancias" />
+         </children></AnchorPane>
+      <TableView fx:id="tvDistancias" layoutX="372.0" layoutY="124.0" prefHeight="270.0" prefWidth="222.0" visible="false">
+        <columns>
+          <TableColumn fx:id="columnOrigenDestino" prefWidth="125.0" text="Origen, Destino" />
+          <TableColumn fx:id="columnDistancia" prefWidth="95.0" text="Distancia" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

@@ -145,6 +145,7 @@ public class FXMLVentanaPrincipalController implements Initializable {
     @FXML
     private void MI_GLugares_Mostrar(ActionEvent event) {
         //loadPage(page);
+        //loadPage("FXMLGrafoLugares");//carga el ejercicio 1
     }
 
     @FXML

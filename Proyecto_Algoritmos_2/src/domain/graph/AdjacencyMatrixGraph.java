@@ -10,6 +10,7 @@ import domain.queue.LinkedQueue;
 import domain.queue.QueueException;
 import domain.stack.LinkedStack;
 import domain.stack.StackException;
+import javafx.beans.binding.IntegerBinding;
 
 /**
  *
@@ -17,6 +18,7 @@ import domain.stack.StackException;
  */
 public class AdjacencyMatrixGraph implements Graph {
     private int n;
+    //private IntegerBinding num;
     private Vertex vertexList[];
     private Object adjacencyMatrix[][];
     private int count; //vertex counter
