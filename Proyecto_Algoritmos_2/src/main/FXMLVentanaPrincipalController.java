@@ -134,7 +134,7 @@ public class FXMLVentanaPrincipalController implements Initializable {
 
     @FXML
     private void MI_GLugares_Agregar(ActionEvent event) {
-        //loadPage(page);
+        loadPage("places/FXMLGrafoLugares");
     }
 
     @FXML

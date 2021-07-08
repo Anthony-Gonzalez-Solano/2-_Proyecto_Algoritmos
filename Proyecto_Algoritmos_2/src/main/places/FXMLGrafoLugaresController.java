@@ -277,4 +277,18 @@ public class FXMLGrafoLugaresController implements Initializable {
         columnDistancia.setCellValueFactory(col -> new SimpleStringProperty(String.valueOf(tvDistancias)));
     }//loadPage
     
+    
+//            for (int k = 1; k <= n; k++) { 
+//                for (int i = 0; i < 2; i++) {
+//                    int aux = util.Utility.random(9)+1;
+//                    while(g.containsEdge(g.getVertexByIndex(k).data, g.getVertexByIndex(aux).data)){
+//                        aux = util.Utility.random(9)+1;
+//                    }
+//                    g.addEdge(g.getVertexByIndex(k).data, g.getVertexByIndex(aux).data);
+//                    g.addWeight(g.getVertexByIndex(k).data, g.getVertexByIndex(aux).data, util.Utility.random());
+//                }
+//            }
+    
+    
+    
 }//FXMLGrafoLugaresController
