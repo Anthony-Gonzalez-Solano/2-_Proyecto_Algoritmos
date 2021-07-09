@@ -4,6 +4,8 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -85,6 +87,13 @@
       </MenuBar>
    </top>
    <center>
-      <AnchorPane fx:id="ap" prefHeight="560.0" prefWidth="1013.0" BorderPane.alignment="CENTER" />
+      <AnchorPane fx:id="ap" prefHeight="560.0" prefWidth="1010.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="573.0" fitWidth="1010.0" layoutX="-2.0" opacity="0.2">
+               <image>
+                  <Image url="@fondo.png" />
+               </image>
+            </ImageView>
+         </children></AnchorPane>
    </center>
 </BorderPane>

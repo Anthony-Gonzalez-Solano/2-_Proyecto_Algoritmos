@@ -5,8 +5,12 @@
  */
 package main.Busqueda;
 
+import domain.list.ListException;
 import domain.tree.BTreeNode;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.util.Properties;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,6 +22,16 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Polyline;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 
 /**
  * FXML Controller class
@@ -103,7 +117,7 @@ public class FXMLBusquedaController implements Initializable {
     
     private void fillCB(BTreeNode node){
         if(node!=null){
-            cb_Comidas_Productos.getItems().add(node.data+" ");
+            cb_Comidas_Productos.getItems().add(node.data+"");
             fillCB(node.left);
             fillCB(node.right);
         }
@@ -211,4 +225,82 @@ public class FXMLBusquedaController implements Initializable {
         lbl_UbicacionTemporal.setText("Turrialba");
     }
     
+    public void sendEmail(String mail) throws ListException{
+    // Recipient's email ID needs to be mentioned.
+        String to = mail;
+
+        // Sender's email ID needs to be mentioned
+        String from = "xx.ucrfake.xx@gmail.com";
+
+        // Assuming you are sending email from through gmails smtp
+        String host = "smtp.gmail.com";
+
+        // Get system properties
+        Properties properties = System.getProperties();
+
+        // Setup mail server
+        properties.put("mail.smtp.host", host);
+        properties.put("mail.smtp.port", "465");
+        properties.put("mail.smtp.ssl.enable", "true");
+        properties.put("mail.smtp.auth", "true");
+
+        // Get the Session object.// and pass 
+        Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
+
+            protected PasswordAuthentication getPasswordAuthentication() {
+
+                return new PasswordAuthentication("xx.ucrfake.xx@gmail.com", "UCRfake123");
+
+            }
+
+        });
+        //session.setDebug(true);
+        try {
+            // Create a default MimeMessage object.
+            MimeMessage message = new MimeMessage(session);
+
+            // Set From: header field of the header.
+            message.setFrom(new InternetAddress(from));
+
+            // Set To: header field of the header.
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+
+            // Set Subject: header field
+            message.setSubject("Cambio de contraseña ");
+
+            Multipart multipart = new MimeMultipart();
+
+            MimeBodyPart attachmentPart = new MimeBodyPart();
+
+            MimeBodyPart textPart = new MimeBodyPart();
+            
+            
+            try {
+
+                File f =new File("Logo_Texto.png");
+
+                attachmentPart.attachFile(f);
+                textPart.setText("Su contraseña temporal para el cambio de contraseña es :\n");
+                multipart.addBodyPart(textPart);
+                multipart.addBodyPart(attachmentPart);
+
+            } catch (IOException e) {
+
+                e.printStackTrace();
+
+            }
+
+            message.setContent(multipart);
+
+            //System.out.println("sending...");
+            // Send message
+            Transport.send(message);
+            //System.out.println("Sent message successfully....");
+        } catch (MessagingException mex) {
+            mex.printStackTrace();
+        }
+
+    }
+    
+ 
 }

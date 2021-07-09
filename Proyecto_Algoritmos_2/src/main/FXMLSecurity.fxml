@@ -3,6 +3,8 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
@@ -13,12 +15,17 @@
    <center>
       <AnchorPane prefHeight="229.0" prefWidth="542.0" BorderPane.alignment="CENTER">
          <children>
-            <Pane fx:id="P_selection" prefHeight="297.0" prefWidth="460.0">
+            <Pane fx:id="P_selection" prefHeight="297.0" prefWidth="460.0" visible="false">
                <children>
-                  <Button fx:id="btn_SingIn" layoutX="134.0" layoutY="86.0" mnemonicParsing="false" onAction="#btn_SingIn" prefHeight="42.0" prefWidth="191.0" text="Ingresar" />
-                  <Button fx:id="btn_LogIn" layoutX="136.0" layoutY="175.0" mnemonicParsing="false" onAction="#btn_LogIn" prefHeight="39.0" prefWidth="189.0" text="Registrarse" />
-                  <Label layoutX="16.0" layoutY="14.0" text="Inicio de secion" />
-                  <Label layoutX="179.0" layoutY="137.0" text="- - - o - - -" />
+                  <Button fx:id="btn_SingIn" layoutX="135.0" layoutY="138.0" mnemonicParsing="false" onAction="#btn_SingIn" prefHeight="42.0" prefWidth="191.0" text="Ingresar" />
+                  <Button fx:id="btn_LogIn" layoutX="137.0" layoutY="227.0" mnemonicParsing="false" onAction="#btn_LogIn" prefHeight="39.0" prefWidth="189.0" text="Registrarse" />
+                  <Label layoutX="159.0" layoutY="77.0" text="Inicio de secion" />
+                  <Label layoutX="180.0" layoutY="189.0" text="- - - o - - -" />
+                  <ImageView fitHeight="54.0" fitWidth="53.0" layoutX="203.0" layoutY="11.0" opacity="0.46">
+                     <image>
+                        <Image url="@Logo_negro.png" />
+                     </image>
+                  </ImageView>
                </children>
             </Pane>
             <Pane fx:id="P_SingIn" prefHeight="297.0" prefWidth="460.0" visible="false">
@@ -38,12 +45,12 @@
                   <Label layoutX="91.0" layoutY="153.0" prefHeight="1.0" prefWidth="142.0" text="Contraseña:" />
                </children>
             </Pane>
-            <Pane fx:id="P_LogIn" prefHeight="297.0" prefWidth="460.0" visible="false">
+            <Pane fx:id="P_LogIn" prefHeight="297.0" prefWidth="460.0">
                <children>
-                  <TextField fx:id="tf_LogIn_User" layoutX="91.0" layoutY="80.0" onAction="#btn_LogIn_LogIn" prefHeight="34.0" prefWidth="279.0" />
-                  <TextField fx:id="tf_LogIn_Password" layoutX="90.0" layoutY="166.0" onAction="#btn_LogIn_LogIn" prefHeight="34.0" prefWidth="280.0" />
-                  <Label layoutX="91.0" layoutY="56.0" text="Usuario:" />
-                  <Label layoutX="91.0" layoutY="141.0" prefHeight="24.0" prefWidth="249.0" text="Contraseña:" />
+                  <TextField fx:id="tf_LogIn_User" layoutX="97.0" layoutY="65.0" onAction="#btn_LogIn_LogIn" prefHeight="34.0" prefWidth="279.0" />
+                  <TextField fx:id="tf_LogIn_Password" layoutX="97.0" layoutY="136.0" onAction="#btn_LogIn_LogIn" prefHeight="34.0" prefWidth="280.0" />
+                  <Label layoutX="97.0" layoutY="41.0" text="Usuario:" />
+                  <Label layoutX="98.0" layoutY="111.0" prefHeight="24.0" prefWidth="249.0" text="Contraseña:" />
                   <Button fx:id="btn_LogIn_LogIn" layoutX="24.0" layoutY="239.0" mnemonicParsing="false" onAction="#btn_LogIn_LogIn" prefHeight="44.0" prefWidth="146.0" text="Ingresar" />
                   <Button fx:id="btn_LogIn_Cancel" layoutX="291.0" layoutY="239.0" mnemonicParsing="false" onAction="#btn_LogIn_Cancel" prefHeight="44.0" prefWidth="146.0" text="Cancelar" />
                   <Text fill="#fefecc" layoutX="374.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ingresar">
@@ -51,41 +58,6 @@
                         <Font size="20.0" />
                      </font>
                   </Text>
-                  <Text fx:id="txt_change" fill="WHITE" layoutX="96.0" layoutY="217.0" onMouseClicked="#txt_change" opacity="0.34" strokeType="OUTSIDE" strokeWidth="0.0" text="Si se ha olvidado su contraseña Clickee aquí" />
-               </children>
-            </Pane>
-            <Pane fx:id="P_Check" prefHeight="297.0" prefWidth="460.0" visible="false">
-               <children>
-                  <Pane fx:id="P_Check_1" prefHeight="297.0" prefWidth="460.0">
-                     <children>
-                        <TextField fx:id="tf_Check_Mail" layoutX="23.0" layoutY="74.0" onAction="#btn_Check_send" prefHeight="34.0" prefWidth="279.0" />
-                        <TextField fx:id="tf_Check_TempPass" layoutX="90.0" layoutY="166.0" onAction="#btn_Check_check" prefHeight="34.0" prefWidth="280.0" />
-                        <Label layoutX="23.0" layoutY="50.0" text="Correo Electronico:" />
-                        <Label layoutX="91.0" layoutY="141.0" prefHeight="24.0" prefWidth="237.0" text="Contraseña Temporal:" />
-                        <Button fx:id="btn_Check_check" layoutX="24.0" layoutY="239.0" mnemonicParsing="false" onAction="#btn_Check_check" prefHeight="44.0" prefWidth="146.0" text="Verificar" />
-                        <Button fx:id="btn_Check_Cancel" layoutX="291.0" layoutY="239.0" mnemonicParsing="false" onAction="#btn_Check_Cancel" prefHeight="44.0" prefWidth="146.0" text="Cancelar" />
-                        <Text fill="#fefecc" layoutX="244.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cambio de Contraseña">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Text>
-                        <Button fx:id="btn_Check_send" layoutX="303.0" layoutY="74.0" mnemonicParsing="false" onAction="#btn_Check_send" prefHeight="34.0" prefWidth="146.0" text="Ingresar" />
-                     </children>
-                  </Pane>
-                  <Pane fx:id="p_Check_2" prefHeight="297.0" prefWidth="460.0" visible="false">
-                     <children>
-                        <TextField fx:id="tf_Check_Password" layoutX="91.0" layoutY="84.0" onAction="#btn_Check_Save" prefHeight="34.0" prefWidth="279.0" />
-                        <TextField fx:id="tf_Check_PasswordConfirm" layoutX="90.0" layoutY="166.0" onAction="#btn_Check_Save" prefHeight="34.0" prefWidth="280.0" />
-                        <Label layoutX="91.0" layoutY="60.0" text="Contraseña:" />
-                        <Label layoutX="91.0" layoutY="141.0" prefHeight="24.0" prefWidth="234.0" text="Confirmar Contraseña:" />
-                        <Button fx:id="btn_Check_Save" layoutX="158.0" layoutY="231.0" mnemonicParsing="false" onAction="#btn_Check_Save" prefHeight="44.0" prefWidth="146.0" text="Guardar" />
-                        <Text fill="#fefecc" layoutX="244.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cambio de Contraseña">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Text>
-                     </children>
-                  </Pane>
                </children>
             </Pane>
          </children>

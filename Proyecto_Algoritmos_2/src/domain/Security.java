@@ -20,7 +20,6 @@ public class Security {
       
             this.user = user;
             this.password = password;
-            
     }
 
     public String getUser() {
@@ -38,7 +37,8 @@ public class Security {
     public void setPassword(String password) {
         this.password = password;
     }
-    
+
+
     
 
     @Override
