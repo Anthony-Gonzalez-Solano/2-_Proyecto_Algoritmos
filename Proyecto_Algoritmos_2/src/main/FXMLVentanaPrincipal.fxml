@@ -61,7 +61,10 @@
                   </Menu>
                </items>
             </Menu>
-            <Menu fx:id="MI_Busqueda" mnemonicParsing="false" onAction="#MI_Busqueda" text="Busqueda" />
+            <Menu fx:id="MI_Busqueda" mnemonicParsing="false" onAction="#MI_Busqueda" text="Busqueda">
+               <items>
+                  <MenuItem fx:id="MI_BusquedaR" mnemonicParsing="false" onAction="#MI_BusquedaR" text="Buscar Recomendacion" />
+               </items></Menu>
             <Menu mnemonicParsing="false" text="Reportes">
               <items>
                 <MenuItem fx:id="MI_Rep_Restaurantes_Supermercados" mnemonicParsing="false" onAction="#MI_Rep_Restaurantes_Supermercados" text="Reporte de Restaurantes y Supermercados" />

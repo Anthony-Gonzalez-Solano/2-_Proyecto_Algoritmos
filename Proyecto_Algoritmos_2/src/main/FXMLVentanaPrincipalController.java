@@ -86,6 +86,8 @@ public class FXMLVentanaPrincipalController implements Initializable {
     private MenuItem MI_Rep_Comidas_Productos;
     @FXML
     private MenuItem MI_Rep_Busquedas;
+    @FXML
+    private MenuItem MI_BusquedaR;
 
     /**
      * Initializes the controller class.
@@ -230,7 +232,7 @@ public class FXMLVentanaPrincipalController implements Initializable {
 
     @FXML
     private void MI_Busqueda(ActionEvent event) {
-        //loadPage(page);
+        loadPage("Busqueda/FXMLBusqueda");
     }
 
     @FXML
@@ -258,5 +260,10 @@ public class FXMLVentanaPrincipalController implements Initializable {
             Logger.getLogger(FXMLVentanaPrincipalController.class.getName()).log(Level.SEVERE, null, ex);
         }
          this.bp.setCenter(root);   
+    }
+
+    @FXML
+    private void MI_BusquedaR(ActionEvent event) {
+        loadPage("Busqueda/FXMLBusqueda");
     }
 }

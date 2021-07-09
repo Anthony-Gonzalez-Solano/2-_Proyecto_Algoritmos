@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Polyline?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="572.0" prefWidth="1010.0" stylesheets="@../tema%20Oscuro.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.Busqueda.FXMLBusquedaController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="520.0" layoutX="21.0" layoutY="31.0" opacity="0.12" stroke="BLACK" strokeType="INSIDE" width="287.0" />
+      <RadioButton fx:id="Rbtn_Foods" layoutX="55.0" layoutY="190.0" mnemonicParsing="false" onAction="#Rbtn_Foods" style="-fx-font-size: 20;" text="Comidas" textFill="#fefecc">
+         <toggleGroup>
+            <ToggleGroup fx:id="comidas_productos" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="Rbtn_Products" layoutX="54.0" layoutY="156.0" mnemonicParsing="false" onAction="#Rbtn_Products" selected="true" style="-fx-font-size: 20;" text="Productos" textFill="#fefecc" toggleGroup="$comidas_productos">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </RadioButton>
+      <Label layoutX="383.0" layoutY="33.0" text="Ubicacion :" />
+      <ComboBox fx:id="cb_Comidas_Productos" layoutX="35.0" layoutY="253.0" prefHeight="33.0" prefWidth="258.0" />
+      <Button fx:id="btn_Recomendacion" layoutX="40.0" layoutY="491.0" mnemonicParsing="false" onAction="#btn_Recomendacion" prefHeight="40.0" prefWidth="252.0" text="Obtener recomendación" textAlignment="CENTER" wrapText="true" />
+      <Label layoutX="45.0" layoutY="44.0" text="Ubicacion Actual:" />
+      <Label fx:id="lbl_Ubicacion" layoutX="74.0" layoutY="80.0" prefHeight="24.0" prefWidth="226.0" />
+      <Label fx:id="lbl_UbicacionTemporal" layoutX="512.0" layoutY="33.0" text="null" />
+      <ImageView fitHeight="408.0" fitWidth="652.0" layoutX="331.0" layoutY="104.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@mapa.png" />
+         </image>
+      </ImageView>
+      <Pane layoutX="331.0" layoutY="104.0" prefHeight="404.0" prefWidth="652.0">
+         <children>
+            <Polyline fx:id="Ubic_TierraBlanca" fill="#80ff0009" layoutX="165.0" layoutY="72.0" onMouseClicked="#Ubic_TierraBlanca" onMouseEntered="#Ubic_TierraBlancaEntered" points="-76.5, -48.0, 44.0, -48.0, 44.0, 24.5, -10.0, 67.5" stroke="TRANSPARENT" strokeType="INSIDE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Polyline>
+            <Polyline fx:id="Ubic_TierraBlanca2" fill="#84ff000a" layoutX="175.0" layoutY="82.0" onMouseClicked="#Ubic_TierraBlanca" onMouseEntered="#Ubic_TierraBlancaEntered" points="-83.5, -58.0, -111.5, 22.5, -71.0, 39.0, -19.0, 57.5" stroke="TRANSPARENT" strokeType="INSIDE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Polyline>
+            <Polyline fx:id="Ubic_Cartago" fill="#80ff0009" layoutX="185.0" layoutY="92.0" onMouseClicked="#Ubic_Cartago" onMouseEntered="#Ubic_CartagoEntered" points="-127.5, 10.5, -170.5, 131.0, -55.5, 152.0, -30.5, 51.0" stroke="TRANSPARENT" strokeType="INSIDE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Polyline>
+            <Polyline fx:id="Ubic_CaballoBlanco" fill="#80ff0009" layoutX="195.0" layoutY="102.0" onMouseClicked="#Ubic_CaballoBlanco" onMouseEntered="#Ubic_CaballoBlancoEntered" points="-40.5, 46.0, -56.0, 115.0, -20.0, 149.5, 4.5, 76.0" stroke="TRANSPARENT" strokeType="INSIDE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Polyline>
+            <Polyline fx:id="Ubic_Paraiso" fill="#80ff0009" layoutX="208.0" layoutY="119.0" onMouseClicked="#Ubic_Paraiso" onMouseEntered="#Ubic_ParaisoEntered" points="-8.5, 59.5, -42.0, 170.5, 10.0, 218.0, 38.0, 98.0" stroke="TRANSPARENT" strokeType="INSIDE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Polyline>
+            <Polyline fx:id="Ubic_Ujarras" fill="#80ff0009" layoutX="218.0" layoutY="129.0" onMouseClicked="#Ubic_Ujarras" onMouseEntered="#Ubic_UjarrasEntered" points="32.5, 90.5, 16.0, 164.0, 100.5, 158.5, 100.5, 90.5" stroke="TRANSPARENT" strokeType="INSIDE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Polyline>
+            <Polyline fx:id="Ubic_Cachi" fill="#80ff0009" layoutX="248.0" layoutY="139.0" onMouseClicked="#Ubic_Cachi" onMouseEntered="#Ubic_CachiEntered" points="75.0, 83.5, 75.0, 147.0, 125.0, 128.5, 125.0, 83.5" stroke="TRANSPARENT" strokeType="INSIDE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Polyline>
+            <Polyline fx:id="Ubic_Orosi" fill="#80ff0009" layoutX="157.0" layoutY="224.0" onMouseClicked="#Ubic_Orosi" onMouseEntered="#Ubic_OrosiEntered" points="75.0, 65.5, 66.0, 139.5, 132.0, 133.0, 125.0, 83.5" stroke="TRANSPARENT" strokeType="INSIDE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Polyline>
+            <Polyline fx:id="Ubic_Cervantes2" fill="#80ff0009" layoutX="225.0" layoutY="24.0" onMouseClicked="#Ubic_Cervantes" onMouseEntered="#Ubic_CervantesEntered" points="73.0, 77.5, 98.0, 138.0, 178.0, 96.0, 148.5, 57.0" stroke="TRANSPARENT" strokeType="INSIDE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Polyline>
+            <Polyline fx:id="Ubic_Cervantes" fill="#80ff0009" layoutX="182.0" layoutY="53.0" onMouseClicked="#Ubic_Cervantes" onMouseEntered="#Ubic_CervantesEntered" points="116.0, 48.5, 72.5, 91.5, 141.0, 109.0, 116.0, 48.5" stroke="TRANSPARENT" strokeType="INSIDE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Polyline>
+            <Polyline fx:id="Ubic_SantaRosa" fill="#80ff0009" layoutX="418.0" layoutY="-46.0" onMouseClicked="#Ubic_SantaRosa" onMouseEntered="#Ubic_SantaRosaEntered" points="67.5, 66.5, 94.5, 113.5, 183.5, 102.0, 211.5, 69.5" stroke="TRANSPARENT" strokeType="INSIDE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Polyline>
+            <Polyline fx:id="Ubic_Turrialba" fill="#80ff0009" layoutX="442.0" layoutY="20.0" onMouseClicked="#Ubic_Turrialba" onMouseEntered="#Ubic_TurrialbaEntered" points="161.0, 39.0, 39.0, 56.0, 153.0, 122.0, 210.0, 69.0" stroke="TRANSPARENT" strokeType="INSIDE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Polyline>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
