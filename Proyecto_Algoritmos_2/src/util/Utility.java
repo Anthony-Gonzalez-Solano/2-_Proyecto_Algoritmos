@@ -5,6 +5,7 @@
  */
 package util;
 
+import domain.Product;
 import domain.list.CircularDoublyLinkedList;
 import domain.list.CircularLinkedList;
 import domain.list.DoublyLinkedList;
@@ -102,8 +103,11 @@ public class Utility {
             case "edgeWeight":
                 EdgeWeight ew1 = (EdgeWeight) a;
                 EdgeWeight ew2 = (EdgeWeight) b;
-
                 return equals(ew1.getEdge(), ew2.getEdge());
+            case "product":
+                Product p1 =(Product) a;
+                Product p2 =(Product) b;
+                return p1.getName().equals(p2.getName())&&p1.getPrice()==p2.getPrice()&&p1.getID()==p2.getID()&&p1.getSupermarketID()==p2.getSupermarketID();
         }
 
         return false; //en cualquier otro caso
@@ -125,6 +129,12 @@ public class Utility {
         if (a instanceof Character && b instanceof Character) {
             return "character";
         }
+        if (a instanceof Double && b instanceof Double) {
+            return "double";
+        }
+        if (a instanceof Product && b instanceof Product) {
+            return "product";
+        }
         return "unknown"; //desconocido
     }
 
@@ -138,7 +148,14 @@ public class Utility {
                 String s1 = (String) a;
                 String s2 = (String) b;
                 return s1.compareToIgnoreCase(s2) < 0;
-
+            case "double":
+                Double d1 =(Double) a;
+                Double d2 =(Double) b;
+                return d1 < d2;
+            case "product":
+                Product p1 =(Product) a;
+                Product p2 =(Product) b;
+                return p1.getName().compareToIgnoreCase(p2.getName()) < 0;
         }
         return false; //en cualquier otro caso
     }
@@ -153,7 +170,14 @@ public class Utility {
                 String s1 = (String) a;
                 String s2 = (String) b;
                 return s1.compareToIgnoreCase(s2) > 0;
-
+            case "double":
+                Double d1 =(Double)a;
+                Double d2 = (Double) b;
+                return d1 > d2;
+            case "product":
+                Product p1 =(Product) a;
+                Product p2 =(Product) b;
+                return p1.getName().compareToIgnoreCase(p2.getName()) > 0;
         }
         return false; //en cualquier otro caso
     }
