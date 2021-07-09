@@ -182,6 +182,11 @@ public class FXMLSecurityController implements Initializable {
                 }
                 if(register==true){
                     if(tf_LogIn_Password.getText().equals(s.getPassword())){
+                        if(tf_LogIn_User.getText().equals("admin")){
+                            util.Utility.setIntro(null);
+                        }else{
+                            util.Utility.setIntro(new Security(tf_LogIn_User.getText(), "--"));
+                        }
                         Parent root = null;            // cargamos el XFMLVentanaPrincipal
                         try {
                             root = FXMLLoader.load(getClass().getResource("FXMLVentanaPrincipal.fxml"));

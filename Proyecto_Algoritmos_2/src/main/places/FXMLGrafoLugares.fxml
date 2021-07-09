@@ -56,10 +56,10 @@
       <Button fx:id="btnGenerarGrafo" layoutX="59.0" layoutY="394.0" mnemonicParsing="false" onAction="#btnGenerarGrafo" text="Generar Grafo" />
       <AnchorPane fx:id="apGraph" layoutX="236.0" layoutY="35.0" prefHeight="386.0" prefWidth="740.0">
          <children>
-            <TextField fx:id="txtVertexGraph" layoutX="233.0" layoutY="14.0" prefHeight="24.0" prefWidth="105.0" visible="false" />
-            <Button fx:id="btnDistancias" layoutX="397.0" layoutY="340.0" mnemonicParsing="false" onAction="#btnDistancias" text="Distancias" />
+            <TextField fx:id="txtVertexGraph" disable="true" layoutX="351.0" layoutY="181.0" prefHeight="25.0" prefWidth="39.0" />
          </children></AnchorPane>
       <TableView fx:id="tblVDistancias" layoutX="305.0" layoutY="431.0" prefHeight="127.0" prefWidth="450.0" />
       <Label fx:id="lblDistancias" layoutX="770.0" layoutY="431.0" prefHeight="127.0" prefWidth="216.0" />
+      <Button fx:id="btnDistancias" layoutX="906.0" layoutY="431.0" mnemonicParsing="false" onAction="#btnDistancias" text="Distancias" />
    </children>
 </AnchorPane>

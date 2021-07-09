@@ -15,7 +15,7 @@
    <center>
       <AnchorPane prefHeight="229.0" prefWidth="542.0" BorderPane.alignment="CENTER">
          <children>
-            <Pane fx:id="P_selection" prefHeight="297.0" prefWidth="460.0" visible="false">
+            <Pane fx:id="P_selection" prefHeight="297.0" prefWidth="460.0">
                <children>
                   <Button fx:id="btn_SingIn" layoutX="135.0" layoutY="138.0" mnemonicParsing="false" onAction="#btn_SingIn" prefHeight="42.0" prefWidth="191.0" text="Ingresar" />
                   <Button fx:id="btn_LogIn" layoutX="137.0" layoutY="227.0" mnemonicParsing="false" onAction="#btn_LogIn" prefHeight="39.0" prefWidth="189.0" text="Registrarse" />
@@ -45,7 +45,7 @@
                   <Label layoutX="91.0" layoutY="153.0" prefHeight="1.0" prefWidth="142.0" text="Contraseña:" />
                </children>
             </Pane>
-            <Pane fx:id="P_LogIn" prefHeight="297.0" prefWidth="460.0">
+            <Pane fx:id="P_LogIn" prefHeight="297.0" prefWidth="460.0" visible="false">
                <children>
                   <TextField fx:id="tf_LogIn_User" layoutX="97.0" layoutY="65.0" onAction="#btn_LogIn_LogIn" prefHeight="34.0" prefWidth="279.0" />
                   <TextField fx:id="tf_LogIn_Password" layoutX="97.0" layoutY="136.0" onAction="#btn_LogIn_LogIn" prefHeight="34.0" prefWidth="280.0" />

@@ -34,6 +34,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 import javafx.util.Callback;
 import org.w3c.dom.Text;
@@ -84,7 +85,7 @@ public class FXMLGrafoLugaresController implements Initializable {
 
     private final int maxNumSelected =  10; 
     private IntegerBinding numCheckBoxesSelected = Bindings.size(selectedCheckBoxes);
-    
+    private CheckBox[] checkList;
     Button button;
     float auxIndex;
     int longitud;
@@ -108,54 +109,45 @@ public class FXMLGrafoLugaresController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        apGraph.setVisible(false);
-        grafoMatrix = util.Utility.getmGraphPlace();
-        try {
-            for (int i = 0; i < grafoMatrix.size(); i++) {
-                for (int j = 0; j < grafoMatrix.size(); j++) {
-                    if (!grafoMatrix.containsEdge(grafoMatrix.getVertexByIndex(i).data, grafoMatrix.getVertexByIndex(j).data)) {
-                        if (!util.Utility.equals(grafoMatrix.getVertexByIndex(i).data, grafoMatrix.getVertexByIndex(j).data)) {
-                            grafoMatrix.addEdge(grafoMatrix.getVertexByIndex(i).data, grafoMatrix.getVertexByIndex(j).data);
-                            grafoMatrix.addWeight(grafoMatrix.getVertexByIndex(i).data, grafoMatrix.getVertexByIndex(j).data, 5 + util.Utility.random(50));
-                        }
-                    }
-                }
-            }
-        } catch (GraphException | ListException ex/*Exception e*/) {
-            Logger.getLogger(FXMLGrafoLugaresController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        apGraph.setOnMouseMoved(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent evento) {
-                if (grafoMatrix != null && !grafoMatrix.isEmpty()) {
-                    try {
-                        apGraph.getChildren().clear();
-                        drawGraph(grafoList);
-                        //txtTitle = new Text(100, 100, "");
-                        //apGraph.getChildren().add(txtTitle);
-                    } catch (ListException ex) {
-                        Logger.getLogger(FXMLGrafoLugaresController.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (GraphException ex) {
-                        Logger.getLogger(FXMLGrafoLugaresController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    
-                }
-            }
-        });
-        /*
-        if (grafoMatrix != null && !grafoMatrix.isEmpty()) {
-            try {
-                apGraph.getChildren().clear();
-                drawGraph(grafoList);//aux
-                //txtTitle = new Text(100, 100, "");
-                //apGraph.getChildren().add(txtTitle);
-            } catch (Exception e) {
-            }
-            
-        }*/
-        chb(); 
+        checkList = new CheckBox[10];
+        checkList[0] = chbTierraBlanca;
+        checkList[1] = chbCaballoBlanco;
+        checkList[2] = chbCachi;
+        checkList[3] = chbCartago;
+        checkList[4] = chbCervantes;
+        checkList[5] = chbOrosi;
+        checkList[6] = chbParaiso;
+        checkList[7] = chbSantaRosa;
+        checkList[8] = chbTurrialba;
+        checkList[9] = chbUjarras;
     }   
 
+    private void fillGraph(){
+        grafoMatrix = new AdjacencyMatrixGraph(10);
+        try { 
+            for (int i = 0; i < 10; i++) {
+                if(checkList[i].isSelected()){
+                    grafoMatrix.addVertex(checkList[i].getText());
+                }
+            }
+
+            for (int k = 0; k < grafoMatrix.size(); k++) {
+                for (int i = 0; i < 1; i++) {
+                    int aux = util.Utility.random(grafoMatrix.size()-1);
+                    while(grafoMatrix.containsEdge(grafoMatrix.getVertexByIndex(k).data, grafoMatrix.getVertexByIndex(aux).data)){
+                        aux = util.Utility.random(grafoMatrix.size()-1);
+                    }
+                    grafoMatrix.addEdge(grafoMatrix.getVertexByIndex(k).data, grafoMatrix.getVertexByIndex(aux).data);
+                    grafoMatrix.addWeight(grafoMatrix.getVertexByIndex(k).data, grafoMatrix.getVertexByIndex(aux).data, util.Utility.random());
+                    System.out.println("aaaa");
+                }
+            }
+        } catch (ListException | GraphException ex) {
+            Logger.getLogger(FXMLGrafoLugaresController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
     @FXML
     private void btnGenerarGrafo(ActionEvent event) throws ListException, GraphException {
         if (this.chbCaballoBlanco.isSelected() || this.chbCachi.isSelected() ||
@@ -163,18 +155,41 @@ public class FXMLGrafoLugaresController implements Initializable {
             this.chbOrosi.isSelected() || this.chbParaiso.isSelected() ||
             this.chbSantaRosa.isSelected() || this.chbTierraBlanca.isSelected() ||
             this.chbTurrialba.isSelected() || this.chbUjarras.isSelected()) 
-        {       
+        {      
+            fillGraph();
+            num = grafoMatrix.size();
             //this.num = util.Utility
-            grafoMatrix = new AdjacencyMatrixGraph(num);
+            //grafoMatrix = new AdjacencyMatrixGraph(num);
             //fillGraph(grafo);
-            loadTable(tvDistancias);
-            drawGraph(grafoList);
+            //loadTable(tvDistancias);
+            drawGraph(grafoMatrix);
+            util.Utility.setmGraphPlace(grafoMatrix);
         }
     }
 
     @FXML
     private void btnDistancias(ActionEvent event) throws ListException, GraphException {
-        randomDistancias();  
+        Object[][] m = new Object [grafoMatrix.size()][grafoMatrix.size()];
+        for (int i = 0; i < grafoMatrix.size(); i++) {
+            for (int j = 0; j < grafoMatrix.size(); j++) {
+                m[i][j] = 0; 
+            }  
+        }
+        grafoMatrix.setAdjacencyMatrix(m);
+        for (int k = 0; k < grafoMatrix.size(); k++) {
+            for (int i = 0; i < 1; i++) {
+                int aux = util.Utility.random(grafoMatrix.size()-1);
+                while(grafoMatrix.containsEdge(grafoMatrix.getVertexByIndex(k).data, grafoMatrix.getVertexByIndex(aux).data)){
+                    aux = util.Utility.random(grafoMatrix.size()-1);
+                }
+                grafoMatrix.addEdge(grafoMatrix.getVertexByIndex(k).data, grafoMatrix.getVertexByIndex(aux).data);
+                grafoMatrix.addWeight(grafoMatrix.getVertexByIndex(k).data, grafoMatrix.getVertexByIndex(aux).data, util.Utility.random());
+                System.out.println("aaaa");
+            }
+        }
+        num = grafoMatrix.size();
+        drawGraph(grafoMatrix);
+        util.Utility.setmGraphPlace(grafoMatrix);
     }//btnDistancias
 /*
     private void fillGraph(AdjacencyMatrixGraph grafo) throws GraphException, ListException {
@@ -203,19 +218,18 @@ public class FXMLGrafoLugaresController implements Initializable {
         
     }//chb
     
-    private void drawGraph(AdjacencyListGraph grafo) throws ListException, GraphException {
+    private void drawGraph(Graph grafo) throws ListException, GraphException {
         apGraph.getChildren().clear();
-        apGraph.setVisible(true);
-        longitud = 200;
+        longitud = 180;
+        cont = 0;
         buttonArray = new Button[grafo.size()];
-        if (grafo != null && !grafo.isEmpty()) {
-            drawVertex(grafo);
-        }//if
+        drawVertex(grafo);
         drawEdges(grafo);
         //txtTitle = new Text("");
-        apGraph.getChildren().add(ap);
-        ap.toBack();
+        //apGraph.getChildren().add(ap);
+        //ap.toBack();
         //apGraph.getChildren().add(txtTitle);
+        
     }//drawGraph
 
     private void drawVertex(Graph grafo) {
@@ -262,15 +276,15 @@ public class FXMLGrafoLugaresController implements Initializable {
         }
     }
 
-    private void drawEdges(AdjacencyListGraph grafo) throws GraphException, ListException {
+    private void drawEdges(Graph grafo) throws GraphException, ListException {
         contEdges = 0;
-        for (int i = 0; i < numVertex; i++) {
-            for (int j = 0; j < numVertex; j++) {
+        for (int i = 0; i < grafoMatrix.size(); i++) {
+            for (int j = 0; j < grafoMatrix.size(); j++) {
                 if (!buttonArray[j].getText().equals(buttonArray[i].getText())) {
                     //Edge hacia otra direccion   
-                    if (grafo.containsEdge(buttonArray[i].getText().charAt(0), buttonArray[j].getText().charAt(0))) {
+                    if (grafo.containsEdge(buttonArray[i].getText(), buttonArray[j].getText())) {
                         //drawArrow(btnArray[j], btnArray[i]);
-                        //line = new Line();
+                        line = new Line();
                         apGraph.getChildren().add(line);
                         line.setLayoutX(buttonArray[j].getLayoutX());
                         line.setLayoutY(buttonArray[j].getLayoutY());
@@ -281,6 +295,15 @@ public class FXMLGrafoLugaresController implements Initializable {
                         line.setEndY((buttonArray[i]).getLayoutY() - buttonArray[j].getLayoutY() + 15);
                         line.setStrokeWidth(4);
                         line.setId(buttonArray[i].getText() + " , " + buttonArray[j].getText());
+                        
+                        javafx.scene.text.Text txt = new javafx.scene.text.Text(""+grafo.getAdjacencyMatrix()[grafo.indexOf(buttonArray[i].getText())][grafo.indexOf(buttonArray[j].getText())]+" km");
+                        txt.setLayoutX(15+buttonArray[j].getLayoutX()+ (buttonArray[i].getLayoutX()-buttonArray[j].getLayoutX()+15)/2);
+                        txt.setLayoutY(buttonArray[j].getLayoutY()+ (buttonArray[i].getLayoutY()-buttonArray[j].getLayoutY()+15)/2);
+                        txt.setFill(Paint.valueOf("#ffffff"));
+                        apGraph.getChildren().add(txt);
+                        
+                        
+                        
                         line.setOnMouseMoved(new EventHandler<MouseEvent>() {
                             @Override
                             public void handle(MouseEvent event) {
@@ -290,10 +313,7 @@ public class FXMLGrafoLugaresController implements Initializable {
                         });
                     }
                 } else {
-                    //Arista hacia si mismo
-                    if (grafo.containsEdge(buttonArray[i].getText().charAt(0), buttonArray[j].getText().charAt(0))) {
-                        //drawItSelfEdge(btnArray[i]);
-                    }
+                    
                 }
             }
         }//for

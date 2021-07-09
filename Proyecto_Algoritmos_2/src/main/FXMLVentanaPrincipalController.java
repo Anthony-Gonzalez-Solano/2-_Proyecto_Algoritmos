@@ -88,13 +88,26 @@ public class FXMLVentanaPrincipalController implements Initializable {
     private MenuItem MI_Rep_Busquedas;
     @FXML
     private MenuItem MI_BusquedaR;
+    @FXML
+    private Menu M_grafoLugares;
+    @FXML
+    private Menu M_Establecimientos;
+    @FXML
+    private Menu M_mercancias;
+    @FXML
+    private Menu M_reportes;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       
+       if(util.Utility.getIntro()!=null){
+           M_grafoLugares.setVisible(false);
+           M_Establecimientos.setVisible(false);
+           M_mercancias.setVisible(false);
+           M_reportes.setVisible(false);
+       }
     }    
     @FXML
     private void Mi_Options_close(ActionEvent event) {

@@ -276,5 +276,10 @@ public class AdjacencyMatrixGraph implements Graph {
     public Vertex getVertexByIndex(int index) {
          return vertexList[index];
     }
+
+    public void setAdjacencyMatrix(Object[][] adjacencyMatrix) {
+        this.adjacencyMatrix = adjacencyMatrix;
+    }
+    
     
 }

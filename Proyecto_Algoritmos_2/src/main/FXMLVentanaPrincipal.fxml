@@ -14,14 +14,14 @@
    <top>
       <MenuBar opacity="0.88" BorderPane.alignment="CENTER">
         <menus>
-            <Menu mnemonicParsing="false" text="Grafo de Lugares">
+            <Menu fx:id="M_grafoLugares" mnemonicParsing="false" text="Grafo de Lugares">
               <items>
                 <MenuItem fx:id="MI_GLugares_Agregar" mnemonicParsing="false" onAction="#MI_GLugares_Agregar" text="Agregar Lugar" />
                   <MenuItem fx:id="MI_GLugares_Eliminar" mnemonicParsing="false" onAction="#MI_GLugares_Eliminar" text="Eliminar Lugar" />
                   <MenuItem fx:id="MI_GLugares_Mostrar" mnemonicParsing="false" onAction="#MI_GLugares_Mostrar" text="Mostrar Lugares" />
               </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="Mantenimiento  de Establecimientos">
+            <Menu fx:id="M_Establecimientos" mnemonicParsing="false" text="Mantenimiento  de Establecimientos">
                <items>
                   <Menu mnemonicParsing="false" text="Restaurantes">
                     <items>
@@ -42,7 +42,7 @@
                   </Menu>
                </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="Mantenimiento de Mercancia">
+            <Menu fx:id="M_mercancias" mnemonicParsing="false" text="Mantenimiento de Mercancia">
                <items>
                   <Menu mnemonicParsing="false" text="Comidas">
                     <items>
@@ -67,7 +67,7 @@
                <items>
                   <MenuItem fx:id="MI_BusquedaR" mnemonicParsing="false" onAction="#MI_BusquedaR" text="Buscar Recomendacion" />
                </items></Menu>
-            <Menu mnemonicParsing="false" text="Reportes">
+            <Menu fx:id="M_reportes" mnemonicParsing="false" text="Reportes">
               <items>
                 <MenuItem fx:id="MI_Rep_Restaurantes_Supermercados" mnemonicParsing="false" onAction="#MI_Rep_Restaurantes_Supermercados" text="Reporte de Restaurantes y Supermercados" />
                   <MenuItem fx:id="MI_Rep_Comidas_Productos" mnemonicParsing="false" onAction="#MI_Rep_Comidas_Productos" text="Reporte de Comidas y Productos" />

@@ -191,6 +191,7 @@ public class Utility {
     private static BST treeFood = new BST();
     private static BST treeProducts = new BST();
     private static CircularDoublyLinkedList listSearchs = new CircularDoublyLinkedList();
+    private static Security intro = null;
 
     private static SinglyLinkedList listPlaces = new SinglyLinkedList();
     
@@ -217,6 +218,36 @@ public class Utility {
     public static CircularDoublyLinkedList getListSearchs() {
         return listSearchs;
     }
+
+    public static Security getIntro() {
+        return intro;
+    }
+
+    public static void setIntro(Security intro) {
+        Utility.intro = intro;
+    }
+
+    public static void setmGraphPlace(AdjacencyMatrixGraph mGraphPlace) {
+        Utility.mGraphPlace = mGraphPlace;
+    }
+
+    public static void setTreeFood(BST treeFood) {
+        Utility.treeFood = treeFood;
+    }
+
+    public static void setTreeProducts(BST treeProducts) {
+        Utility.treeProducts = treeProducts;
+    }
+
+    public static void setListSearchs(CircularDoublyLinkedList listSearchs) {
+        Utility.listSearchs = listSearchs;
+    }
+
+    public static void setListPlaces(SinglyLinkedList listPlaces) {
+        Utility.listPlaces = listPlaces;
+    }
+    
+    
 
 //    private static Student introStudent = null;
 //    public static void setIntro(Student s){introStudent = s;}
