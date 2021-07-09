@@ -46,7 +46,7 @@ public class FXMLRemoverRestauranteController implements Initializable {
 
             for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
 
-                comboRestaurantes.getItems().add((Restaurant)util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data);
+                comboRestaurantes.getItems().add((Restaurant) util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data);
             } //recorremos la lista de carreras para agregarlas al comboBox, para poder suprimirlas
 
         } catch (ListException ex) {
@@ -56,20 +56,18 @@ public class FXMLRemoverRestauranteController implements Initializable {
         }
     }
 
-   
-
     @FXML
     private void btnRemover(ActionEvent event) {
-        boolean exist=false;
-                if (comboRestaurantes.getSelectionModel().isEmpty()) {
+        boolean exist = false;
+        if (comboRestaurantes.getSelectionModel().isEmpty()) {
             Alert a = new Alert(Alert.AlertType.ERROR);
             a.setHeaderText("Debe seleccionar un restaurante para poder removerlo");
             a.showAndWait();
         } else {
             Restaurant r = new Restaurant(comboRestaurantes.getSelectionModel().getSelectedItem().getName(), comboRestaurantes.getSelectionModel().getSelectedItem().getLocation());
-            
+
             Alert a = new Alert(Alert.AlertType.INFORMATION);
-            a.setHeaderText("¿Esta seguro que quiere remover el restaurante: "+ comboRestaurantes.getSelectionModel().getSelectedItem().getName()+"?");
+            a.setHeaderText("¿Esta seguro que quiere remover el restaurante: " + comboRestaurantes.getSelectionModel().getSelectedItem().getName() + "?");
             ButtonType yes = new ButtonType("Si");
             ButtonType no = new ButtonType("No");
             a.getButtonTypes().clear();
@@ -78,15 +76,15 @@ public class FXMLRemoverRestauranteController implements Initializable {
             Optional<ButtonType> option = a.showAndWait();
             if (option.get() == yes) {
                 try {
-                    util.Utility.getlGraphRestaurants_Supermarkets().removeVertex(comboRestaurantes.getSelectionModel().getSelectedItem().secondToString());
                     txt.removeElement("restaurantes.txt", comboRestaurantes.getSelectionModel().getSelectedItem().secondToString());
-                    
+                    util.Utility.getlGraphRestaurants_Supermarkets().removeVertex(comboRestaurantes.getSelectionModel().getSelectedItem().secondToString());
+
                     int x = comboRestaurantes.getSelectionModel().getSelectedIndex(); // tomamos el valor del indice
                     comboRestaurantes.getItems().remove(x); // se remueve
                     comboRestaurantes.getSelectionModel().clearSelection();//limpiamos el comboBox
-                    
+
                     Alert a2 = new Alert(Alert.AlertType.CONFIRMATION);
-                    a2.setHeaderText(" El restaurante"  +comboRestaurantes.getSelectionModel().getSelectedItem().getName()+ "   ha sido eliminado correctamente");
+                    a2.setHeaderText(" El restaurante" + comboRestaurantes.getSelectionModel().getSelectedItem().getName() + "   ha sido eliminado correctamente");
                     a2.showAndWait();
                 } catch (GraphException | ListException ex) {
                     Logger.getLogger(FXMLRemoverRestauranteController.class.getName()).log(Level.SEVERE, null, ex);
@@ -94,11 +92,12 @@ public class FXMLRemoverRestauranteController implements Initializable {
             }
         }
     }
- @FXML
-    private void comboRestaurantes(ActionEvent event)  {
-        if(comboRestaurantes.getSelectionModel().getSelectedIndex()!=-1){
-            
+
+    @FXML
+    private void comboRestaurantes(ActionEvent event) {
+        if (comboRestaurantes.getSelectionModel().getSelectedIndex() != -1) {
+
         }
-            
+
     }
 }

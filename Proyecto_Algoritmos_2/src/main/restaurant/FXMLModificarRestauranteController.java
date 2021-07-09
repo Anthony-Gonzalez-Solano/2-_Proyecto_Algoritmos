@@ -9,8 +9,6 @@ import domain.Restaurant;
 import domain.list.ListException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -51,7 +49,7 @@ public class FXMLModificarRestauranteController implements Initializable {
             }
             // TODO
         } catch (ListException ex) {
-              Alert a = new Alert(Alert.AlertType.ERROR);
+            Alert a = new Alert(Alert.AlertType.ERROR);
             a.setHeaderText("No hay restaurantes agregados");
             a.showAndWait();
         }
@@ -64,21 +62,32 @@ public class FXMLModificarRestauranteController implements Initializable {
             a.setHeaderText("Debe ingresar un restaurante para poder modificarlo");
             a.showAndWait();
         } else {
-
             Restaurant r = new Restaurant(textFieldNombre.getText(), comboRestaurantes.getSelectionModel().getSelectedItem().getLocation());
-            txt.modifyFile("restaurantes.txt", comboRestaurantes.getSelectionModel().getSelectedItem().secondToString(), r.secondToString());// se modifica el archivo
-            int x = comboRestaurantes.getSelectionModel().getSelectedIndex(); // tomamos el valor del indice
-            comboRestaurantes.getItems().remove(x); // se remueve
-            comboRestaurantes.getItems().add(x, r);// se agregan de nuevo al comBox el restaurante modificado
-            comboRestaurantes.getSelectionModel().clearSelection();//limpiamos el comboBox
-            textFieldNombre.setText("");
+            try {
+                for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
 
-            Alert a = new Alert(Alert.AlertType.CONFIRMATION);
-            a.setHeaderText("El  restaurante ha sido mofificado correctamente");
-            a.showAndWait();
-            textFieldNombre.setVisible(false);
-            btnModificar.setVisible(false);
+                    Restaurant r2 = (Restaurant) util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
+                    if (r2.equals(comboRestaurantes.getSelectionModel().getSelectedItem())) {
+                        r = (Restaurant) util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
+                    }
+                }
 
+                txt.modifyFile("restaurantes.txt", comboRestaurantes.getSelectionModel().getSelectedItem().secondToString(), r.secondToString());// se modifica el archivo
+                int x = comboRestaurantes.getSelectionModel().getSelectedIndex(); // tomamos el valor del indice
+                comboRestaurantes.getItems().remove(x); // se remueve
+                comboRestaurantes.getItems().add(x, r);// se agregan de nuevo al comBox el restaurante modificado
+                comboRestaurantes.getSelectionModel().clearSelection();//limpiamos el comboBox
+                textFieldNombre.setText("");
+
+                Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+                a.setHeaderText("El  restaurante ha sido mofificado correctamente");
+                a.showAndWait();
+                textFieldNombre.setVisible(false);
+                btnModificar.setVisible(false);
+
+            } catch (ListException e) {
+
+            }
         }
     }
 
