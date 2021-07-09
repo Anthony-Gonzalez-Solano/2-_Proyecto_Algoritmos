@@ -15,6 +15,7 @@ import domain.graph.AdjacencyListGraph;
 import domain.graph.AdjacencyMatrixGraph;
 import domain.graph.EdgeWeight;
 import domain.graph.GraphException;
+import domain.graph.Place;
 import domain.list.ListException;
 import domain.tree.BST;
 import java.text.DecimalFormat;
@@ -191,6 +192,8 @@ public class Utility {
     private static BST treeProducts = new BST();
     private static CircularDoublyLinkedList listSearchs = new CircularDoublyLinkedList();
 
+    private static SinglyLinkedList listPlaces = new SinglyLinkedList();
+    
     public static CircularLinkedList getUsers() {
         return listUsers;
     }

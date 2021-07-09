@@ -12,6 +12,7 @@ import domain.graph.GraphException;
 import domain.list.ListException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.IntegerBinding;
@@ -26,6 +27,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -73,11 +75,8 @@ public class FXMLGrafoLugaresController implements Initializable {
     private TextField txtVertexGraph;
     @FXML
     private Button btnDistancias;
-    @FXML
     private TableView<String[]> tvDistancias;
-    @FXML
     private TableColumn<float[], String> columnOrigenDestino;
-    @FXML
     private TableColumn<float[], String> columnDistancia;
     
     private ObservableSet<CheckBox> selectedCheckBoxes = FXCollections.observableSet();
@@ -90,44 +89,72 @@ public class FXMLGrafoLugaresController implements Initializable {
     float auxIndex;
     int longitud;
     int num, numVertex, numEdges;
-    Button buttonArray[];
     int cont, contEdges, contVertex, contDirections;
+    Button buttonArray[];
     Line line = new Line();
     
+    AdjacencyMatrixGraph grafoMatrix; /*= new AdjacencyMatrixGraph()*/
+    AdjacencyListGraph grafoList;
+    
     public Text txtTitle;
-    AdjacencyMatrixGraph grafo; /*= new AdjacencyMatrixGraph()*/
-    AdjacencyListGraph aux;
+    
+    @FXML
+    private TableView<String[]> tblVDistancias;
+    @FXML
+    private Label lblDistancias;
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         apGraph.setVisible(false);
-        grafo = util.Utility.getmGraphPlace();
+        grafoMatrix = util.Utility.getmGraphPlace();
         try {
-            for (int i = 0; i < grafo.size(); i++) {
-                for (int j = 0; j < grafo.size(); j++) {
-                    if (!grafo.containsEdge(grafo.getVertexByIndex(i).data, grafo.getVertexByIndex(j).data)) {
-                        if (!util.Utility.equals(grafo.getVertexByIndex(i).data, grafo.getVertexByIndex(j).data)) {
-                            grafo.addEdge(grafo.getVertexByIndex(i).data, grafo.getVertexByIndex(j).data);
-                            grafo.addWeight(grafo.getVertexByIndex(i).data, grafo.getVertexByIndex(j).data, 5 + util.Utility.random(50));
+            for (int i = 0; i < grafoMatrix.size(); i++) {
+                for (int j = 0; j < grafoMatrix.size(); j++) {
+                    if (!grafoMatrix.containsEdge(grafoMatrix.getVertexByIndex(i).data, grafoMatrix.getVertexByIndex(j).data)) {
+                        if (!util.Utility.equals(grafoMatrix.getVertexByIndex(i).data, grafoMatrix.getVertexByIndex(j).data)) {
+                            grafoMatrix.addEdge(grafoMatrix.getVertexByIndex(i).data, grafoMatrix.getVertexByIndex(j).data);
+                            grafoMatrix.addWeight(grafoMatrix.getVertexByIndex(i).data, grafoMatrix.getVertexByIndex(j).data, 5 + util.Utility.random(50));
                         }
                     }
                 }
             }
-        } catch (Exception e) {
+        } catch (GraphException | ListException ex/*Exception e*/) {
+            Logger.getLogger(FXMLGrafoLugaresController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if (grafo != null && !grafo.isEmpty()) {
+        apGraph.setOnMouseMoved(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent evento) {
+                if (grafoMatrix != null && !grafoMatrix.isEmpty()) {
+                    try {
+                        apGraph.getChildren().clear();
+                        drawGraph(grafoList);
+                        //txtTitle = new Text(100, 100, "");
+                        //apGraph.getChildren().add(txtTitle);
+                    } catch (ListException ex) {
+                        Logger.getLogger(FXMLGrafoLugaresController.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (GraphException ex) {
+                        Logger.getLogger(FXMLGrafoLugaresController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                }
+            }
+        });
+        /*
+        if (grafoMatrix != null && !grafoMatrix.isEmpty()) {
             try {
                 apGraph.getChildren().clear();
-                drawGraph(aux);//aux
+                drawGraph(grafoList);//aux
                 //txtTitle = new Text(100, 100, "");
                 //apGraph.getChildren().add(txtTitle);
             } catch (Exception e) {
             }
             
-        }
-    }    
+        }*/
+        chb(); 
+    }   
 
     @FXML
     private void btnGenerarGrafo(ActionEvent event) throws ListException, GraphException {
@@ -138,10 +165,10 @@ public class FXMLGrafoLugaresController implements Initializable {
             this.chbTurrialba.isSelected() || this.chbUjarras.isSelected()) 
         {       
             //this.num = util.Utility
-            grafo = new AdjacencyMatrixGraph(num);
+            grafoMatrix = new AdjacencyMatrixGraph(num);
             //fillGraph(grafo);
             loadTable(tvDistancias);
-            drawGraph(aux);
+            drawGraph(grafoList);
         }
     }
 
@@ -162,6 +189,18 @@ public class FXMLGrafoLugaresController implements Initializable {
 */
     public void chb() {
         //Otra forma de llenar el grafo a partir de los chb seleccionados con un array de chb
+        
+        chbCaballoBlanco.setOnAction(e -> handleButtonAction(e));
+        chbCachi.setOnAction(e -> handleButtonAction(e));
+        chbCartago.setOnAction(e -> handleButtonAction(e));
+        chbCervantes.setOnAction(e -> handleButtonAction(e));
+        chbOrosi.setOnAction(e -> handleButtonAction(e));
+        chbParaiso.setOnAction(e -> handleButtonAction(e));
+        chbSantaRosa.setOnAction(e -> handleButtonAction(e));
+        chbTierraBlanca.setOnAction(e -> handleButtonAction(e));
+        chbTurrialba.setOnAction(e -> handleButtonAction(e));
+        chbUjarras.setOnAction(e -> handleButtonAction(e));
+        
     }//chb
     
     private void drawGraph(AdjacencyListGraph grafo) throws ListException, GraphException {
@@ -262,11 +301,11 @@ public class FXMLGrafoLugaresController implements Initializable {
     }
     
     private void randomDistancias() throws ListException, GraphException{
-        for (int i = 0; i < grafo.size(); i++) {
-            for (int j = 0; j < grafo.size(); j++) {
-                if (!(grafo.getVertexByIndex(i).data.equals(grafo.getVertexByIndex(i).data))) {
-                    grafo.addEdge(grafo.getVertexByIndex(i).data, grafo.getVertexByIndex(j).data);
-                    grafo.addWeight(grafo.getVertexByIndex(i).data, grafo.getVertexByIndex(j).data, 5 + util.Utility.random(50));
+        for (int i = 0; i < grafoMatrix.size(); i++) {
+            for (int j = 0; j < grafoMatrix.size(); j++) {
+                if (!(grafoMatrix.getVertexByIndex(i).data.equals(grafoMatrix.getVertexByIndex(i).data))) {
+                    grafoMatrix.addEdge(grafoMatrix.getVertexByIndex(i).data, grafoMatrix.getVertexByIndex(j).data);
+                    grafoMatrix.addWeight(grafoMatrix.getVertexByIndex(i).data, grafoMatrix.getVertexByIndex(j).data, 5 + util.Utility.random(50));
                 }//if
             }//for j
         }//for i
@@ -288,6 +327,52 @@ public class FXMLGrafoLugaresController implements Initializable {
 //                    g.addWeight(g.getVertexByIndex(k).data, g.getVertexByIndex(aux).data, util.Utility.random());
 //                }
 //            }
+
+    @FXML
+    private void handleButtonAction(ActionEvent e) {
+        int cont = 0;
+        String choices = "";
+        if (chbCaballoBlanco.isSelected()) {
+            cont++;
+            choices+=chbCaballoBlanco.getText() + "\n";
+        }
+        if (chbCachi.isSelected()) {
+            cont++;
+            choices+=chbCachi.getText() + "\n";
+        }
+        if (chbCartago.isSelected()) {
+            cont++;
+            choices+=chbCartago.getText() + "\n";
+        }
+        if (chbCervantes.isSelected()) {
+            cont++;
+            choices+=chbCervantes.getText() + "\n";
+        }
+        if (chbOrosi.isSelected()) {
+            cont++;
+            choices+=chbOrosi.getText() + "\n";
+        }
+        if (chbParaiso.isSelected()) {
+            cont++;
+            choices+=chbParaiso.getText() + "\n";
+        }
+        if (chbSantaRosa.isSelected()) {
+            cont++;
+            choices+=chbSantaRosa.getText() + "\n";
+        }
+        if (chbTierraBlanca.isSelected()) {
+            cont++;
+            choices+=chbTierraBlanca.getText() + "\n";
+        }
+        if (chbTurrialba.isSelected()) {
+            cont++;
+            choices+=chbTurrialba.getText() + "\n";
+        }
+        if (chbUjarras.isSelected()) {
+            cont++;
+            choices+=chbUjarras.getText() + "\n";
+        }
+    }
     
     
     

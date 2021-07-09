@@ -1,37 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" fx:id="ap" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.places.FXMLGrafoLugaresController">
+<AnchorPane id="AnchorPane" fx:id="ap" prefHeight="572.0" prefWidth="1010.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.places.FXMLGrafoLugaresController">
    <children>
-      <Label layoutX="14.0" layoutY="14.0" text="Listado de Lugares" />
-      <CheckBox fx:id="chbCartago" layoutX="14.0" layoutY="38.0" mnemonicParsing="false" text="Cartago" />
-      <CheckBox fx:id="chbCaballoBlanco" layoutX="14.0" layoutY="62.0" mnemonicParsing="false" text="Caballo Blanco" />
-      <CheckBox fx:id="chbTierraBlanca" layoutX="161.0" layoutY="38.0" mnemonicParsing="false" text="Tierra Blanca" />
-      <CheckBox fx:id="chbSantaRosa" layoutX="161.0" layoutY="62.0" mnemonicParsing="false" text="Santa Rosa" />
-      <CheckBox fx:id="chbParaiso" layoutX="300.0" layoutY="38.0" mnemonicParsing="false" text="Paraíso" />
-      <CheckBox fx:id="chbOrosi" layoutX="300.0" layoutY="62.0" mnemonicParsing="false" text="Orosi" />
-      <CheckBox fx:id="chbCachi" layoutX="394.0" layoutY="38.0" mnemonicParsing="false" text="Cachí" />
-      <CheckBox fx:id="chbUjarras" layoutX="394.0" layoutY="62.0" mnemonicParsing="false" text="Ujarrás" />
-      <CheckBox fx:id="chbCervantes" layoutX="487.0" layoutY="38.0" mnemonicParsing="false" text="Cervantes" />
-      <CheckBox fx:id="chbTurrialba" layoutX="487.0" layoutY="62.0" mnemonicParsing="false" text="Turrialba" />
-      <Button fx:id="btnGenerarGrafo" layoutX="14.0" layoutY="90.0" mnemonicParsing="false" onAction="#btnGenerarGrafo" text="Generar Grafo" />
-      <AnchorPane fx:id="apGraph" layoutX="6.0" layoutY="124.0" prefHeight="270.0" prefWidth="358.0">
+      <CheckBox fx:id="chbCartago" layoutX="53.0" layoutY="122.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Cartago">
+         <opaqueInsets>
+            <Insets bottom="20.0" left="20.0" right="20.0" />
+         </opaqueInsets></CheckBox>
+      <CheckBox fx:id="chbTierraBlanca" layoutX="53.0" layoutY="272.0" mnemonicParsing="false" text="Tierra Blanca">
+         <opaqueInsets>
+            <Insets bottom="20.0" left="20.0" right="20.0" />
+         </opaqueInsets></CheckBox>
+      <CheckBox fx:id="chbSantaRosa" layoutX="53.0" layoutY="242.0" mnemonicParsing="false" text="Santa Rosa">
+         <opaqueInsets>
+            <Insets bottom="20.0" left="20.0" right="20.0" />
+         </opaqueInsets></CheckBox>
+      <CheckBox fx:id="chbOrosi" layoutX="53.0" layoutY="182.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Orosi">
+         <opaqueInsets>
+            <Insets bottom="20.0" left="20.0" right="20.0" />
+         </opaqueInsets></CheckBox>
+      <CheckBox fx:id="chbCachi" layoutX="53.0" layoutY="92.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Cachí">
+         <opaqueInsets>
+            <Insets bottom="20.0" left="20.0" right="20.0" />
+         </opaqueInsets></CheckBox>
+      <CheckBox fx:id="chbUjarras" layoutX="53.0" layoutY="332.0" mnemonicParsing="false" text="Ujarrás">
+         <opaqueInsets>
+            <Insets bottom="20.0" left="20.0" right="20.0" />
+         </opaqueInsets></CheckBox>
+      <CheckBox fx:id="chbCervantes" layoutX="53.0" layoutY="152.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Cervantes">
+         <opaqueInsets>
+            <Insets bottom="20.0" left="20.0" right="20.0" />
+         </opaqueInsets></CheckBox>
+      <CheckBox fx:id="chbTurrialba" layoutX="53.0" layoutY="302.0" mnemonicParsing="false" text="Turrialba">
+         <opaqueInsets>
+            <Insets bottom="20.0" left="20.0" right="20.0" />
+         </opaqueInsets></CheckBox>
+      <CheckBox fx:id="chbParaiso" layoutX="53.0" layoutY="212.0" mnemonicParsing="false" text="Paraíso">
+         <opaqueInsets>
+            <Insets bottom="20.0" left="20.0" right="20.0" />
+         </opaqueInsets>
+      </CheckBox>
+      <CheckBox fx:id="chbCaballoBlanco" layoutX="53.0" layoutY="62.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Caballo Blanco">
+         <opaqueInsets>
+            <Insets bottom="20.0" left="20.0" right="20.0" />
+         </opaqueInsets>
+      </CheckBox>
+      <Label layoutX="53.0" layoutY="30.0" text="Listado de Lugares" />
+      <Button fx:id="btnGenerarGrafo" layoutX="59.0" layoutY="394.0" mnemonicParsing="false" onAction="#btnGenerarGrafo" text="Generar Grafo" />
+      <AnchorPane fx:id="apGraph" layoutX="236.0" layoutY="35.0" prefHeight="386.0" prefWidth="740.0">
          <children>
             <TextField fx:id="txtVertexGraph" layoutX="233.0" layoutY="14.0" prefHeight="24.0" prefWidth="105.0" visible="false" />
-            <Button fx:id="btnDistancias" layoutX="261.0" layoutY="232.0" mnemonicParsing="false" onAction="#btnDistancias" text="Distancias" />
+            <Button fx:id="btnDistancias" layoutX="397.0" layoutY="340.0" mnemonicParsing="false" onAction="#btnDistancias" text="Distancias" />
          </children></AnchorPane>
-      <TableView fx:id="tvDistancias" layoutX="372.0" layoutY="124.0" prefHeight="270.0" prefWidth="222.0" visible="false">
-        <columns>
-          <TableColumn fx:id="columnOrigenDestino" prefWidth="125.0" text="Origen, Destino" />
-          <TableColumn fx:id="columnDistancia" prefWidth="95.0" text="Distancia" />
-        </columns>
-      </TableView>
+      <TableView fx:id="tblVDistancias" layoutX="305.0" layoutY="431.0" prefHeight="127.0" prefWidth="450.0" />
+      <Label fx:id="lblDistancias" layoutX="770.0" layoutY="431.0" prefHeight="127.0" prefWidth="216.0" />
    </children>
 </AnchorPane>
