@@ -139,8 +139,8 @@ public class FXMLGrafoLugaresController implements Initializable {
                         aux = util.Utility.random(grafoMatrix.size()-1);
                     }
                     grafoMatrix.addEdge(grafoMatrix.getVertexByIndex(k).data, grafoMatrix.getVertexByIndex(aux).data);
-                    grafoMatrix.addWeight(grafoMatrix.getVertexByIndex(k).data, grafoMatrix.getVertexByIndex(aux).data, util.Utility.random());
-                    
+                    grafoMatrix.addWeight(grafoMatrix.getVertexByIndex(k).data, grafoMatrix.getVertexByIndex(aux).data, util.Utility.random()); 
+                    System.out.println("aaaa");
                 }
             }
         } catch (ListException | GraphException ex) {
@@ -188,9 +188,28 @@ public class FXMLGrafoLugaresController implements Initializable {
                 System.out.println("aaaa");
             }
         }
+        /*
+        //Para la tabla
+        String[][] tableMatrix = new String[grafoMatrix.size() * grafoMatrix.size()][2];
+        tableMatrix[0][1] = "Origen, Destino";
+        tableMatrix[0][0] = "Distancia";
+        int contDirecciones = 1;
+        
+        grafoList = new AdjacencyListGraph(grafoMatrix.size());
+        for (int i = 0; i < grafoMatrix.size(); i++) {
+            if (checkList != null) {
+                if (checkList[i].isSelected()) {
+                    //Place place;
+                    //place = (Place) grafoMatrix.getVertexByIndex(i).add;
+                    grafoMatrix.addVertex(checkList[i].getText());
+                }
+            }
+        }
+        */
         num = grafoMatrix.size();
         drawGraph(grafoMatrix);
         util.Utility.setmGraphPlace(grafoMatrix);
+        loadTable(tvDistancias, m);
     }//btnDistancias
 /*
     private void fillGraph(AdjacencyMatrixGraph grafo) throws GraphException, ListException {
@@ -302,9 +321,6 @@ public class FXMLGrafoLugaresController implements Initializable {
                         txt.setLayoutY(buttonArray[j].getLayoutY()+ (buttonArray[i].getLayoutY()-buttonArray[j].getLayoutY()+15)/2);
                         txt.setFill(Paint.valueOf("#ffffff"));
                         apGraph.getChildren().add(txt);
-                        
-                        
-                        
                         line.setOnMouseMoved(new EventHandler<MouseEvent>() {
                             @Override
                             public void handle(MouseEvent event) {
@@ -332,9 +348,36 @@ public class FXMLGrafoLugaresController implements Initializable {
         }//for i
     }//randomDistancias
 
-    private void loadTable(TableView<String[]> tvDistancias) {
-        columnOrigenDestino.setCellValueFactory(col -> new SimpleStringProperty(String.valueOf(tvDistancias)));
-        columnDistancia.setCellValueFactory(col -> new SimpleStringProperty(String.valueOf(tvDistancias)));
+    private void loadTable(TableView<String[]> table, Object[][] distanceMatrix) {
+        //columnOrigenDestino.setCellValueFactory(col -> new SimpleStringProperty(String.valueOf(tvDistancias)));
+        //columnDistancia.setCellValueFactory(col -> new SimpleStringProperty(String.valueOf(tvDistancias)));
+    
+        distanceMatrix = cleanTable(distanceMatrix);
+        
+        table.getColumns().clear();
+        
+        ObservableList<String[]> data = FXCollections.observableArrayList();
+        //data.addAll(Arrays.asList(distanceMatrix));
+        data.remove(0);
+        int x = 180;
+        for (int i = 0; i < distanceMatrix[0].length; i++) {
+            TableColumn tableCol = new TableColumn((String) distanceMatrix[0][i]);
+            tableCol.setEditable(false);
+            tableCol.setSortable(false);
+            final int numCol = i;
+            tableCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<String[], String>, ObservableValue<String>>() {
+                @Override
+                public ObservableValue<String> call(TableColumn.CellDataFeatures<String[], String> arg0) {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                    //return new SimpleStringProperty((Place.getValue()[numCol]));
+                    //return [i][numCol];
+                }
+            });
+            table.getColumns().add(tableCol);
+            tableCol.setPrefWidth(x);
+            x = 65;
+        }
+        table.setItems(data);
     }//loadPage
     
     
@@ -395,6 +438,23 @@ public class FXMLGrafoLugaresController implements Initializable {
         }
     }
     
-    
+    private Object[][] cleanTable(Object[][] m) {
+        int cont = 0;
+        for (int i = 0; i < m.length; i++) {
+            if (m[i][0] != null && !m[i][0].equals("")) {
+                cont++;
+            }
+        }
+        
+        Object auxM[][] = new Object[cont][2];
+        cont = 0;
+        for (int i = 0; i < m.length; i++) {
+            if (m[i][0] != null && !m[i][0].equals("")) {
+                auxM[cont][0] = (String) m[i][0];
+                auxM[cont++][1] = (String) m[i][1];
+            }
+        }
+        return auxM;
+    }
     
 }//FXMLGrafoLugaresController
