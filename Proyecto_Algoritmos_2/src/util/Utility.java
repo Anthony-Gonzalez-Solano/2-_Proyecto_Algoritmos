@@ -18,6 +18,7 @@ import domain.graph.AdjacencyMatrixGraph;
 import domain.graph.EdgeWeight;
 import domain.graph.GraphException;
 import domain.graph.Place;
+import domain.graph.Vertex;
 import domain.list.ListException;
 import domain.tree.BST;
 import java.text.DecimalFormat;
@@ -109,6 +110,11 @@ public class Utility {
                 Product p1 =(Product) a;
                 Product p2 =(Product) b;
                 return p1.getName().equals(p2.getName())&&p1.getPrice()==p2.getPrice()&&p1.getID()==p2.getID()&&p1.getSupermarketID()==p2.getSupermarketID();
+            case "vertex":
+                Vertex v1 =(Vertex) a;
+                Vertex v2 =(Vertex) b;
+                return equals(v1.data, v2.data);
+                    
         }
 
         return false; //en cualquier otro caso
@@ -135,6 +141,9 @@ public class Utility {
         }
         if (a instanceof Product && b instanceof Product) {
             return "product";
+        }
+        if (a instanceof Vertex && b instanceof Vertex) {
+            return "vertex";
         }
         return "unknown"; //desconocido
     }

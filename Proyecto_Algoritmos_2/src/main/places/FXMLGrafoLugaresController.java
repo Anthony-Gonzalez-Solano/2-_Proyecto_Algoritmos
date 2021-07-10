@@ -128,6 +128,7 @@ public class FXMLGrafoLugaresController implements Initializable {
             for (int i = 0; i < 10; i++) {
                 if(checkList[i].isSelected()){
                     grafoMatrix.addVertex(checkList[i].getText());
+                    System.out.println(checkList[i].getText());
                 }
             }
 
@@ -139,7 +140,7 @@ public class FXMLGrafoLugaresController implements Initializable {
                     }
                     grafoMatrix.addEdge(grafoMatrix.getVertexByIndex(k).data, grafoMatrix.getVertexByIndex(aux).data);
                     grafoMatrix.addWeight(grafoMatrix.getVertexByIndex(k).data, grafoMatrix.getVertexByIndex(aux).data, util.Utility.random());
-                    System.out.println("aaaa");
+                    
                 }
             }
         } catch (ListException | GraphException ex) {

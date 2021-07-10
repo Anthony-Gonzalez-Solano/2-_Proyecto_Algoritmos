@@ -25,7 +25,7 @@ public class Dijkstra {
     // algorithm for a graph represented
     // using adjacency matrix
     // representation
-    public static void dijkstra(int[][] adjacencyMatrix,
+    public void dijkstra(int[][] adjacencyMatrix,
                                         int startVertex)
     {
         n =adjacencyMatrix[0].length-1;

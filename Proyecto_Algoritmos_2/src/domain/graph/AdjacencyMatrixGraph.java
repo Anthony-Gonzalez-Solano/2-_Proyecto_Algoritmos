@@ -281,5 +281,14 @@ public class AdjacencyMatrixGraph implements Graph {
         this.adjacencyMatrix = adjacencyMatrix;
     }
     
+    public int getIndexOfVertex(Object obj) {
+        int index=0;
+        for (int i = 0; i < vertexList.length; i++) {
+            if(util.Utility.equals(vertexList[i], new Vertex(obj))){
+                index = i;
+            }
+        }
+        return index;
+    }
     
 }
