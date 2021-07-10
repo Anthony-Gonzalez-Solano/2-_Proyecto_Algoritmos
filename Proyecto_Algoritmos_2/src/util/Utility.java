@@ -300,7 +300,7 @@ public class Utility {
         ArrayList<String> list = new ArrayList<>();
 
         if (file.existFile("Restaurant_Supermarket.txt")) {
-            list = file.readFile("a.txt");
+            list = file.readFile("Restaurant_Supermarket.txt");
             for (int i = 0; i < list.size(); i++) {
                 String[] datos = list.get(i).split(",");
                 if (datos.length == 4) {

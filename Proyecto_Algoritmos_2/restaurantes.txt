@@ -1,2 +1,0 @@
-restaurant,La casona,Cachi,0
-restaurant,LA gASA,Caballo Blanco,1

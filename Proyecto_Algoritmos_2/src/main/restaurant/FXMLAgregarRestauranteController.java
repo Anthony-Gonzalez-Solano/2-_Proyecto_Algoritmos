@@ -7,7 +7,6 @@ package main.restaurant;
 
 import domain.Restaurant;
 import domain.graph.GraphException;
-import domain.graph.Place;
 import domain.list.ListException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -95,10 +94,9 @@ public class FXMLAgregarRestauranteController implements Initializable {
                         }
                     }
                 }
-
                 txt.writeFile("Restaurant_Supermarket.txt", r.secondToString());// escribimos en los txt
                 Alert a = new Alert(Alert.AlertType.CONFIRMATION);
-                a.setHeaderText("Restaurante agregado correctamente");
+                a.setHeaderText(" El restaurante " + textFieldNombre.getText() + " fue agregado correctamente");
                 a.showAndWait();
                 comboLugares.getSelectionModel().clearSelection();
                 textFieldNombre.setText("");
@@ -107,9 +105,10 @@ public class FXMLAgregarRestauranteController implements Initializable {
         } catch (GraphException ex) {
             Logger.getLogger(FXMLAgregarRestauranteController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ListException ex) {
-            Logger.getLogger(FXMLAgregarRestauranteController.class.getName()).log(Level.SEVERE, null, ex);
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setHeaderText("No hay restaurantes agregados");
+            a.showAndWait();
         }
-
     }
 
     @FXML
