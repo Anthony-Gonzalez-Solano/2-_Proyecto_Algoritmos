@@ -186,22 +186,22 @@ public class FXMLVentanaPrincipalController implements Initializable {
 
     @FXML
     private void MI_Supermercado_Agregar(ActionEvent event) {
-        //loadPage(page);
+        loadPage("supermarket/FXMLAgregarSupermercado");
     }
 
     @FXML
     private void MI_Supermercado_Modificar(ActionEvent event) {
-        //loadPage(page);
+        loadPage("supermarket/FXMLModificarSuperMercado");
     }
 
     @FXML
     private void MI_Supermercado_Eliminar(ActionEvent event) {
-        //loadPage(page);
+       loadPage("supermarket/FXMLRemoverSupermercado");
     }
 
     @FXML
     private void MI_Supermercado_Mostrar(ActionEvent event) {
-        //loadPage(page);
+        loadPage("supermarket/FXMLMostrarSupermercados");
     }
 
     @FXML
@@ -231,7 +231,7 @@ public class FXMLVentanaPrincipalController implements Initializable {
 
     @FXML
     private void MI_Producto_Modificar(ActionEvent event) {
-        //loadPage(page);
+        loadPage("supermarket/FXMLMostrarSupermercados");
     }
 
     @FXML
