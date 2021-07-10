@@ -6,12 +6,13 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@../tema%20Oscuro.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16" fx:controller="main.restaurant.FXMLModificarRestauranteController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@../tema%20Oscuro.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.restaurant.FXMLModificarRestauranteController">
    <children>
       <ComboBox fx:id="comboRestaurantes" layoutX="366.0" layoutY="44.0" onAction="#comboRestaurantes" prefHeight="46.0" prefWidth="210.0" promptText="Restaurantes" />
       <Button fx:id="btnModificar" layoutX="84.0" layoutY="316.0" mnemonicParsing="false" onAction="#btnModificar" prefHeight="61.0" prefWidth="182.0" text="Modificar" />
-      <TextField fx:id="textFieldNombre" layoutX="84.0" layoutY="175.0" />
+      <TextField fx:id="textFieldNombre" layoutX="84.0" layoutY="148.0" />
       <Label fx:id="txtNombre" layoutX="56.0" layoutY="104.0" prefHeight="24.0" prefWidth="97.0" text="Nombre" />
+      <Label layoutX="55.0" layoutY="208.0" text="Localizacion" visible="false" />
+      <TextField fx:id="textFieldLocation" layoutX="88.0" layoutY="242.0" visible="false" />
    </children>
 </AnchorPane>

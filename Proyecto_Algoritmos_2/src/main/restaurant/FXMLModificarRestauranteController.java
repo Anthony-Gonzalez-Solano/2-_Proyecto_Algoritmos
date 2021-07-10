@@ -35,6 +35,8 @@ public class FXMLModificarRestauranteController implements Initializable {
     private TextField textFieldNombre;
     @FXML
     private Label txtNombre;
+    @FXML
+    private TextField textFieldLocation;
 
     /**
      * Initializes the controller class.
@@ -47,7 +49,6 @@ public class FXMLModificarRestauranteController implements Initializable {
             for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
                 comboRestaurantes.getItems().add((Restaurant) util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data);
             }
-            // TODO
         } catch (ListException ex) {
             Alert a = new Alert(Alert.AlertType.ERROR);
             a.setHeaderText("No hay restaurantes agregados");
@@ -67,12 +68,13 @@ public class FXMLModificarRestauranteController implements Initializable {
                 for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
 
                     Restaurant r2 = (Restaurant) util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
-                    if (r2.equals(comboRestaurantes.getSelectionModel().getSelectedItem())) {
-                        r = (Restaurant) util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
+                    if (r2.getClass() == Restaurant.class) {
+                        if (r2.equals(comboRestaurantes.getSelectionModel().getSelectedItem())) {
+                            util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data = r;
+                        }
                     }
                 }
-
-                txt.modifyFile("restaurantes.txt", comboRestaurantes.getSelectionModel().getSelectedItem().secondToString(), r.secondToString());// se modifica el archivo
+                txt.modifyFile("Restaurant_Supermarket.txt", comboRestaurantes.getSelectionModel().getSelectedItem().secondToString(), r.secondToString());// se modifica el archivo
                 int x = comboRestaurantes.getSelectionModel().getSelectedIndex(); // tomamos el valor del indice
                 comboRestaurantes.getItems().remove(x); // se remueve
                 comboRestaurantes.getItems().add(x, r);// se agregan de nuevo al comBox el restaurante modificado
@@ -86,7 +88,9 @@ public class FXMLModificarRestauranteController implements Initializable {
                 btnModificar.setVisible(false);
 
             } catch (ListException e) {
-
+                Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+                a.setHeaderText("No hay restaurantes agregados");
+                a.showAndWait();
             }
         }
     }

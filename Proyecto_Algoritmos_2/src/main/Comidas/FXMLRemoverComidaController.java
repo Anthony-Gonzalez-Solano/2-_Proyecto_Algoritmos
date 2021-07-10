@@ -90,6 +90,10 @@ public class FXMLRemoverComidaController implements Initializable {
                         util.Utility.getTreeFood().remove(f);
 
                     }
+                } else {
+                    Alert a2 = new Alert(Alert.AlertType.ERROR);
+                    a2.setHeaderText(" La comida " + comboComidas.getSelectionModel().getSelectedItem().getName() + "   no existe");
+                    a2.showAndWait();
                 }
 
             } catch (TreeException ex) {
@@ -100,7 +104,9 @@ public class FXMLRemoverComidaController implements Initializable {
 
     public String preOrder() throws TreeException {
         if (isEmpty()) {
-            throw new TreeException("Binary Search Tree is empty");
+            Alert a2 = new Alert(Alert.AlertType.ERROR);
+            a2.setHeaderText("El arbol esta vacio ");
+            a2.showAndWait();
         }
         return preOrder(util.Utility.getTreeFood().getRoot());
     }
