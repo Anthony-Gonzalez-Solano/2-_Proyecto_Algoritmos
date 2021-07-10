@@ -260,4 +260,29 @@ public class AdjacencyListGraph implements Graph {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+    public String SecondToString() throws ListException {
+        String result = "";
+        for (int i = 0; i < count; i++) {
+            result+=vertexList[i].data.toString()+"\n";  
+        }
+        for (int i = 0; i < count; i++) {
+            if(!vertexList[i].edgesList.isEmpty()){
+                for (int j = 1; j <= vertexList[i].edgesList.size(); j++) {
+                    EdgeWeight ew = (EdgeWeight) vertexList[i].edgesList.getNode(j).data;
+                    result+=i+","+getIndexOfVertex(ew.getEdge())+","+ew.getWeight();
+                }
+            }
+        }
+        return result;
+    }
+    
+    public int getIndexOfVertex(Object obj) {
+        int index=0;
+        for (int i = 0; i < vertexList.length; i++) {
+            if(util.Utility.equals(vertexList[i], new Vertex(obj))){
+                index = i;
+            }
+        }
+        return index;
+    }
 }
