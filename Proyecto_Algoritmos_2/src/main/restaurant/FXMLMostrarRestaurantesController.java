@@ -54,10 +54,10 @@ public class FXMLMostrarRestaurantesController implements Initializable {
                 this.tableRestaurantes.getItems().add((Restaurant) util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data);//recorremos la lista de restaurantes y casteamos para agregar los datos de la lista a la tabla 
 
             }
-//        } catch (NullPointerException eda) {
-//            Alert a = new Alert(Alert.AlertType.ERROR);
-//            a.setHeaderText("Error inesperado");
-//            a.showAndWait();
+        } catch (NullPointerException eda) {
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setHeaderText("Error inesperado");
+            a.showAndWait();
         } catch (ListException ex) {
 
             Logger.getLogger(FXMLMostrarRestaurantesController.class.getName()).log(Level.SEVERE, null, ex);
