@@ -23,6 +23,11 @@ public class Restaurant {
         autoId++;
     }
 
+    public Restaurant(String name, String location, int id) {
+       this.id=id;
+       this.name = name;
+       this.location=location;
+    }
    
 
     public String getName() {
@@ -41,11 +46,11 @@ public class Restaurant {
         this.location = location;
     }
 
-    public static int getAutoId() {
+    public int getAutoId() {
         return autoId;
     }
 
-    public static void setAutoId(int autoId) {
+    public void setAutoId(int autoId) {
         Restaurant.autoId = autoId;
     }
 
@@ -57,6 +62,6 @@ public class Restaurant {
     }
 
     public String secondToString() {
-        return name + "," + location+","+ id;
+        return "restaurant,"+name + "," + location+","+ id;
     }
 }

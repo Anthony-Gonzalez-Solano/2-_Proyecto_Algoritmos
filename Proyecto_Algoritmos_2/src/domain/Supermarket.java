@@ -21,6 +21,12 @@ public class Supermarket {
         this.name=name;
         autoID++;
     }
+    
+    public Supermarket(String name, String location,int id){
+        this.id=id;
+        this.location=location;
+        this.name=name;
+    }
 
     public String getName() {
         return name;
@@ -46,17 +52,17 @@ public class Supermarket {
         this.id = id;
     }
 
-    public static int getAutoID() {
+    public int getAutoID() {
         return autoID;
     }
 
-    public static void setAutoID(int autoID) {
+    public void setAutoID(int autoID) {
         Supermarket.autoID = autoID;
     }
 
     @Override
     public String toString() {
-        return name + "," + location + "," + id;
+        return "supermarket,"+name + "," + location + "," + id;
     }
     
 }

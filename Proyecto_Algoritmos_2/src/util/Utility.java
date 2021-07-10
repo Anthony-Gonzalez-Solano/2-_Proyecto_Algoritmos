@@ -6,6 +6,7 @@
 package util;
 
 import domain.Product;
+import domain.Restaurant;
 import domain.list.CircularDoublyLinkedList;
 import domain.list.CircularLinkedList;
 import domain.list.DoublyLinkedList;
@@ -280,11 +281,27 @@ public class Utility {
         FileTXT file = new FileTXT();
         ArrayList<String> list = new ArrayList<>();
 
-        if (file.existFile("a.txt")) {
+        if (file.existFile("Restaurant_Supermarket.txt")) {
             list = file.readFile("a.txt");
             for (int i = 0; i < list.size(); i++) {
                 String[] datos = list.get(i).split(",");
-
+                if(datos.length==4){
+                    if(datos[0].equals("restaurant")){
+                        Restaurant obj = new Restaurant(datos[1], datos[2], Integer.parseInt(datos[3]));
+                        obj.setAutoId(Integer.parseInt(datos[3]));
+                        lGraphRestaurants_Supermarkets.addVertex(obj);
+                    }else{
+                        Supermarket obj = new Supermarket(datos[1], datos[2], Integer.parseInt(datos[3]));
+                        obj.setAutoID(Integer.parseInt(datos[3]));
+                        lGraphRestaurants_Supermarkets.addVertex(obj);
+                    }
+                }else{
+                    lGraphRestaurants_Supermarkets.addEdge(lGraphRestaurants_Supermarkets.getVertexByIndex(Integer.parseInt(datos[0])),
+                                                            lGraphRestaurants_Supermarkets.getVertexByIndex(Integer.parseInt(datos[1])));
+                    lGraphRestaurants_Supermarkets.addWeight(lGraphRestaurants_Supermarkets.getVertexByIndex(Integer.parseInt(datos[0])),
+                                                            lGraphRestaurants_Supermarkets.getVertexByIndex(Integer.parseInt(datos[1])), 
+                                                            Integer.parseInt(datos[2]));
+                }
             }
         }
         if (file.existFile("Users.txt")) {
