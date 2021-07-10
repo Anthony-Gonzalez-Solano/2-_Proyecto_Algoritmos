@@ -5,7 +5,6 @@
  */
 package main;
 
-import domain.Security;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -32,6 +31,7 @@ import javafx.stage.Stage;
  * @author Anthony G.S
  */
 public class FXMLVentanaPrincipalController implements Initializable {
+
     @FXML
     private BorderPane bp;
     @FXML
@@ -102,23 +102,24 @@ public class FXMLVentanaPrincipalController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       if(util.Utility.getIntro()!=null){
-           M_grafoLugares.setVisible(false);
-           M_Establecimientos.setVisible(false);
-           M_mercancias.setVisible(false);
-           M_reportes.setVisible(false);
-       }
-    }    
+        if (util.Utility.getIntro() != null) {
+            M_grafoLugares.setVisible(false);
+            M_Establecimientos.setVisible(false);
+            M_mercancias.setVisible(false);
+            M_reportes.setVisible(false);
+        }
+    }
+
     @FXML
     private void Mi_Options_close(ActionEvent event) {
-         Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+        Alert a = new Alert(Alert.AlertType.CONFIRMATION);
         a.setHeaderText("¿Esta seguro que quiere Cerrar la seción?");
         ButtonType yes = new ButtonType("Sí");
         ButtonType no = new ButtonType("No");
         a.getButtonTypes().clear();
-        a.getButtonTypes().addAll(yes,no);
+        a.getButtonTypes().addAll(yes, no);
 
-        Optional<ButtonType> option = a.showAndWait(); 
+        Optional<ButtonType> option = a.showAndWait();
         if (option.get() == yes) {
             Parent root = null;
             try {
@@ -139,9 +140,9 @@ public class FXMLVentanaPrincipalController implements Initializable {
         ButtonType yes = new ButtonType("Sí");
         ButtonType no = new ButtonType("No");
         a.getButtonTypes().clear();
-        a.getButtonTypes().addAll(yes,no);
+        a.getButtonTypes().addAll(yes, no);
 
-        Optional<ButtonType> option = a.showAndWait(); 
+        Optional<ButtonType> option = a.showAndWait();
         if (option.get() == yes) {
             System.exit(0);
         }
@@ -165,22 +166,22 @@ public class FXMLVentanaPrincipalController implements Initializable {
 
     @FXML
     private void MI_Restaurantes_Agregar(ActionEvent event) {
-        //loadPage(page);
+        loadPage("restaurant/FXMLAgregarRestaurante");
     }
 
     @FXML
     private void MI_Restaurantes_Modificar(ActionEvent event) {
-        //loadPage(page);
+        loadPage("restaurant/FXMLModificarRestaurante");
     }
 
     @FXML
     private void MI_Restaurantes_Eliminar(ActionEvent event) {
-        //loadPage(page);
+        loadPage("restaurant/FXMLRemoverRestaurante");
     }
 
     @FXML
     private void MI_Restaurantes_Mostrar(ActionEvent event) {
-        //loadPage(page);
+        loadPage("restaurant/FXMLMostrarRestaurantes");
     }
 
     @FXML
@@ -262,17 +263,15 @@ public class FXMLVentanaPrincipalController implements Initializable {
     private void MI_Rep_Busquedas(ActionEvent event) {
         //loadPage(page);
     }
-    
-    
-    
-    private void loadPage(String page){
+
+    private void loadPage(String page) {
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource(page+".fxml"));
+            root = FXMLLoader.load(getClass().getResource(page + ".fxml"));
         } catch (IOException ex) {
             Logger.getLogger(FXMLVentanaPrincipalController.class.getName()).log(Level.SEVERE, null, ex);
         }
-         this.bp.setCenter(root);   
+        this.bp.setCenter(root);
     }
 
     @FXML
