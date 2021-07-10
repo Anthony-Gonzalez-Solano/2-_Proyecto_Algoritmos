@@ -6,7 +6,6 @@
 package main.Comidas;
 
 import domain.Food;
-import domain.Restaurant;
 import domain.tree.BTreeNode;
 import domain.tree.TreeException;
 import java.net.URL;
@@ -28,7 +27,7 @@ import util.FileTXT;
  * @author Dell 7470
  */
 public class FXMLModificarComidasController implements Initializable {
-    
+
     private util.FileTXT txt;
     @FXML
     private ComboBox<Food> comboComidas;
@@ -50,12 +49,12 @@ public class FXMLModificarComidasController implements Initializable {
         } catch (TreeException ex) {
             Logger.getLogger(FXMLModificarComidasController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }    
-    
+    }
+
     @FXML
     private void comboComidas(ActionEvent event) {
     }
-    
+
     @FXML
     private void btnModificar(ActionEvent event) {
         if (textFieldNombre.getText().isEmpty() || textFieldPrecio.getText().isEmpty()) { //validamos campos vacios
@@ -63,12 +62,12 @@ public class FXMLModificarComidasController implements Initializable {
             a.setHeaderText("No debe dejar campos vacios. Ingrese un nombre y precio para poder modificarlo");
             a.showAndWait();
         } else {
-            
+
             try {
-                Food f = new Food(textFieldNombre.getText(), Integer.parseInt(textFieldPrecio.getText()), comboComidas.getSelectionModel().getSelectedItem().getRestaurantID());
+                Food f = new Food(textFieldNombre.getText(), Double.valueOf(textFieldPrecio.getText()), comboComidas.getSelectionModel().getSelectedItem().getRestaurantID());
                 txt.modifyFile("comidas.txt", comboComidas.getSelectionModel().getSelectedItem().secondToString(), f.secondToString());// se modifica el archivo
-                if (util.Utility.getTreeFood().contains(comboComidas.getSelectionModel().getSelectedItem()) == true) {
-                    util.Utility.getTreeFood().remove(comboComidas.getSelectionModel().getSelectedItem());
+                if (util.Utility.getTreeFood().contains(comboComidas.getSelectionModel().getSelectedItem().secondToString()) == true) {
+                    util.Utility.getTreeFood().remove(comboComidas.getSelectionModel().getSelectedItem().secondToString());
                     util.Utility.getTreeFood().add(f);
                     int x = comboComidas.getSelectionModel().getSelectedIndex(); // tomamos el valor del indice
                     comboComidas.getItems().remove(x); // se remueve
@@ -76,7 +75,7 @@ public class FXMLModificarComidasController implements Initializable {
                     comboComidas.getSelectionModel().clearSelection();//limpiamos el comboBox
                     textFieldNombre.setText("");
                     textFieldPrecio.setText("");
-                    
+
                     Alert a = new Alert(Alert.AlertType.CONFIRMATION);
                     a.setHeaderText("La comida ha sido mofificada correctamente");
                     a.showAndWait();
@@ -87,30 +86,28 @@ public class FXMLModificarComidasController implements Initializable {
             } catch (TreeException ex) {
                 Logger.getLogger(FXMLModificarComidasController.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
         }
     }
-    
+
     public String preOrder() throws TreeException {
         if (isEmpty()) {
             throw new TreeException("Binary Search Tree is empty");
         }
         return preOrder(util.Utility.getTreeFood().getRoot());
     }
-    
+
     public boolean isEmpty() {
         return util.Utility.getTreeFood().getRoot() == null;
     }
-    
+
     private String preOrder(BTreeNode node) {
         String result = "";
         if (node != null) {
             comboComidas.getItems().add((Food) node.data);
-            // result = node.data + " ";
             preOrder(node.left);
             preOrder(node.right);
 
-            //    result += preOrder(node.right);
         }
         return result;
     }

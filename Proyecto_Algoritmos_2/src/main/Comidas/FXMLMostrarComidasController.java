@@ -6,9 +6,7 @@
 package main.Comidas;
 
 import domain.Food;
-import domain.Product;
 import domain.Restaurant;
-import domain.Supermarket;
 import domain.list.ListException;
 import domain.tree.BTreeNode;
 import domain.tree.TreeException;
