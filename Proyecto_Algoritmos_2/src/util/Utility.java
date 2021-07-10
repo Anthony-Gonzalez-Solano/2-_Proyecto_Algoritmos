@@ -5,11 +5,11 @@
  */
 package util;
 
+import domain.Food;
 import domain.Product;
 import domain.Restaurant;
 import domain.list.CircularDoublyLinkedList;
 import domain.list.CircularLinkedList;
-import domain.list.DoublyLinkedList;
 import domain.list.SinglyLinkedList;
 import domain.Security;
 import domain.Supermarket;
@@ -17,18 +17,11 @@ import domain.graph.AdjacencyListGraph;
 import domain.graph.AdjacencyMatrixGraph;
 import domain.graph.EdgeWeight;
 import domain.graph.GraphException;
-import domain.graph.Place;
 import domain.list.ListException;
 import domain.tree.BST;
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -106,9 +99,19 @@ public class Utility {
                 EdgeWeight ew2 = (EdgeWeight) b;
                 return equals(ew1.getEdge(), ew2.getEdge());
             case "product":
-                Product p1 =(Product) a;
-                Product p2 =(Product) b;
-                return p1.getName().equals(p2.getName())&&p1.getPrice()==p2.getPrice()&&p1.getID()==p2.getID()&&p1.getSupermarketID()==p2.getSupermarketID();
+                Product p1 = (Product) a;
+                Product p2 = (Product) b;
+                return p1.getName().equals(p2.getName()) && p1.getPrice() == p2.getPrice() && p1.getID() == p2.getID() && p1.getSupermarketID() == p2.getSupermarketID();
+
+            case "restaurant":
+                Restaurant r1 = (Restaurant) a;
+                Restaurant r2 = (Restaurant) b;
+                return r1.getName().equalsIgnoreCase(r2.getName()) && r1.getLocation().equalsIgnoreCase(r2.getLocation());
+            case "food":
+                Food f1 = (Food) a;
+                Food f2 = (Food) b;
+                return f1.getName().equalsIgnoreCase(f2.getName()) && f1.getRestaurantID() == (f2.getRestaurantID());
+
         }
 
         return false; //en cualquier otro caso
@@ -136,6 +139,14 @@ public class Utility {
         if (a instanceof Product && b instanceof Product) {
             return "product";
         }
+
+        if (a instanceof Food && b instanceof Food) {
+            return "food";
+        }
+        if (a instanceof Restaurant && b instanceof Restaurant) {
+            return "restaurant";
+        }
+
         return "unknown"; //desconocido
     }
 
@@ -150,12 +161,12 @@ public class Utility {
                 String s2 = (String) b;
                 return s1.compareToIgnoreCase(s2) < 0;
             case "double":
-                Double d1 =(Double) a;
-                Double d2 =(Double) b;
+                Double d1 = (Double) a;
+                Double d2 = (Double) b;
                 return d1 < d2;
             case "product":
-                Product p1 =(Product) a;
-                Product p2 =(Product) b;
+                Product p1 = (Product) a;
+                Product p2 = (Product) b;
                 return p1.getName().compareToIgnoreCase(p2.getName()) < 0;
         }
         return false; //en cualquier otro caso
@@ -172,44 +183,53 @@ public class Utility {
                 String s2 = (String) b;
                 return s1.compareToIgnoreCase(s2) > 0;
             case "double":
-                Double d1 =(Double)a;
+                Double d1 = (Double) a;
                 Double d2 = (Double) b;
                 return d1 > d2;
             case "product":
-                Product p1 =(Product) a;
-                Product p2 =(Product) b;
+                Product p1 = (Product) a;
+                Product p2 = (Product) b;
                 return p1.getName().compareToIgnoreCase(p2.getName()) > 0;
         }
         return false; //en cualquier otro caso
     }
-    
+
     public static boolean checkPass(String pass) {
-        boolean number=false;
-        boolean leeterG=false;
-        boolean leeterL=false;
-        boolean sings=false;
-        
-        if(pass.length()<8) // verifica que la clave tenga el tamaño minimo
+        boolean number = false;
+        boolean leeterG = false;
+        boolean leeterL = false;
+        boolean sings = false;
+
+        if (pass.length() < 8) // verifica que la clave tenga el tamaño minimo
+        {
             return false;
-            
+        }
+
         for (int i = 0; i < pass.length(); i++) {
             int x = pass.charAt(i);
-            
+
             if ((47 < x && x < 58)) // Verifica si tiene numeros
-                number=true;
+            {
+                number = true;
+            }
             if ((64 < x && x < 91)) // Verifica si tiene Letras Mayusculas
-                leeterG=true;
+            {
+                leeterG = true;
+            }
             if ((96 < x && x < 123)) // Verifica si tiene Letras Minusculas
-                leeterL=true;
+            {
+                leeterL = true;
+            }
             if ((32 < x && x < 44)) // Verifica si tiene Signos
-                sings=true;
+            {
+                sings = true;
+            }
         }
-        
+
         return number && leeterG && leeterL && sings;
     }
 
     //-------------------------------------------Metodos para las listas -------------------------------------------------------
-    
     private static CircularLinkedList listUsers = new CircularLinkedList();
     private static AdjacencyMatrixGraph mGraphPlace = new AdjacencyMatrixGraph(20);
     private static AdjacencyListGraph lGraphRestaurants_Supermarkets = new AdjacencyListGraph(50);
@@ -219,7 +239,7 @@ public class Utility {
     private static Security intro = null;
 
     private static SinglyLinkedList listPlaces = new SinglyLinkedList();
-    
+
     public static CircularLinkedList getUsers() {
         return listUsers;
     }
@@ -271,8 +291,6 @@ public class Utility {
     public static void setListPlaces(SinglyLinkedList listPlaces) {
         Utility.listPlaces = listPlaces;
     }
-    
-    
 
 //    private static Student introStudent = null;
 //    public static void setIntro(Student s){introStudent = s;}
@@ -285,22 +303,22 @@ public class Utility {
             list = file.readFile("a.txt");
             for (int i = 0; i < list.size(); i++) {
                 String[] datos = list.get(i).split(",");
-                if(datos.length==4){
-                    if(datos[0].equals("restaurant")){
+                if (datos.length == 4) {
+                    if (datos[0].equals("restaurant")) {
                         Restaurant obj = new Restaurant(datos[1], datos[2], Integer.parseInt(datos[3]));
                         obj.setAutoId(Integer.parseInt(datos[3]));
                         lGraphRestaurants_Supermarkets.addVertex(obj);
-                    }else{
+                    } else {
                         Supermarket obj = new Supermarket(datos[1], datos[2], Integer.parseInt(datos[3]));
                         obj.setAutoID(Integer.parseInt(datos[3]));
                         lGraphRestaurants_Supermarkets.addVertex(obj);
                     }
-                }else{
+                } else {
                     lGraphRestaurants_Supermarkets.addEdge(lGraphRestaurants_Supermarkets.getVertexByIndex(Integer.parseInt(datos[0])),
-                                                            lGraphRestaurants_Supermarkets.getVertexByIndex(Integer.parseInt(datos[1])));
+                            lGraphRestaurants_Supermarkets.getVertexByIndex(Integer.parseInt(datos[1])));
                     lGraphRestaurants_Supermarkets.addWeight(lGraphRestaurants_Supermarkets.getVertexByIndex(Integer.parseInt(datos[0])),
-                                                            lGraphRestaurants_Supermarkets.getVertexByIndex(Integer.parseInt(datos[1])), 
-                                                            Integer.parseInt(datos[2]));
+                            lGraphRestaurants_Supermarkets.getVertexByIndex(Integer.parseInt(datos[1])),
+                            Integer.parseInt(datos[2]));
                 }
             }
         }

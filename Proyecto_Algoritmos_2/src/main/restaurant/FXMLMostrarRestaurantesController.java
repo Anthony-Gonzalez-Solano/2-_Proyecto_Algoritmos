@@ -33,14 +33,16 @@ public class FXMLMostrarRestaurantesController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        if (this.tableRestaurantes.getColumns().isEmpty()) {
+                if (this.tableRestaurantes.getColumns().isEmpty()) {
             TableColumn<Restaurant, String> column1 = new TableColumn<>("Nombre"); // nombre de las columnas
             column1.setCellValueFactory(new PropertyValueFactory<>("name"));
             TableColumn<Restaurant, String> column2 = new TableColumn<>("Localizacion");
             column2.setCellValueFactory(new PropertyValueFactory<>("location"));
-
+             TableColumn<Restaurant, String> column3 = new TableColumn<>("ID");
+            column3.setCellValueFactory(new PropertyValueFactory<>("id"));
             this.tableRestaurantes.getColumns().add(column1);//agregar columnas
             this.tableRestaurantes.getColumns().add(column2);
+            this.tableRestaurantes.getColumns().add(column3);
 
         }
 
@@ -52,11 +54,12 @@ public class FXMLMostrarRestaurantesController implements Initializable {
                 this.tableRestaurantes.getItems().add((Restaurant) util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data);//recorremos la lista de restaurantes y casteamos para agregar los datos de la lista a la tabla 
 
             }
-        } catch (NullPointerException eda) {
-            Alert a = new Alert(Alert.AlertType.ERROR);
-            a.setHeaderText("Error inesperado");
-            a.showAndWait();
+//        } catch (NullPointerException eda) {
+//            Alert a = new Alert(Alert.AlertType.ERROR);
+//            a.setHeaderText("Error inesperado");
+//            a.showAndWait();
         } catch (ListException ex) {
+
             Logger.getLogger(FXMLMostrarRestaurantesController.class.getName()).log(Level.SEVERE, null, ex);
         }
 

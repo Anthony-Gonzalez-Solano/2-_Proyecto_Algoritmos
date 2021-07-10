@@ -37,7 +37,7 @@ public class FXMLAgregarRestauranteController implements Initializable {
     private TextField textFieldNombre;
 
     @FXML
-    private ComboBox<Place> comboLugares;
+    private ComboBox<String> comboLugares;
 
     /**
      * Initializes the controller class.
@@ -46,15 +46,17 @@ public class FXMLAgregarRestauranteController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         txt = new FileTXT(); // crear txt
 
-        try {
-            for (int i = 0; i < util.Utility.getmGraphPlace().size(); i++) {
-                comboLugares.getItems().add((Place) util.Utility.getmGraphPlace().getVertexByIndex(i).data);
-            } //recorremos la lista deLlugares para agregarlas al comboBox
-        } catch (ListException ex) {
-            Alert a = new Alert(Alert.AlertType.ERROR);
-            a.setHeaderText("No hay lugares agregados");
-            a.showAndWait();
-        }
+        comboLugares.getItems().add("Cachi");
+        comboLugares.getItems().add("Caballo Blanco");
+        comboLugares.getItems().add("Cartago");
+        comboLugares.getItems().add("Cervantes");
+        comboLugares.getItems().add("Orosi");
+        comboLugares.getItems().add("Paraiso");
+        comboLugares.getItems().add("Santa Rosa");
+        comboLugares.getItems().add("Tierra Blanca");
+        comboLugares.getItems().add("Turrialba");
+        comboLugares.getItems().add("Ujarras");
+
     }
 
     @FXML
@@ -69,7 +71,7 @@ public class FXMLAgregarRestauranteController implements Initializable {
                 comboLugares.getSelectionModel().clearSelection();
 
             } else if (util.Utility.getlGraphRestaurants_Supermarkets().isEmpty()) {
-                Restaurant r = new Restaurant(this.textFieldNombre.getText(), comboLugares.getSelectionModel().getSelectedItem().getName());
+                Restaurant r = new Restaurant(this.textFieldNombre.getText(), comboLugares.getSelectionModel().getSelectedItem());
                 util.Utility.getlGraphRestaurants_Supermarkets().addVertex(r);
                 txt.writeFile("restaurantes.txt", r.secondToString());// escribimos en los txt
                 Alert a = new Alert(Alert.AlertType.CONFIRMATION);
@@ -77,25 +79,23 @@ public class FXMLAgregarRestauranteController implements Initializable {
                 a.showAndWait();
                 textFieldNombre.setText("");
             } else {
-                Restaurant r = new Restaurant(this.textFieldNombre.getText(), comboLugares.getSelectionModel().getSelectedItem().getName());
+                Restaurant r = new Restaurant(this.textFieldNombre.getText(), comboLugares.getSelectionModel().getSelectedItem());
                 if (!util.Utility.getlGraphRestaurants_Supermarkets().containsVertex(r)) {
                     util.Utility.getlGraphRestaurants_Supermarkets().addVertex(r);
                     for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
                         for (int j = 0; j < util.Utility.getlGraphRestaurants_Supermarkets().size(); j++) {
-                        //  Restaurant r2=(Restaurant)util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
-                             //if(!(r2.getName().equals(textFieldNombre.getText()))&&!(r2.getLocation().equals(comboLugares.getSelectionModel().getSelectedItem().getName())))
-                        //util.Utility.getlGraphRestaurants_Supermarkets().addEdge(r, r2);
-                
+                            //  Restaurant r2=(Restaurant)util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
+                            //if(!(r2.getName().equals(textFieldNombre.getText()))&&!(r2.getLocation().equals(comboLugares.getSelectionModel().getSelectedItem().getName())))
+                            //util.Utility.getlGraphRestaurants_Supermarkets().addEdge(r, r2);
+
                             if (!(util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data.equals(util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(j).data))) {
-                                util.Utility.getlGraphRestaurants_Supermarkets().addEdge
-        (util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data, util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(j).data);
-                                util.Utility.getlGraphRestaurants_Supermarkets().addWeight
-        (util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data, util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(j).data, util.Utility.random());
+                                util.Utility.getlGraphRestaurants_Supermarkets().addEdge(util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data, util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(j).data);
+                                util.Utility.getlGraphRestaurants_Supermarkets().addWeight(util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data, util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(j).data, util.Utility.random());
                             }
                         }
                     }
-                    }
-                
+                }
+
                 txt.writeFile("restaurantes.txt", r.secondToString());// escribimos en los txt
                 Alert a = new Alert(Alert.AlertType.CONFIRMATION);
                 a.setHeaderText("Restaurante agregado correctamente");
@@ -104,12 +104,12 @@ public class FXMLAgregarRestauranteController implements Initializable {
                 textFieldNombre.setText("");
                 autoID++;
             }
-            } catch (GraphException ex) {
+        } catch (GraphException ex) {
             Logger.getLogger(FXMLAgregarRestauranteController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ListException ex) {
             Logger.getLogger(FXMLAgregarRestauranteController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    
+
     }
 
     @FXML
