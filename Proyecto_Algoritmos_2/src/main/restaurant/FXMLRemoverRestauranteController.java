@@ -76,7 +76,7 @@ public class FXMLRemoverRestauranteController implements Initializable {
             Optional<ButtonType> option = a.showAndWait();
             if (option.get() == yes) {
                 try {
-                    txt.removeElement("restaurantes.txt", comboRestaurantes.getSelectionModel().getSelectedItem().secondToString());
+                    txt.removeElement("Restaurant_Supermarket.txt", comboRestaurantes.getSelectionModel().getSelectedItem().secondToString());
                     util.Utility.getlGraphRestaurants_Supermarkets().removeVertex(comboRestaurantes.getSelectionModel().getSelectedItem().secondToString());
 
                     int x = comboRestaurantes.getSelectionModel().getSelectedIndex(); // tomamos el valor del indice

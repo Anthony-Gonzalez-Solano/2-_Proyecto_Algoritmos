@@ -73,7 +73,7 @@ public class FXMLAgregarRestauranteController implements Initializable {
             } else if (util.Utility.getlGraphRestaurants_Supermarkets().isEmpty()) {
                 Restaurant r = new Restaurant(this.textFieldNombre.getText(), comboLugares.getSelectionModel().getSelectedItem());
                 util.Utility.getlGraphRestaurants_Supermarkets().addVertex(r);
-                txt.writeFile("restaurantes.txt", r.secondToString());// escribimos en los txt
+                txt.writeFile("Restaurant_Supermarket.txt", r.secondToString());// escribimos en los txt
                 Alert a = new Alert(Alert.AlertType.CONFIRMATION);
                 a.setHeaderText(" El restaurante " + textFieldNombre.getText() + " fue agregado correctamente!!");
                 a.showAndWait();
@@ -96,7 +96,7 @@ public class FXMLAgregarRestauranteController implements Initializable {
                     }
                 }
 
-                txt.writeFile("restaurantes.txt", r.secondToString());// escribimos en los txt
+                txt.writeFile("Restaurant_Supermarket.txt", r.secondToString());// escribimos en los txt
                 Alert a = new Alert(Alert.AlertType.CONFIRMATION);
                 a.setHeaderText("Restaurante agregado correctamente");
                 a.showAndWait();

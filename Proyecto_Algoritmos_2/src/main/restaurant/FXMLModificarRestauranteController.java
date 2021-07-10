@@ -72,7 +72,7 @@ public class FXMLModificarRestauranteController implements Initializable {
                     }
                 }
 
-                txt.modifyFile("restaurantes.txt", comboRestaurantes.getSelectionModel().getSelectedItem().secondToString(), r.secondToString());// se modifica el archivo
+                txt.modifyFile("Restaurant_Supermarket.txt", comboRestaurantes.getSelectionModel().getSelectedItem().secondToString(), r.secondToString());// se modifica el archivo
                 int x = comboRestaurantes.getSelectionModel().getSelectedIndex(); // tomamos el valor del indice
                 comboRestaurantes.getItems().remove(x); // se remueve
                 comboRestaurantes.getItems().add(x, r);// se agregan de nuevo al comBox el restaurante modificado
