@@ -20,6 +20,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import util.FileTXT;
 
 /**
  * FXML Controller class
@@ -42,6 +43,7 @@ public class FXMLModificarProductoController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        txt = new FileTXT(); // crear txt
         try {
             
                preOrder();
@@ -60,10 +62,10 @@ public class FXMLModificarProductoController implements Initializable {
         } else {
                 Product c = findProduct(cBoxProduct.getValue());
                 Product p = new Product(txtFieldName.getText(), Double.valueOf(txtFieldPrice.getText()), c.getSupermarketID());
-                txt.modifyFile("productos.txt", c.toString(), p.toString());// se modifica el archivo
-                if (util.Utility.getTreeFood().contains(cBoxProduct.getSelectionModel().getSelectedItem()) == true) {
-                    util.Utility.getTreeFood().remove(cBoxProduct.getSelectionModel().getSelectedItem());
+                if (util.Utility.getTreeProducts().contains(c) == true) {
+                    util.Utility.getTreeProducts().remove(c);
                     util.Utility.getTreeProducts().add(p);
+                    txt.modifyFile("productos.txt", c.toString(), p.toString());// se modifica el archivo
                     int x = cBoxProduct.getSelectionModel().getSelectedIndex(); // tomamos el valor del indice
                     cBoxProduct.getItems().remove(cBoxProduct.getValue()); // se remueve
                     cBoxProduct.getItems().add(x, p.getName());// se agregan de nuevo al comBox la comida modificado
@@ -83,11 +85,11 @@ public class FXMLModificarProductoController implements Initializable {
         if (isEmpty()) {
             throw new TreeException("Binary Search Tree is empty");
         }
-        return preOrder(util.Utility.getTreeFood().getRoot());
+        return preOrder(util.Utility.getTreeProducts().getRoot());
     }
     
     public boolean isEmpty() {
-        return util.Utility.getTreeFood().getRoot() == null;
+        return util.Utility.getTreeProducts().getRoot() == null;
     }
     
     private String preOrder(BTreeNode node) {
@@ -108,14 +110,15 @@ public class FXMLModificarProductoController implements Initializable {
         if (isEmpty()) {
             throw new TreeException("Binary Search Tree is empty");
         }
-        return findProduct(util.Utility.getTreeFood().getRoot(),Name);
+        return findProduct(util.Utility.getTreeProducts().getRoot(),Name);
     }
     
     private Product findProduct(BTreeNode node, String Name) {
-        Product p = (Product)node.data;
+        
         if(node==null)
             return null;
-        else
+        else{
+            Product p = (Product)node.data;
             if(p.getName().equals(Name)){
                 return p; //ya lo encontro
             }else
@@ -123,5 +126,6 @@ public class FXMLModificarProductoController implements Initializable {
                     return findProduct(node.left, Name);
                 else
                     return findProduct(node.right, Name);
+        }
     }
 }

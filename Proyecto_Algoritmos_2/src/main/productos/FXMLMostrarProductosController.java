@@ -75,13 +75,15 @@ public class FXMLMostrarProductosController implements Initializable {
         if (node != null) {
             Product p= (Product)node.data;
             list.add(p.getName());
-            list.add(p.getPrice());
+            list.add(String.valueOf(p.getPrice()));
             for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
+                if(util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data instanceof Supermarket){
                 Supermarket s=(Supermarket)util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
                 if(s.getId()==p.getSupermarketID())
                     list.add(s.getName());
+                }
             }
-            list.add(p.getID());
+            list.add(String.valueOf(p.getID()));
             tableView.getItems().add(list);//se llena la talba
             preOrder(node.left);
             preOrder(node.right);
