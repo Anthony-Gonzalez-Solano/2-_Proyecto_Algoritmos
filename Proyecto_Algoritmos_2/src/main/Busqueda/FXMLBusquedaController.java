@@ -6,6 +6,8 @@
 package main.Busqueda;
 
 import domain.Dijkstra;
+import domain.Food;
+import domain.Restaurant;
 import domain.graph.Vertex;
 import domain.list.ListException;
 import domain.tree.BTreeNode;
@@ -13,6 +15,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Optional;
 import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -22,12 +26,17 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Polyline;
 import javax.mail.Message;
@@ -40,6 +49,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import util.FileTXT;
 
 /**
  * FXML Controller class
@@ -83,12 +93,15 @@ public class FXMLBusquedaController implements Initializable {
     @FXML
     private Polyline Ubic_Turrialba;
     private Alert a;
+    private String[] Recomend;
+    private String recomendations;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        Recomend = new String[3];
         a = new Alert(Alert.AlertType.ERROR);
         DialogPane dp = a.getDialogPane();
         dp.getStylesheets().add(getClass().getResource("myDialogs.css").toExternalForm());
@@ -152,14 +165,17 @@ public class FXMLBusquedaController implements Initializable {
 
     @FXML
     private void btn_Recomendacion(ActionEvent event) {
+        Recomend[0]="-";
+        Recomend[1]="-";
+        Recomend[2]="-";
         if(cb_Comidas_Productos.getSelectionModel().getSelectedIndex()!=-1){
             try {
                 if(util.Utility.getmGraphPlace().size()>1){
-                    if(lbl_Ubicacion.getText().isEmpty()){
+                    if(!lbl_Ubicacion.getText().isEmpty()){
                         Dijkstra d = new Dijkstra();
                         int[][] intMatrix = new int[util.Utility.getmGraphPlace().size()][util.Utility.getmGraphPlace().size()];
-                        for (int i = 0; i < 10; i++) {
-                            for (int j = 0; j < 10; j++) {
+                        for (int i = 0; i < util.Utility.getmGraphPlace().size(); i++) {
+                            for (int j = 0; j < util.Utility.getmGraphPlace().size(); j++) {
                                 intMatrix[i][j] = (int) util.Utility.getmGraphPlace().getAdjacencyMatrix()[i][j];
                             }
                         }
@@ -167,7 +183,82 @@ public class FXMLBusquedaController implements Initializable {
                         ArrayList<String> distances = d.getSolution();
                         
                         
+                        for (int j = 0; j < util.Utility.getlGraphRestaurants_Supermarkets().size(); j++) {
+                            Restaurant r = (Restaurant)util.Utility.getlGraphRestaurants_Supermarkets().getVertexList()[j].data;
+                            if(r.getLocation().equals(lbl_Ubicacion.getText())){
+                                if(Rbtn_Foods.isSelected()){
+                                    search(util.Utility.getTreeFood().getRoot(), r,cb_Comidas_Productos.getSelectionModel().getSelectedItem(),0);
+                                }else{
+                                    search(util.Utility.getTreeProducts().getRoot(), r,cb_Comidas_Productos.getSelectionModel().getSelectedItem(),0);
+                                }
+                            }
+                        } 
                         
+                        if(Recomend[2].equals("-")){
+                            for (int i = 0; i < distances.size(); i++) {
+                                String location = (String) util.Utility.getmGraphPlace().getVertexList()[Integer.parseInt(distances.get(i).split(",")[0].split("-")[1])].data;
+                                for (int j = 0; j < util.Utility.getlGraphRestaurants_Supermarkets().size(); j++) {
+                                    Restaurant r = (Restaurant)util.Utility.getlGraphRestaurants_Supermarkets().getVertexList()[j].data;
+                                    if(r.getLocation().equals(location)){
+                                        if(Rbtn_Foods.isSelected()){
+                                            search(util.Utility.getTreeFood().getRoot(), r,cb_Comidas_Productos.getSelectionModel().getSelectedItem(),Integer.parseInt(distances.get(i).split(",")[1]));
+                                        }else{
+                                            search(util.Utility.getTreeProducts().getRoot(), r,cb_Comidas_Productos.getSelectionModel().getSelectedItem(),Integer.parseInt(distances.get(i).split(",")[1]));
+                                        }
+                                    }
+                                }  
+                            }
+                        }
+                        String user = "";
+                        if(util.Utility.getIntro()==null){
+                            user="admin";
+                        }else{
+                           user=util.Utility.getIntro().getUser();
+                        }
+                        Date date = new Date();
+                        String[] hour = date.toString().split(" ")[3].split(":");
+                        recomendations = "Recomendaciones/Ubicacion Actual: "+lbl_Ubicacion.getText()+"/Producto: "+cb_Comidas_Productos.getSelectionModel().getSelectedItem()+
+                                "/1° - "+Recomend[0]+"/2° - "+Recomend[1]+"/3° - "+Recomend[2]+"/"+util.Utility.dateFormat(date) + " - "+hour[0]+":"+hour[1]+"/"+user;
+                        String[] s = recomendations.split("/");
+                        a.setHeaderText(s[0]+"                                                                    \n"+s[1]+"\n"+s[2]);
+                        a.setContentText(s[3]+"\n"+s[4]+"\n"+s[5]);
+                        FileTXT txt = new FileTXT();
+                        txt.writeFile("Busquedas.txt", recomendations);
+                        util.Utility.getListSearchs().add(recomendations);
+                        a.showAndWait();
+                        
+                        boolean exit = false;
+                        while(exit==false){
+                            a.setAlertType(Alert.AlertType.CONFIRMATION);
+                            ButtonType b1 = new ButtonType("Enviar", ButtonBar.ButtonData.YES);
+                            ButtonType b2 = new ButtonType("No Enviar", ButtonBar.ButtonData.NO);
+                            a.getButtonTypes().setAll(b1,b2);
+                            a.setTitle("Exception Dialog");
+                            a.setHeaderText("¿Desea enviar las recomendaciones a un correo?");
+                            a.setContentText("Could not find file blabla.txt!");
+                            Label label = new Label("Ingrese un correo");
+                            TextField tf = new TextField();
+                            tf.setPrefWidth(350);
+                            GridPane expContent = new GridPane();
+                            expContent.setMaxWidth(Double.MAX_VALUE);
+                            expContent.add(label, 0, 0);
+                            expContent.add(tf, 0, 1);
+                            a.getDialogPane().setContent(expContent);
+                            Optional<ButtonType> result = a.showAndWait();
+                            if(result.get()==b1){
+                                if(!tf.getText().isEmpty() && util.Utility.ValidarMail(tf.getText())){
+                                    sendEmail(tf.getText());
+                                    exit=true;
+                                }else{
+                                    a.setAlertType(Alert.AlertType.ERROR);
+                                    a.setHeaderText("El correo no es valido");
+                                    a.setContentText("Verifique que sea correcto");
+                                    a.showAndWait(); 
+                                }
+                            }else{
+                                exit=true;
+                            }
+                        }
                     }else{
                         a.setHeaderText("No seleciono su ubicaicon");
                         a.setContentText("Escoja en el mapa mostrado");
@@ -191,9 +282,39 @@ public class FXMLBusquedaController implements Initializable {
     
     private void fillCB(BTreeNode node){
         if(node!=null){
-            cb_Comidas_Productos.getItems().add(node.data+"");
+            if(cb_Comidas_Productos.getItems().isEmpty()){
+                cb_Comidas_Productos.getItems().add(node.data+"");
+            }
+            if(!cb_Comidas_Productos.getItems().contains(node.data+"")){
+                cb_Comidas_Productos.getItems().add(node.data+"");
+            }
+            
             fillCB(node.left);
             fillCB(node.right);
+        }
+    }
+    
+    private void search(BTreeNode node,Restaurant r,String name,int dis){
+        if(node!=null){
+            Food f = (Food) node.data;
+            if(f.getRestaurantID()==r.getId()){
+                if(f.getName().equals(name)){
+                    if(Recomend[0].equals("-")){
+                        Recomend[0]="Restaurante "+r.getName()+" a "+dis+" km, en "+r.getLocation()+", a un precio de "+f.getPrice()+" ₡";
+                    }
+                    if(Recomend[1].equals("-")){
+                        if(!Recomend[0].equals("Restaurante "+r.getName()+" a "+dis+" km, en "+r.getLocation()+", a un precio de "+f.getPrice()+" ₡"))
+                            Recomend[1]="Restaurante "+r.getName()+" a "+dis+" km, en "+r.getLocation()+", a un precio de "+f.getPrice()+" ₡";
+                    }
+                    if(Recomend[2].equals("-")){
+                        if(!Recomend[0].equals("Restaurante "+r.getName()+" a "+dis+" km, en "+r.getLocation()+", a un precio de "+f.getPrice()+" ₡"))
+                            if(!Recomend[1].equals("Restaurante "+r.getName()+" a "+dis+" km, en "+r.getLocation()+", a un precio de "+f.getPrice()+" ₡"))
+                                Recomend[2]="Restaurante "+r.getName()+" a "+dis+" km, en "+r.getLocation()+", a un precio de "+f.getPrice()+" ₡";
+                    }
+                }
+            }
+            search(node.left,r,name,dis);
+            search(node.right,r,name,dis);
         }
     }
     
@@ -239,7 +360,7 @@ public class FXMLBusquedaController implements Initializable {
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 
             // Set Subject: header field
-            message.setSubject("Cambio de contraseña ");
+            message.setSubject("Recomendaciondes de Sherchplit");
 
             Multipart multipart = new MimeMultipart();
 
@@ -250,10 +371,15 @@ public class FXMLBusquedaController implements Initializable {
             
             try {
 
-                File f =new File("Logo_Texto.png");
+                File f =new File("src/main/Logo_Texto.png");
 
                 attachmentPart.attachFile(f);
-                textPart.setText("Su contraseña temporal para el cambio de contraseña es :\n");
+                String[] s = recomendations.split("/");
+                if(util.Utility.getIntro()==null){
+                    textPart.setText(s[0]+"\n"+s[1]+"\n"+s[2]+"\n \n"+s[3]+"\n"+s[4]+"\n"+s[5]+"\n \n"+s[5]);
+                }else{
+                   textPart.setText(s[0]+"para"+util.Utility.getIntro().getUser()+"\n"+s[1]+"\n"+s[2]+"\n \n"+s[3]+"\n"+s[4]+"\n"+s[5]); 
+                }
                 multipart.addBodyPart(textPart);
                 multipart.addBodyPart(attachmentPart);
 

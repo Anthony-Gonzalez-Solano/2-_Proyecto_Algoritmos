@@ -36,6 +36,10 @@
    -fx-font-size:15.0px;
 }
 
+.dialog-pane > .content > .GridPane {
+   -fx-background-color: #273746;
+}
+
 /**Costumization of DialogPane Header**/
 .dialog-pane:header .header-panel {
   -fx-background-color: #273746;
@@ -63,4 +67,10 @@
   -fx-text-fill:#B3B6B7 ;
   -fx-font-weight:bold; 
  }
-
+ .dialog-pane .GridPane{
+    -fx-background-color:#273746;
+ }
+ .dialog-pane .GridPane .label{
+    -fx-text-fill:#B3B6B7;
+    -fx-font-size:10.0px;
+ }

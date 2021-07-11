@@ -1,2 +1,2 @@
-restaurant,Pollo,Cachi,2
+restaurant,Pollo,Cachi,1
 restaurant,La cuchara de Olguita,Orosi,2
