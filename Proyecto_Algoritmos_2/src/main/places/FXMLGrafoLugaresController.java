@@ -109,6 +109,15 @@ public class FXMLGrafoLugaresController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        if (!grafoMatrix.isEmpty()) {
+            try {
+                drawGraph(grafoMatrix);
+            } catch (ListException ex) {
+                Logger.getLogger(FXMLGrafoLugaresController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (GraphException ex) {
+                Logger.getLogger(FXMLGrafoLugaresController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         checkList = new CheckBox[10];
         checkList[0] = chbTierraBlanca;
         checkList[1] = chbCaballoBlanco;
@@ -147,7 +156,6 @@ public class FXMLGrafoLugaresController implements Initializable {
             Logger.getLogger(FXMLGrafoLugaresController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
     
     @FXML
     private void btnGenerarGrafo(ActionEvent event) throws ListException, GraphException {

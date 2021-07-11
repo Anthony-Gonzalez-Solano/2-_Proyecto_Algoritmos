@@ -237,6 +237,7 @@ public class Utility {
     private static Security intro = null;
 
     private static SinglyLinkedList listPlaces = new SinglyLinkedList();
+    //private static Supermarket supermarket = new Supermarket();
 
     public static CircularLinkedList getUsers() {
         return listUsers;

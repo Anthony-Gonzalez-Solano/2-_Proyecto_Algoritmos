@@ -14,7 +14,7 @@ public class Restaurant {
     private static int autoId;
     private String name;
     private String location;
-        private int id;
+    private int id;
 
     public Restaurant(String name, String location) {
        this.id=autoId;
@@ -61,8 +61,6 @@ public class Restaurant {
     public void setId(int id) {
         this.id = id;
     }
-
-   
 
     @Override
     public String toString() {

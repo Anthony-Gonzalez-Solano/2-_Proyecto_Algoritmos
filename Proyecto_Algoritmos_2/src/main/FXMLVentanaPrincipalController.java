@@ -251,17 +251,17 @@ public class FXMLVentanaPrincipalController implements Initializable {
 
     @FXML
     private void MI_Rep_Restaurantes_Supermercados(ActionEvent event) {
-        //loadPage(page);
+        loadPage("reportes/FXMLReporte__SupermercadosRestaurantes");
     }
 
     @FXML
     private void MI_Rep_Comidas_Productos(ActionEvent event) {
-        //loadPage(page);
+        loadPage("reportes/FXMLReporte_ProductosComidas");
     }
 
     @FXML
     private void MI_Rep_Busquedas(ActionEvent event) {
-        //loadPage(page);
+        loadPage("reportes/FXMLReporte_Historico");
     }
 
     private void loadPage(String page) {
