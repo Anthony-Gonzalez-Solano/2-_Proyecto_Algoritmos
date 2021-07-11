@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
@@ -48,12 +49,14 @@ public class FXMLMostrarProductosController implements Initializable {
             column3=new TableColumn<>("Lugar");
             column3.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().get(2)));
             column4=new TableColumn<>("ID");
-            column4.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().get(2)));
+            column4.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().get(3)));
             this.tableView.getColumns().addAll(column1,column2,column3,column4);
         try {
             preOrder();
         } catch (TreeException ex) {
-            Logger.getLogger(FXMLMostrarProductosController.class.getName()).log(Level.SEVERE, null, ex);
+            Alert a = new Alert(Alert.AlertType.INFORMATION);
+            a.setHeaderText("No hay productos para mostrar");
+            a.showAndWait();
         } catch (ListException ex) {
             Logger.getLogger(FXMLMostrarProductosController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -80,7 +83,7 @@ public class FXMLMostrarProductosController implements Initializable {
                 if(util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data instanceof Supermarket){
                 Supermarket s=(Supermarket)util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
                 if(s.getId()==p.getSupermarketID())
-                    list.add(s.getName());
+                    list.add(s.getLocation());
                 }
             }
             list.add(String.valueOf(p.getID()));

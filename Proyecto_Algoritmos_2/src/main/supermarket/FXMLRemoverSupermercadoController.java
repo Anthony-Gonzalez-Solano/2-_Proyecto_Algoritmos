@@ -5,10 +5,13 @@
  */
 package main.supermarket;
 
+import domain.Product;
 import domain.Supermarket;
 import domain.graph.GraphException;
 import domain.graph.Place;
 import domain.list.ListException;
+import domain.tree.BTreeNode;
+import domain.tree.TreeException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -54,7 +57,7 @@ public class FXMLRemoverSupermercadoController implements Initializable {
     }    
 
     @FXML
-    private void btnRemove(ActionEvent event) throws GraphException, ListException {
+    private void btnRemove(ActionEvent event) throws GraphException, ListException, TreeException {
         if (cBoxSupermarkets.getSelectionModel().isEmpty()) {
             Alert a = new Alert(Alert.AlertType.ERROR);
             a.setHeaderText("Debe seleccionar un restaurante para poder removerlo");
@@ -75,15 +78,50 @@ public class FXMLRemoverSupermercadoController implements Initializable {
                 if (util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data.getClass() == Supermarket.class){
                     Supermarket t=(Supermarket)util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
                     if(t.getName().equals(this.cBoxSupermarkets.getValue())){
+                        if(!(util.Utility.getTreeProducts().isEmpty())&&findProduct(t.getId())==true){
+                            Alert u = new Alert(Alert.AlertType.ERROR);
+                            u.setHeaderText("No ha podido ser removido porque existen productos ligados al supermercado");
+                            u.showAndWait();
+                        }else{
                          int x = cBoxSupermarkets.getSelectionModel().getSelectedIndex(); // tomamos el valor del indice
                          cBoxSupermarkets.getItems().remove(x); // se remueve
                         cBoxSupermarkets.getSelectionModel().clearSelection();//limpiamos el comboBox
                         util.Utility.getlGraphRestaurants_Supermarkets().removeVertex(t);
                         txt.removeElement("Restaurant_Supermarket.txt", t.toString());
+                        Alert u = new Alert(Alert.AlertType.INFORMATION);
+                            u.setHeaderText("Removido exitosamente");
+                            u.showAndWait();
+                        }
                     }
                 }
             }   
             }
+        }
+    }
+    public boolean isEmpty() {
+        return util.Utility.getTreeProducts().getRoot() == null;
+    }
+    
+    public boolean findProduct(int superID) throws TreeException {
+        if (isEmpty()) {
+            throw new TreeException("Binary Search Tree is empty");
+        }
+        return findProduct(util.Utility.getTreeProducts().getRoot(),superID);
+    }
+    
+    private boolean findProduct(BTreeNode node, int superID) {
+        
+        if(node==null)
+            return false;
+        else{
+            Product p = (Product)node.data;
+            if(p.getSupermarketID()==superID){
+                return true; //ya lo encontro
+            }else
+                if(util.Utility.lessT(superID, p.getSupermarketID()))
+                    return findProduct(node.left, superID);
+                else
+                    return findProduct(node.right, superID);
         }
     }
 }

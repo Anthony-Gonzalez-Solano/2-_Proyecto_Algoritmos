@@ -13,6 +13,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -44,12 +46,19 @@ public class FXMLModificarProductoController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         txt = new FileTXT(); // crear txt
+        txtFieldPrice.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                txtFieldPrice.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
         try {
             
                preOrder();
             
         } catch (TreeException ex) {
-            Logger.getLogger(FXMLModificarProductoController.class.getName()).log(Level.SEVERE, null, ex);
+            Alert a = new Alert(Alert.AlertType.INFORMATION);
+            a.setHeaderText("No hay productos para modificar");
+            a.showAndWait();
         }
     }    
 

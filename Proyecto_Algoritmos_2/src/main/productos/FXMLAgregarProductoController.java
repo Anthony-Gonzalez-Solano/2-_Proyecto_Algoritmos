@@ -13,6 +13,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -44,6 +45,11 @@ public class FXMLAgregarProductoController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         txt = new FileTXT(); // crear txt
+        txtFieldPrice.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                txtFieldPrice.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
         try {
             for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
                 Object a=util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;

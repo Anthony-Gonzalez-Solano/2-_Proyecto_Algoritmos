@@ -5,10 +5,13 @@
  */
 package main.supermarket;
 
+import domain.Product;
 import domain.Supermarket;
 import domain.graph.GraphException;
 import domain.graph.Place;
 import domain.list.ListException;
+import domain.tree.BTreeNode;
+import domain.tree.TreeException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -79,7 +82,9 @@ cBoxPlace.getItems().add("Ujarras");
                 }
             }
         Supermarket sT2=new Supermarket(txtFieldName.getText(), cBoxPlace.getValue());
+        int aux=sT.getId();
         util.Utility.getlGraphRestaurants_Supermarkets().removeVertex(sT);
+        sT2.setId(aux);
         util.Utility.getlGraphRestaurants_Supermarkets().addVertex(sT2);
         txt.modifyFile("Restaurant_Supermarket.txt", sT.toString(), sT2.toString());
         int x = cBoxSuperMarkets.getSelectionModel().getSelectedIndex(); // tomamos el valor del indice

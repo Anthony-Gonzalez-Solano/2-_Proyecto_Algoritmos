@@ -43,7 +43,9 @@ public class FXMLRemoverProductoController implements Initializable {
         try {
             preOrder();
         } catch (TreeException ex) {
-            Logger.getLogger(FXMLRemoverProductoController.class.getName()).log(Level.SEVERE, null, ex);
+            Alert a = new Alert(Alert.AlertType.INFORMATION);
+            a.setHeaderText("No hay productos para eliminar");
+            a.showAndWait();
         }
     }    
 
