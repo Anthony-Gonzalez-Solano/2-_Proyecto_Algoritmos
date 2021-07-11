@@ -206,22 +206,22 @@ public class FXMLVentanaPrincipalController implements Initializable {
 
     @FXML
     private void MI_Comida_Agregar(ActionEvent event) {
-        //loadPage(page);
+        loadPage("Comidas/FXMLAgregarComida");
     }
 
     @FXML
     private void MI_Comida_Modificar(ActionEvent event) {
-        //loadPage(page);
+        loadPage("Comidas/FXMLModificarComidas");
     }
 
     @FXML
     private void MI_Comida_Eliminar(ActionEvent event) {
-        //loadPage(page);
+        loadPage("Comidas/FXMLRemoverComida");
     }
 
     @FXML
     private void MI_Comida_Mostrar(ActionEvent event) {
-        //loadPage(page);
+      loadPage("Comidas/FXMLMostrarComidas");
     }
 
     @FXML
