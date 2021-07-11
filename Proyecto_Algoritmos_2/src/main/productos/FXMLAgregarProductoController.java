@@ -13,6 +13,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -20,6 +21,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import util.FileTXT;
 
 /**
  * FXML Controller class
@@ -27,7 +29,7 @@ import javafx.scene.control.TextField;
  * @author Adrian Ureña Moraga <Agitor Lucens V>
  */
 public class FXMLAgregarProductoController implements Initializable {
-
+    private util.FileTXT txt;
     @FXML
     private ComboBox<String> cBoxSuper;
     @FXML
@@ -42,6 +44,12 @@ public class FXMLAgregarProductoController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        txt = new FileTXT(); // crear txt
+        txtFieldPrice.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                txtFieldPrice.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
         try {
             for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
                 Object a=util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
@@ -64,7 +72,7 @@ public class FXMLAgregarProductoController implements Initializable {
                     c=(Supermarket)a;
                 if(c.getName().equals(cBoxSuper.getValue())){
                     sT=new Product(txtFieldName.getText(),Double.valueOf(this.txtFieldPrice.getText()),c.getId());
-                    if((util.Utility.getTreeProducts().contains(sT)))
+                    if(!util.Utility.getTreeProducts().isEmpty()&&(util.Utility.getTreeProducts().contains(sT)))
                         found=true;
                             }
                         }
@@ -80,15 +88,15 @@ public class FXMLAgregarProductoController implements Initializable {
             a.showAndWait();
        }else{
         Supermarket b=null;
-            if(util.Utility.getlGraphRestaurants_Supermarkets().isEmpty()){
+            if(util.Utility.getTreeProducts().isEmpty()){
                 for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
                 Object a=util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
-                if(a instanceof Supermarket)
+                if(a instanceof Supermarket){
                     b=(Supermarket)a;
                 if(b.getName().equals(cBoxSuper.getValue()))
                     util.Utility.getTreeProducts().add(new Product(txtFieldName.getText(),Double.valueOf(this.txtFieldPrice.getText()),b.getId()));
                     }
-        
+                }
             }else{
                 Product sT2=null;
                 for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
@@ -98,9 +106,16 @@ public class FXMLAgregarProductoController implements Initializable {
                 if(b.getName().equals(cBoxSuper.getValue())){
                     sT2=new Product(txtFieldName.getText(),Double.valueOf(this.txtFieldPrice.getText()),b.getId());
                     
-                    if(found==false)
-                        util.Utility.getTreeProducts().add(new Product(txtFieldName.getText(),Double.valueOf(this.txtFieldPrice.getText()),b.getId()));
-                        
+                    if(found==false){
+                        util.Utility.getTreeProducts().add(sT2);
+                    txtFieldName.setText("");
+                    txtFieldPrice.setText("");
+                    cBoxSuper.getSelectionModel().clearSelection();
+                    txt.writeFile("productos.txt", sT2.toString());
+                    Alert u = new Alert(Alert.AlertType.INFORMATION);
+                    u.setHeaderText("Producto ingresado existosamente");
+                    u.showAndWait();
+                    }
                             }
                         }
                     }

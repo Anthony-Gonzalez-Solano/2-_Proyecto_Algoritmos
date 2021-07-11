@@ -5,6 +5,7 @@
  */
 package main.supermarket;
 
+import domain.Restaurant;
 import domain.Supermarket;
 import domain.graph.GraphException;
 import domain.graph.Place;
@@ -45,6 +46,7 @@ public class FXMLAgregarSupermercadoController implements Initializable {
         //            for (int i = 0; i < util.Utility.getmGraphPlace().size(); i++) {
 //                this.cBoxPlace.getItems().add((Place)util.Utility.getmGraphPlace().getVertexByIndex(i).data);
 //            }
+        System.out.println(util.Utility.getmGraphPlace().toString());
     txt = new FileTXT(); // crear txt
     cBoxPlace.getItems().add("Cachi");
     cBoxPlace.getItems().add("Caballo Blanco");
@@ -61,8 +63,6 @@ public class FXMLAgregarSupermercadoController implements Initializable {
     @FXML
     private void btnAdd(ActionEvent event) throws GraphException, ListException {
         Supermarket t;
-        String c[]=null;
-        String d="";
         t=new Supermarket(txtFieldName.getText(),cBoxPlace.getValue());
         if (txtFieldName.getText().isEmpty() || cBoxPlace.getValue().equals("")) {//validaciones de campos vacios
             Alert a = new Alert(Alert.AlertType.INFORMATION);
@@ -84,17 +84,36 @@ public class FXMLAgregarSupermercadoController implements Initializable {
                 txtFieldName.setText("");
                 cBoxPlace.getSelectionModel().clearSelection();
             }else{
-                
-                Supermarket sT2=new Supermarket(txtFieldName.getText(),cBoxPlace.getValue());
-                util.Utility.getlGraphRestaurants_Supermarkets().addVertex(sT2);
-                txt.writeFile("Restaurant_Supermarket.txt", sT2.toString());
+                util.Utility.getlGraphRestaurants_Supermarkets().addVertex(t);
+                txt.writeFile("Restaurant_Supermarket.txt", t.toString());
                 Supermarket sT=null;
+                
+                 for (int j = 0; j < util.Utility.getlGraphRestaurants_Supermarkets().size(); j++) {
+                        if (util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(j).data.getClass() == Supermarket.class){
+                            sT=(Supermarket)util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(j).data;
+                                    if(!(sT.getName().equals(txtFieldName.getText()))&&!(sT.getLocation().equals(cBoxPlace.getValue())))
+                                        util.Utility.getlGraphRestaurants_Supermarkets().addEdge(t, sT);
+                            }   
+                        }
+                       
                 for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
-                    if (util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data.getClass() == Supermarket.class){
-                    sT=(Supermarket)util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
-                    if(!(sT.getName().equals(txtFieldName.getText()))&&!(sT.getLocation().equals(cBoxPlace.getValue())))
-                        util.Utility.getlGraphRestaurants_Supermarkets().addEdge(sT2, sT);
-                    }
+                    for (int j = 0; j < util.Utility.getlGraphRestaurants_Supermarkets().size(); j++) {
+                        if (util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(j).data.getClass() == Supermarket.class){
+                            sT=(Supermarket)util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(j).data;
+                            if(util.Utility.getlGraphRestaurants_Supermarkets().containsEdge(t,sT )){
+                            int i2 = util.Utility.getmGraphPlace().getIndexOfVertex(sT.getLocation());
+                                if ((int) util.Utility.getmGraphPlace().getAdjacencyMatrix()[i][i2] != 0) {
+                                    if(sT.getLocation().equals(t.getLocation())){
+                                       util.Utility.getlGraphRestaurants_Supermarkets().addWeight(util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data, util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(j).data, sT.getLocation() + "km"); 
+                                    }else{
+                                        int dist=(int)util.Utility.getmGraphPlace().getAdjacencyMatrix()[i][i2];
+                                        util.Utility.getlGraphRestaurants_Supermarkets().addWeight(util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data, util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(j).data, dist + "km"); 
+                                    }
+                                        
+                                }
+                            }   
+                        }
+                    }   
                 }
                 Alert a = new Alert(Alert.AlertType.INFORMATION);
                 a.setHeaderText("Supermercado ingresado correctamente");
@@ -107,3 +126,5 @@ public class FXMLAgregarSupermercadoController implements Initializable {
     }
     
 }
+    
+

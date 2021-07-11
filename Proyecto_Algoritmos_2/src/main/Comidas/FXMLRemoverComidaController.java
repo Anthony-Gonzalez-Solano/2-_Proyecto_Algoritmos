@@ -85,7 +85,7 @@ public class FXMLRemoverComidaController implements Initializable {
                         comboComidas.getItems().remove(x); // se remueve
                         comboComidas.getSelectionModel().clearSelection();//limpiamos el comboBox
                         Alert a2 = new Alert(Alert.AlertType.CONFIRMATION);
-                        a2.setHeaderText(" La comida " + comboComidas.getSelectionModel().getSelectedItem().getName() + "   ha sido eliminada correctamente");
+                        a2.setHeaderText(" La comida     ha sido eliminada correctamente");
                         a2.showAndWait();
                         util.Utility.getTreeFood().remove(f);
 

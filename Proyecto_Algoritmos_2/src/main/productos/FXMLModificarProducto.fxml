@@ -6,13 +6,12 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@../tema%20Oscuro.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16" fx:controller="main.productos.FXMLModificarProductoController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@../tema%20Oscuro.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.productos.FXMLModificarProductoController">
    <children>
       <ComboBox fx:id="cBoxProduct" layoutX="346.0" layoutY="30.0" prefHeight="33.0" prefWidth="209.0" promptText="Producto" />
       <TextField fx:id="txtFieldName" layoutX="70.0" layoutY="98.0" />
       <TextField fx:id="txtFieldPrice" layoutX="70.0" layoutY="210.0" />
-      <Button fx:id="btnModify" layoutX="223.0" layoutY="291.0" mnemonicParsing="false" onAction="#btnModify" prefHeight="58.0" prefWidth="155.0" text="Button" />
+      <Button fx:id="btnModify" layoutX="223.0" layoutY="291.0" mnemonicParsing="false" onAction="#btnModify" prefHeight="58.0" prefWidth="155.0" text="Modificar" />
       <Label layoutX="78.0" layoutY="63.0" text="Nombre" />
       <Label layoutX="78.0" layoutY="176.0" text="Precio" />
    </children>

@@ -20,6 +20,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import util.FileTXT;
 
 /**
  * FXML Controller class
@@ -38,10 +39,13 @@ public class FXMLRemoverProductoController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        txt = new FileTXT(); // crear txt
         try {
             preOrder();
         } catch (TreeException ex) {
-            Logger.getLogger(FXMLRemoverProductoController.class.getName()).log(Level.SEVERE, null, ex);
+            Alert a = new Alert(Alert.AlertType.INFORMATION);
+            a.setHeaderText("No hay productos para eliminar");
+            a.showAndWait();
         }
     }    
 
@@ -65,14 +69,13 @@ public class FXMLRemoverProductoController implements Initializable {
                     Optional<ButtonType> option = a.showAndWait();
                     if (option.get() == yes) {
                         txt.removeElement("productos.txt", p);
-                        int x = cBoxProducts.getSelectionModel().getSelectedIndex(); // tomamos el valor del indice
-                        cBoxProducts.getItems().remove(x); // se remueve
-                        cBoxProducts.getSelectionModel().clearSelection();//limpiamos el comboBox
                         Alert a2 = new Alert(Alert.AlertType.CONFIRMATION);
                         a2.setHeaderText(" El producto " + cBoxProducts.getValue() + "   ha sido eliminada correctamente");
                         a2.showAndWait();
                         util.Utility.getTreeProducts().remove(p);
-
+                        int x = cBoxProducts.getSelectionModel().getSelectedIndex(); // tomamos el valor del indice
+                        cBoxProducts.getItems().remove(x); // se remueve
+                        cBoxProducts.getSelectionModel().clearSelection();//limpiamos el comboBox
                     }
             }
         }
@@ -81,11 +84,11 @@ public class FXMLRemoverProductoController implements Initializable {
         if (isEmpty()) {
             throw new TreeException("Binary Search Tree is empty");
         }
-        return preOrder(util.Utility.getTreeFood().getRoot());
+        return preOrder(util.Utility.getTreeProducts().getRoot());
     }
     
     public boolean isEmpty() {
-        return util.Utility.getTreeFood().getRoot() == null;
+        return util.Utility.getTreeProducts().getRoot() == null;
     }
     
     private String preOrder(BTreeNode node) {
@@ -106,14 +109,14 @@ public class FXMLRemoverProductoController implements Initializable {
         if (isEmpty()) {
             throw new TreeException("Binary Search Tree is empty");
         }
-        return findProduct(util.Utility.getTreeFood().getRoot(),Name);
+        return findProduct(util.Utility.getTreeProducts().getRoot(),Name);
     }
     
-    private Product findProduct(BTreeNode node, String Name) {
-        Product p = (Product)node.data;
+    private Product findProduct(BTreeNode node, String Name) {  
         if(node==null)
             return null;
-        else
+        else{
+            Product p = (Product)node.data;
             if(p.getName().equals(Name)){
                 return p; //ya lo encontro
             }else
@@ -121,5 +124,6 @@ public class FXMLRemoverProductoController implements Initializable {
                     return findProduct(node.left, Name);
                 else
                     return findProduct(node.right, Name);
+        }
     }
 }

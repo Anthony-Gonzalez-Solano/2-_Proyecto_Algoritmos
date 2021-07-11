@@ -206,42 +206,42 @@ public class FXMLVentanaPrincipalController implements Initializable {
 
     @FXML
     private void MI_Comida_Agregar(ActionEvent event) {
-        //loadPage(page);
+        loadPage("Comidas/FXMLAgregarComida");
     }
 
     @FXML
     private void MI_Comida_Modificar(ActionEvent event) {
-        //loadPage(page);
+        loadPage("Comidas/FXMLModificarComidas");
     }
 
     @FXML
     private void MI_Comida_Eliminar(ActionEvent event) {
-        //loadPage(page);
+        loadPage("Comidas/FXMLRemoverComida");
     }
 
     @FXML
     private void MI_Comida_Mostrar(ActionEvent event) {
-        //loadPage(page);
+      loadPage("Comidas/FXMLMostrarComidas");
     }
 
     @FXML
     private void MI_Producto_Agregar(ActionEvent event) {
-        //loadPage(page);
+        loadPage("productos/FXMLAgregarProducto");
     }
 
     @FXML
     private void MI_Producto_Modificar(ActionEvent event) {
-        loadPage("supermarket/FXMLMostrarSupermercados");
+        loadPage("productos/FXMLModificarProducto");
     }
 
     @FXML
     private void MI_Producto_Eliminar(ActionEvent event) {
-        //loadPage(page);
+        loadPage("productos/FXMLRemoverProducto");
     }
 
     @FXML
     private void MI_Producto_Mostrar(ActionEvent event) {
-        //loadPage(page);
+        loadPage("productos/FXMLMostrarProductos");
     }
 
     @FXML

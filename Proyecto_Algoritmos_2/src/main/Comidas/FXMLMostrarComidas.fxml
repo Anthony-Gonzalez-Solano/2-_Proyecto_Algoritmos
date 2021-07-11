@@ -4,14 +4,13 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@../tema%20Oscuro.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16" fx:controller="main.Comidas.FXMLMostrarComidasController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@../tema%20Oscuro.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.Comidas.FXMLMostrarComidasController">
    <children>
-      <TableView fx:id="tableComidas" layoutX="19.0" prefHeight="358.0" prefWidth="563.0">
+      <TableView fx:id="tableViewComidas" prefHeight="377.0" prefWidth="572.0">
         <columns>
-          <TableColumn fx:id="colum0" prefWidth="130.0" text="Nombre" />
-          <TableColumn fx:id="colum1" prefWidth="90.0" text="Precio" />
-            <TableColumn fx:id="colum2" prefWidth="179.0" text="Restaurante" />
+          <TableColumn fx:id="columnaNombre" prefWidth="116.0" text="Nombre" />
+          <TableColumn fx:id="columnaPrecio" prefWidth="81.0" text="Precio" />
+            <TableColumn fx:id="columnaRestaurante" prefWidth="157.0" text="Restaurante" />
         </columns>
       </TableView>
    </children>
