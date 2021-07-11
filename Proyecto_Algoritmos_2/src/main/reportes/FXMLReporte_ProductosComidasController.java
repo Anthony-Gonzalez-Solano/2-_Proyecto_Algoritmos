@@ -149,14 +149,24 @@ public class FXMLReporte_ProductosComidasController implements Initializable {
         if (util.Utility.getTreeProducts().isEmpty() == true) {
             content += "No hay productos agregados por el momento\n";
         } else {
+            Supermarket sp=null;
             for (int k = 1; k <= finalListProduct.size(); k++) {
                 prod = (Product) finalListProduct.getNode(k).data;
-                tableProd.addCell(String.valueOf(product.getID()));
-                tableProd.addCell(product.getName());
-                tableProd.addCell(String.valueOf(product.getPrice()));
-                tableProd.addCell(supermarket.getName());//tengo dudas
+                tableProd.addCell(String.valueOf(prod.getID()));
+                tableProd.addCell(prod.getName());
+                tableProd.addCell(String.valueOf(prod.getPrice()));
+                for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
+                    if(util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data instanceof Supermarket){
+                        sp=(Supermarket)util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
+                            if(sp.getId()==prod.getSupermarketID())
+                                tableProd.addCell(sp.getName());//se agrega nombre de super
+                    }
+                }
+                
             }//for restaurant
+            tableProd.completeRow();//las tablas hechas en itext ignoran filas que no esten completas
             document.add(tableProd);
+            
             if (found == false) {
                 //si no tiene productos se pone este mensaje
                 content += "No hay registro de productos\n";

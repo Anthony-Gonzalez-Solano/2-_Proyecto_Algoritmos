@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.BorderPane?>
 
 
-<AnchorPane id="AnchorPane" fx:id="ap" prefHeight="572.0" prefWidth="1010.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16" fx:controller="main.reportes.FXMLReporteController">
+<AnchorPane id="AnchorPane" fx:id="ap" prefHeight="572.0" prefWidth="1010.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16" fx:controller="main.reportes.FXMLReporte_ProductosComidasController">
    <children>
       <BorderPane fx:id="bp" layoutY="18.0" prefHeight="534.0" prefWidth="992.0" />
    </children>

@@ -236,7 +236,6 @@ public class FXMLReporte_HistoricoController implements Initializable {
         }
 
     }
-
     private void openDocument(String document) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override

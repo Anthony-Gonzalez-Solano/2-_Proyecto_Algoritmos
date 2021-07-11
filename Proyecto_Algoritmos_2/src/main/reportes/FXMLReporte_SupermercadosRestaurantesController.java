@@ -140,14 +140,15 @@ public class FXMLReporte_SupermercadosRestaurantesController implements Initiali
         if (util.Utility.getlGraphRestaurants_Supermarkets().isEmpty() == true) {
             content += "No hay supermercados ni restaurantes agregados por el momento\n";
         } else {
-            for (int k = 1; k <= util.Utility.getlGraphRestaurants_Supermarkets().size(); k++) {
+            for (int k = 0; k < util.Utility.getlGraphRestaurants_Supermarkets().size(); k++) {
+                if(util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(k).data instanceof Restaurant){
                 rest = (Restaurant) util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(k).data;
-                tableRest.addCell(String.valueOf(restaurant.getId()));
-                tableRest.addCell(restaurant.getName());
-                tableRest.addCell(restaurant.getLocation());
+                tableRest.addCell(String.valueOf(rest.getId()));
+                tableRest.addCell(rest.getName());
+                tableRest.addCell(rest.getLocation());
                 //content += "\n" + rest.getAutoId() + " " + rest.getName() + " " + rest.getLocation() + " " /*+ rest.getId() + " "*/ + "\n";
-                for (int i = 1; i <= util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
-                    sup = (Supermarket) util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
+                }else{
+                    sup = (Supermarket) util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(k).data;
                     tableSuper.addCell(String.valueOf(supermarket.getId()));
                     tableSuper.addCell(supermarket.getName());
                     tableSuper.addCell(supermarket.getLocation());
