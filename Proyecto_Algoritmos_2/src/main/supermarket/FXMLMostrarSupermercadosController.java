@@ -49,13 +49,17 @@ public class FXMLMostrarSupermercadosController implements Initializable {
     }
         try {
             Supermarket s=null;
-            for (int i = 1; i <= util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
+            for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
                 List list = new ArrayList(); 
+                 if (util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data.getClass() == Supermarket.class) {
+                 //recorremos la lista y casteamos para agregar los datos de la lista a la tabla
+               
                 s=(Supermarket) util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
                 list.add(s.getName());
                 list.add(s.getLocation());
-                list.add(s.getId());
+                list.add(String.valueOf(s.getId()));
                 tableView.getItems().add(list);
+                 }
             }   } catch (ListException ex) {
             Logger.getLogger(FXMLMostrarSupermercadosController.class.getName()).log(Level.SEVERE, null, ex);
         }

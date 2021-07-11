@@ -21,6 +21,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import util.FileTXT;
 
 /**
  * FXML Controller class
@@ -28,48 +29,81 @@ import javafx.scene.layout.AnchorPane;
  * @author Adrian Ureña Moraga <Agitor Lucens V>
  */
 public class FXMLAgregarSupermercadoController implements Initializable {
-
+    private util.FileTXT txt;
     @FXML
     private Button btnAdd;
     @FXML
     private TextField txtFieldName;
     @FXML
-    private ComboBox<Place> cBoxPlace;
+    private ComboBox<String> cBoxPlace;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        try {
-            for (int i = 0; i < util.Utility.getmGraphPlace().size(); i++) {
-                this.cBoxPlace.getItems().add((Place)util.Utility.getmGraphPlace().getVertexByIndex(i).data);
-            }
-        } catch (ListException ex) {
-            Logger.getLogger(FXMLAgregarSupermercadoController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        //            for (int i = 0; i < util.Utility.getmGraphPlace().size(); i++) {
+//                this.cBoxPlace.getItems().add((Place)util.Utility.getmGraphPlace().getVertexByIndex(i).data);
+//            }
+    txt = new FileTXT(); // crear txt
+    cBoxPlace.getItems().add("Cachi");
+    cBoxPlace.getItems().add("Caballo Blanco");
+    cBoxPlace.getItems().add("Cartago");
+    cBoxPlace.getItems().add("Cervantes");
+    cBoxPlace.getItems().add("Orosi");
+    cBoxPlace.getItems().add("Paraiso");
+    cBoxPlace.getItems().add("Santa Rosa");
+    cBoxPlace.getItems().add("Tierra Blanca");
+    cBoxPlace.getItems().add("Turrialba");
+    cBoxPlace.getItems().add("Ujarras");
     }    
 
     @FXML
     private void btnAdd(ActionEvent event) throws GraphException, ListException {
+        Supermarket t;
+        String c[]=null;
+        String d="";
+        t=new Supermarket(txtFieldName.getText(),cBoxPlace.getValue());
         if (txtFieldName.getText().isEmpty() || cBoxPlace.getValue().equals("")) {//validaciones de campos vacios
             Alert a = new Alert(Alert.AlertType.INFORMATION);
             a.setHeaderText("No debe dejar campos vacios");
             a.showAndWait();
         }else{
-            if(util.Utility.getlGraphRestaurants_Supermarkets().isEmpty())
-        util.Utility.getlGraphRestaurants_Supermarkets().addVertex(new Supermarket(txtFieldName.getText(),cBoxPlace.getValue().getName()));
-            else{
-                util.Utility.getlGraphRestaurants_Supermarkets().addVertex(new Supermarket(txtFieldName.getText(),cBoxPlace.getValue().getName()));
-                Supermarket sT2=new Supermarket(txtFieldName.getText(),cBoxPlace.getValue().getName());
+            if(!util.Utility.getlGraphRestaurants_Supermarkets().isEmpty()&&util.Utility.getlGraphRestaurants_Supermarkets().containsVertex(t)){
+                Alert a = new Alert(Alert.AlertType.INFORMATION);
+            a.setHeaderText("Supermercado ya existe");
+            a.showAndWait();
+            }else{
+            if(util.Utility.getlGraphRestaurants_Supermarkets().isEmpty()){
+                
+                util.Utility.getlGraphRestaurants_Supermarkets().addVertex(t);
+                txt.writeFile("Restaurant_Supermarket.txt", t.toString());
+                Alert a = new Alert(Alert.AlertType.INFORMATION);
+                a.setHeaderText("Supermercado ingresado correctamente");
+                a.showAndWait();
+                txtFieldName.setText("");
+                cBoxPlace.getSelectionModel().clearSelection();
+            }else{
+                
+                Supermarket sT2=new Supermarket(txtFieldName.getText(),cBoxPlace.getValue());
+                util.Utility.getlGraphRestaurants_Supermarkets().addVertex(sT2);
+                txt.writeFile("Restaurant_Supermarket.txt", sT2.toString());
                 Supermarket sT=null;
-                for (int i = 1; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
+                for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
+                    if (util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data.getClass() == Supermarket.class){
                     sT=(Supermarket)util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
-                    if(!(sT.getName().equals(txtFieldName.getText()))&&!(sT.getLocation().equals(cBoxPlace.getValue().getName())))
+                    if(!(sT.getName().equals(txtFieldName.getText()))&&!(sT.getLocation().equals(cBoxPlace.getValue())))
                         util.Utility.getlGraphRestaurants_Supermarkets().addEdge(sT2, sT);
+                    }
+                }
+                Alert a = new Alert(Alert.AlertType.INFORMATION);
+                a.setHeaderText("Supermercado ingresado correctamente");
+                a.showAndWait();
+                txtFieldName.setText("");
+                cBoxPlace.getSelectionModel().clearSelection();
                 }
             }
-    }
+        }
     }
     
 }

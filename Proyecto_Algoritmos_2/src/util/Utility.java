@@ -107,7 +107,14 @@ public class Utility {
                 Vertex v1 =(Vertex) a;
                 Vertex v2 =(Vertex) b;
                 return equals(v1.data, v2.data);
-            
+            case "supermarket":
+                Supermarket sp1 = (Supermarket) a;
+                Supermarket sp2 = (Supermarket) b;
+                return sp1.getName().equals(sp2.getName())&&sp1.getLocation().equals(sp2.getLocation());
+            case "restaurant":
+                Restaurant r1 = (Restaurant) a;
+                Restaurant r2 = (Restaurant) b;
+                return r1.getName().equals(r2.getName())&&r1.getLocation().equals(r2.getLocation());
         }
 
         return false; //en cualquier otro caso
@@ -144,7 +151,9 @@ public class Utility {
         if (a instanceof Restaurant && b instanceof Restaurant) {
             return "restaurant";
         }
-
+        if (a instanceof Supermarket && b instanceof Supermarket) {
+            return "supermarket";
+        }
         return "unknown"; //desconocido
     }
 
@@ -291,7 +300,7 @@ public class Utility {
         ArrayList<String> list = new ArrayList<>();
 
         if (file.existFile("Restaurant_Supermarket.txt")) {
-            list = file.readFile("a.txt");
+            list = file.readFile("Restaurant_Supermarket.txt");
             for (int i = 0; i < list.size(); i++) {
                 String[] datos = list.get(i).split(",");
                 if(datos.length==4){
@@ -320,13 +329,8 @@ public class Utility {
                 getUsers().add(new Security(datos[0], desBinaryCodify(datos[1])));
             }
         }
-        if (file.existFile("Supermarket.txt")) {
-            list = file.readFile("Supermarket.txt");
-            for (int i = 0; i < list.size(); i++) {
-                String[] datos = list.get(i).split(",");
-                getlGraphRestaurants_Supermarkets().addVertex(new Supermarket(datos[0], datos[1]));;
-            }
-        }
+        
+        
     }
 
     public static String binaryCodify(String dato) { //codifica un string
