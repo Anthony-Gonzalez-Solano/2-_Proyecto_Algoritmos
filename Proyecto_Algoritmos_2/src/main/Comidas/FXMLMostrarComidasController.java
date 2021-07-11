@@ -6,7 +6,9 @@
 package main.Comidas;
 
 import domain.Food;
+import domain.Product;
 import domain.Restaurant;
+import domain.Supermarket;
 import domain.list.ListException;
 import domain.tree.BTreeNode;
 import domain.tree.TreeException;
@@ -35,23 +37,28 @@ public class FXMLMostrarComidasController implements Initializable {
 
     @FXML
     private TableView<List<String>> tableViewComidas;
+
     @FXML
-    private TableColumn<List<String>, String> columnaNombre;
+    private TableColumn<List<String>, String> colum0;
     @FXML
-    private TableColumn<List<String>, String> columnaPrecio;
+    private TableColumn<List<String>, String>colum1;
     @FXML
-    private TableColumn<List<String>, String> columnaRestaurante;
+    private TableColumn<List<String>, String>colum2;
+   
 
     /**
      * Initializes the controller class. NO LISTA TODAVIA
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+       
+        colum0.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().get(0)));
+    
+        colum1.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().get(1)));
 
-        columnaNombre.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().get(0)));
-        columnaPrecio.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().get(1)));
-        columnaRestaurante.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().get(2)));
-//
+        colum2.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().get(2)));
+        
+
 //        this.tableViewComidas.getColumns().add(columnaNombre);
 //        this.tableViewComidas.getColumns().add(columnaPrecio);
 //        this.tableViewComidas.getColumns().add(columnaRestaurante);
@@ -65,13 +72,13 @@ public class FXMLMostrarComidasController implements Initializable {
         }
     }
 
-    public String preOrder() throws TreeException, ListException {
+    public void preOrder() throws TreeException, ListException {
         if (isEmpty()) {
-          Alert a = new Alert(Alert.AlertType.INFORMATION);
+            Alert a = new Alert(Alert.AlertType.INFORMATION);
             a.setHeaderText("No hay comidas agregados. Por favor ingrese una comida primero");
             a.showAndWait();
         }
-        return preOrder(util.Utility.getTreeFood().getRoot());
+        preOrder(util.Utility.getTreeFood().getRoot());
     }
 
     public boolean isEmpty() {
@@ -79,24 +86,29 @@ public class FXMLMostrarComidasController implements Initializable {
     }
 
     private String preOrder(BTreeNode node) throws ListException {
+
         String result = "";
         list = new ArrayList();
         if (node != null) {
             Food f = (Food) node.data;
-            list.add(f.getName());                                         
-            list.add(f.getPrice() + "");
+            list.add(f.getName());
+            list.add(f.getPrice()+"");
+       
             for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
-                if (util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data.getClass() == Restaurant.class) {
-                    Restaurant r = (Restaurant) util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
-                    if (r.getId() == f.getRestaurantID()) {
-                        list.add(r.getName());
+                if (util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data.getClass()== Restaurant.class) {
+                    Restaurant s = (Restaurant) util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
+                    if (s.getId() == f.getRestaurantID()) {
+                        list.add(s.getName());
                     }
                 }
             }
-            tableViewComidas.getItems().add(list);//se llena la talba
+            if(list.size()==3){
+            tableViewComidas.getItems().add(list);//se llena la tabla
+            }
             preOrder(node.left);
             preOrder(node.right);
         }
         return result;
     }
+
 }

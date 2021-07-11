@@ -7,11 +7,10 @@
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@../tema%20Oscuro.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.Comidas.FXMLMostrarComidasController">
    <children>
       <TableView fx:id="tableViewComidas" prefHeight="377.0" prefWidth="572.0">
-        <columns>
-          <TableColumn fx:id="columnaNombre" prefWidth="116.0" text="Nombre" />
-          <TableColumn fx:id="columnaPrecio" prefWidth="81.0" text="Precio" />
-            <TableColumn fx:id="columnaRestaurante" prefWidth="157.0" text="Restaurante" />
-        </columns>
-      </TableView>
+         <columns>
+            <TableColumn fx:id="colum0" prefWidth="173.0" text="Nombre" />
+            <TableColumn fx:id="colum1" prefWidth="97.0" text="Precio" />
+            <TableColumn fx:id="colum2" prefWidth="156.0" text="Restaurante" />
+         </columns></TableView>
    </children>
 </AnchorPane>

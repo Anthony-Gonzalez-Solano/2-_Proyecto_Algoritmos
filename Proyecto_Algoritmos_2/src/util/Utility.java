@@ -179,6 +179,11 @@ public class Utility {
                 Product p1 = (Product) a;
                 Product p2 = (Product) b;
                 return p1.getName().compareToIgnoreCase(p2.getName()) < 0;
+            case "food":
+                Food f1 = (Food) a;
+                Food f2 = (Food) b;
+                return f1.getName().compareToIgnoreCase(f2.getName()) < 0;
+
         }
         return false; //en cualquier otro caso
     }
@@ -201,6 +206,10 @@ public class Utility {
                 Product p1 = (Product) a;
                 Product p2 = (Product) b;
                 return p1.getName().compareToIgnoreCase(p2.getName()) > 0;
+            case "food":
+                Food f1 = (Food) a;
+                Food f2 = (Food) b;
+                return f1.getName().compareToIgnoreCase(f2.getName()) > 0;
         }
         return false; //en cualquier otro caso
     }
@@ -361,7 +370,6 @@ public class Utility {
             }
         }
     }
-    
 
     public static String binaryCodify(String dato) { //codifica un string
         String code = "";

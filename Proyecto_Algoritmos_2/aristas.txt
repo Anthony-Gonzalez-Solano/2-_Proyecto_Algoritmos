@@ -1,0 +1,22 @@
+ADJACENCY LIST GRAPH CONTENT...
+The vertex in the position: 0 is: gfrrf
+....EDGES AND WEIGHTS:SINGLY LINKED LIST
+Edge=gfrrf. Weight=5km
+Edge=gfrrf
+Edge=MINITA. Weight=25km
+Edge=saddddddddddddd. Weight=10km
+
+The vertex in the position: 1 is: MINITA
+....EDGES AND WEIGHTS:SINGLY LINKED LIST
+Edge=gfrrf. Weight=25km
+Edge=MINITA. Weight=35km
+Edge=MINITA
+Edge=saddddddddddddd. Weight=23km
+
+The vertex in the position: 2 is: saddddddddddddd
+....EDGES AND WEIGHTS:SINGLY LINKED LIST
+Edge=gfrrf. Weight=10km
+Edge=MINITA. Weight=23km
+Edge=saddddddddddddd. Weight=1km
+Edge=saddddddddddddd
+

@@ -5,9 +5,12 @@
  */
 package main.restaurant;
 
+import domain.Food;
 import domain.Restaurant;
 import domain.graph.GraphException;
 import domain.list.ListException;
+import domain.tree.BTreeNode;
+import domain.tree.TreeException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -31,7 +34,7 @@ public class FXMLRemoverRestauranteController implements Initializable {
 
     private util.FileTXT txt;
     @FXML
-    private ComboBox<Restaurant> comboRestaurantes;
+    private ComboBox<String> comboRestaurantes;
     @FXML
     private Button btnRemover;
 
@@ -45,71 +48,107 @@ public class FXMLRemoverRestauranteController implements Initializable {
         try {
 
             for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
-
-                comboRestaurantes.getItems().add((Restaurant) util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data);
-            } //recorremos la lista de carreras para agregarlas al comboBox, para poder suprimirlas
-
+                if (util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data.getClass() == Restaurant.class) {
+                    Restaurant t = (Restaurant) util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
+                    this.comboRestaurantes.getItems().add(t.getName());
+                }
+            }
         } catch (ListException ex) {
             Alert a = new Alert(Alert.AlertType.ERROR);
             a.setHeaderText("Lista vacia");
             a.showAndWait();
         }
+
     }
 
     @FXML
     private void btnRemover(ActionEvent event) {
-        boolean exist = false;
+
         if (comboRestaurantes.getSelectionModel().isEmpty()) {
             Alert a = new Alert(Alert.AlertType.ERROR);
             a.setHeaderText("Debe seleccionar un restaurante para poder removerlo");
             a.showAndWait();
         } else {
-            try {
-                Restaurant r = new Restaurant(comboRestaurantes.getSelectionModel().getSelectedItem().getName(), comboRestaurantes.getSelectionModel().getSelectedItem().getLocation());
-                for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
-                    Restaurant r2 = (Restaurant) util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
-                    if (r2.getClass() == Restaurant.class) {
-                        if (r2.equals(r)) {
-                            r = (Restaurant) util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
+            Alert a = new Alert(Alert.AlertType.INFORMATION);
+            a.setHeaderText("¿Esta seguro que quiere remover el restaurante: " + comboRestaurantes.getSelectionModel().getSelectedItem() + "?");
+            ButtonType yes = new ButtonType("Si");
+            ButtonType no = new ButtonType("No");
+            a.getButtonTypes().clear();
+            a.getButtonTypes().addAll(yes, no);
+            Optional<ButtonType> option = a.showAndWait();
+            if (option.get() == yes) {
+                try {
+                    for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
+                        if (util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data.getClass() == Restaurant.class) {
+                            Restaurant t = (Restaurant) util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
+                            if (t.getName().equals(this.comboRestaurantes.getValue())) {
+                                if (!(util.Utility.getTreeFood().isEmpty()) && findProduct(t.getId()) == true) {
+                                    Alert u = new Alert(Alert.AlertType.ERROR);
+                                    u.setHeaderText("No ha podido ser removido porque existen comidas ligadas al restaurante");
+                                    u.showAndWait();
+                                } else {
+                                    int x = comboRestaurantes.getSelectionModel().getSelectedIndex(); // tomamos el valor del indice
+                                    comboRestaurantes.getItems().remove(x); // se remueve
+                                    comboRestaurantes.getSelectionModel().clearSelection();//limpiamos el comboBox
+                                    txt.removeElement("Restaurant_Supermarket.txt", t.secondToString());
+                                    util.Utility.getlGraphRestaurants_Supermarkets().removeVertex(t);
+
+                                    Alert u = new Alert(Alert.AlertType.INFORMATION);
+                                    u.setHeaderText("El restaurante ha sido eliminado correctamente");
+                                    u.showAndWait();
+                                }
+                            }
                         }
                     }
+                } catch (ListException es) {
+                    Alert a5 = new Alert(Alert.AlertType.ERROR);
+                    a5.setHeaderText("La lista de restaurantes esta vacia");
+                    a5.showAndWait();
+                } catch (GraphException ex) {
+                    Logger.getLogger(FXMLRemoverRestauranteController.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (TreeException ex) {
+                    Logger.getLogger(FXMLRemoverRestauranteController.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                Alert a = new Alert(Alert.AlertType.INFORMATION);
-                a.setHeaderText("¿Esta seguro que quiere remover el restaurante: " + comboRestaurantes.getSelectionModel().getSelectedItem().getName() + "?");
-                ButtonType yes = new ButtonType("Si");
-                ButtonType no = new ButtonType("No");
-                a.getButtonTypes().clear();
-                a.getButtonTypes().addAll(yes, no);
-
-                Optional<ButtonType> option = a.showAndWait();
-                if (option.get() == yes) {
-                    try {
-                        util.Utility.getlGraphRestaurants_Supermarkets().removeVertex(r);
-                        txt.removeElement("Restaurant_Supermarket.txt", comboRestaurantes.getSelectionModel().getSelectedItem().secondToString());
-                        int x = comboRestaurantes.getSelectionModel().getSelectedIndex(); // tomamos el valor del indice
-                        comboRestaurantes.getItems().remove(x); // se remueve
-                        comboRestaurantes.getSelectionModel().clearSelection();//limpiamos el comboBox
-
-                        Alert a2 = new Alert(Alert.AlertType.CONFIRMATION);
-                        a2.setHeaderText(" El restaurante  ha sido eliminado correctamente");
-                        a2.showAndWait();
-                    } catch (GraphException | ListException ex) {
-                        Logger.getLogger(FXMLRemoverRestauranteController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-            } catch (ListException es) {
-                Alert a = new Alert(Alert.AlertType.ERROR);
-                a.setHeaderText("La lista de restaurantes esta vacia");
-                a.showAndWait();
             }
+
         }
     }
 
     @FXML
-    private void comboRestaurantes(ActionEvent event) {
+    private void comboRestaurantes(ActionEvent event
+    ) {
         if (comboRestaurantes.getSelectionModel().getSelectedIndex() != -1) {
 
         }
 
+    }
+
+    public boolean findProduct(int superID) throws TreeException {
+        if (isEmpty()) {
+            Alert a5 = new Alert(Alert.AlertType.ERROR);
+            a5.setHeaderText("El arbol esta vacio");
+            a5.showAndWait();
+        }
+        return findProduct(util.Utility.getTreeFood().getRoot(), superID);
+    }
+
+    private boolean findProduct(BTreeNode node, int restaurantID) {
+
+        if (node == null) {
+            return false;
+        } else {
+            Food p = (Food) node.data;
+            if (p.getRestaurantID() == restaurantID) {
+                return true; //ya lo encontro
+            } else if (util.Utility.lessT(restaurantID, p.getRestaurantID())) {
+                return findProduct(node.left, restaurantID);
+            } else {
+                return findProduct(node.right, restaurantID);
+            }
+        }
+    }
+
+    public boolean isEmpty() {
+        return util.Utility.getTreeFood().getRoot() == null;
     }
 }
