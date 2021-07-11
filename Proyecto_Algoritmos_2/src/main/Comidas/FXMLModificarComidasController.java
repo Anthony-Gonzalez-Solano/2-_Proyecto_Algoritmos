@@ -18,6 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import util.FileTXT;
 
@@ -53,6 +54,10 @@ public class FXMLModificarComidasController implements Initializable {
 
     @FXML
     private void comboComidas(ActionEvent event) {
+        if(comboComidas.getSelectionModel().getSelectedIndex()!=1){
+            textFieldNombre.setText(comboComidas.getSelectionModel().getSelectedItem().getName());
+            textFieldPrecio.setText( comboComidas.getSelectionModel().getSelectedItem().getPrice()+"");
+        }
     }
 
     @FXML
@@ -65,9 +70,10 @@ public class FXMLModificarComidasController implements Initializable {
 
             try {
                 Food f = new Food(textFieldNombre.getText(), Double.valueOf(textFieldPrecio.getText()), comboComidas.getSelectionModel().getSelectedItem().getRestaurantID());
+                
                 txt.modifyFile("comidas.txt", comboComidas.getSelectionModel().getSelectedItem().secondToString(), f.secondToString());// se modifica el archivo
-                if (util.Utility.getTreeFood().contains(comboComidas.getSelectionModel().getSelectedItem().secondToString()) == true) {
-                    util.Utility.getTreeFood().remove(comboComidas.getSelectionModel().getSelectedItem().secondToString());
+                if (util.Utility.getTreeFood().contains(comboComidas.getSelectionModel().getSelectedItem()) == true) {
+                    util.Utility.getTreeFood().remove(comboComidas.getSelectionModel().getSelectedItem());
                     util.Utility.getTreeFood().add(f);
                     int x = comboComidas.getSelectionModel().getSelectedIndex(); // tomamos el valor del indice
                     comboComidas.getItems().remove(x); // se remueve
@@ -77,11 +83,10 @@ public class FXMLModificarComidasController implements Initializable {
                     textFieldPrecio.setText("");
 
                     Alert a = new Alert(Alert.AlertType.CONFIRMATION);
-                    a.setHeaderText("La comida ha sido mofificada correctamente");
+                    a.setHeaderText("La comida ha sido modificada correctamente");
                     a.showAndWait();
-                    textFieldNombre.setVisible(false);
-                    btnModificar.setVisible(false);
-                    textFieldPrecio.setVisible(false);
+
+                    
                 }
             } catch (TreeException ex) {
                 Logger.getLogger(FXMLModificarComidasController.class.getName()).log(Level.SEVERE, null, ex);

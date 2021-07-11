@@ -100,21 +100,25 @@ public class Utility {
                 EdgeWeight ew2 = (EdgeWeight) b;
                 return equals(ew1.getEdge(), ew2.getEdge());
             case "product":
-                Product p1 =(Product) a;
-                Product p2 =(Product) b;
-                return p1.getName().equals(p2.getName())&&p1.getPrice()==p2.getPrice()&&p1.getID()==p2.getID()&&p1.getSupermarketID()==p2.getSupermarketID();
+                Product p1 = (Product) a;
+                Product p2 = (Product) b;
+                return p1.getName().equals(p2.getName()) && p1.getPrice() == p2.getPrice() && p1.getID() == p2.getID() && p1.getSupermarketID() == p2.getSupermarketID();
             case "vertex":
-                Vertex v1 =(Vertex) a;
-                Vertex v2 =(Vertex) b;
+                Vertex v1 = (Vertex) a;
+                Vertex v2 = (Vertex) b;
                 return equals(v1.data, v2.data);
             case "supermarket":
                 Supermarket sp1 = (Supermarket) a;
                 Supermarket sp2 = (Supermarket) b;
-                return sp1.getName().equals(sp2.getName())&&sp1.getLocation().equals(sp2.getLocation());
+                return sp1.getName().equals(sp2.getName()) && sp1.getLocation().equals(sp2.getLocation());
             case "restaurant":
                 Restaurant r1 = (Restaurant) a;
                 Restaurant r2 = (Restaurant) b;
-                return r1.getName().equals(r2.getName())&&r1.getLocation().equals(r2.getLocation());
+                return r1.getName().equals(r2.getName()) && r1.getLocation().equals(r2.getLocation());
+            case "food":
+                Food f1 = (Food) a;
+                Food f2 = (Food) b;
+                return f1.getName().equalsIgnoreCase(f2.getName()) && f1.getRestaurantID() == (f2.getRestaurantID());
         }
 
         return false; //en cualquier otro caso
@@ -168,12 +172,12 @@ public class Utility {
                 String s2 = (String) b;
                 return s1.compareToIgnoreCase(s2) < 0;
             case "double":
-                Double d1 =(Double) a;
-                Double d2 =(Double) b;
+                Double d1 = (Double) a;
+                Double d2 = (Double) b;
                 return d1 < d2;
             case "product":
-                Product p1 =(Product) a;
-                Product p2 =(Product) b;
+                Product p1 = (Product) a;
+                Product p2 = (Product) b;
                 return p1.getName().compareToIgnoreCase(p2.getName()) < 0;
         }
         return false; //en cualquier otro caso
@@ -190,44 +194,53 @@ public class Utility {
                 String s2 = (String) b;
                 return s1.compareToIgnoreCase(s2) > 0;
             case "double":
-                Double d1 =(Double)a;
+                Double d1 = (Double) a;
                 Double d2 = (Double) b;
                 return d1 > d2;
             case "product":
-                Product p1 =(Product) a;
-                Product p2 =(Product) b;
+                Product p1 = (Product) a;
+                Product p2 = (Product) b;
                 return p1.getName().compareToIgnoreCase(p2.getName()) > 0;
         }
         return false; //en cualquier otro caso
     }
 
     public static boolean checkPass(String pass) {
-        boolean number=false;
-        boolean leeterG=false;
-        boolean leeterL=false;
-        boolean sings=false;
+        boolean number = false;
+        boolean leeterG = false;
+        boolean leeterL = false;
+        boolean sings = false;
 
-        if(pass.length()<8) // verifica que la clave tenga el tamaño minimo
+        if (pass.length() < 8) // verifica que la clave tenga el tamaño minimo
+        {
             return false;
+        }
 
         for (int i = 0; i < pass.length(); i++) {
             int x = pass.charAt(i);
 
             if ((47 < x && x < 58)) // Verifica si tiene numeros
-                number=true;
-            if ((64 < x && x < 91)) // Verifica si tiene Letras Mayusculas
-                leeterG=true;
-            if ((96 < x && x < 123)) // Verifica si tiene Letras Minusculas
-                leeterL=true;
-            if ((32 < x && x < 44)) // Verifica si tiene Signos
-                sings=true;
+            {
+                number = true;
             }
+            if ((64 < x && x < 91)) // Verifica si tiene Letras Mayusculas
+            {
+                leeterG = true;
+            }
+            if ((96 < x && x < 123)) // Verifica si tiene Letras Minusculas
+            {
+                leeterL = true;
+            }
+            if ((32 < x && x < 44)) // Verifica si tiene Signos
+            {
+                sings = true;
+            }
+        }
 
         return number && leeterG && leeterL && sings;
     }
 
     //-------------------------------------------Metodos para las listas -------------------------------------------------------
-    
     private static CircularLinkedList listUsers = new CircularLinkedList();
     private static AdjacencyMatrixGraph mGraphPlace = new AdjacencyMatrixGraph(20);
     private static AdjacencyListGraph lGraphRestaurants_Supermarkets = new AdjacencyListGraph(50);
@@ -290,8 +303,6 @@ public class Utility {
         Utility.listPlaces = listPlaces;
     }
 
-    
-
 //    private static Student introStudent = null;
 //    public static void setIntro(Student s){introStudent = s;}
 //    public static Student getIntro(){return introStudent;}
@@ -303,23 +314,24 @@ public class Utility {
             list = file.readFile("Restaurant_Supermarket.txt");
             for (int i = 0; i < list.size(); i++) {
                 String[] datos = list.get(i).split(",");
-                if(datos.length==4){
-                    if(datos[0].equals("restaurant")){
+                if (datos.length == 4) {
+                    if (datos[0].equals("restaurant")) {
                         Restaurant obj = new Restaurant(datos[1], datos[2], Integer.parseInt(datos[3]));
-                        obj.setAutoId(Integer.parseInt(datos[3]));
+                        obj.setAutoId(Integer.parseInt(datos[3]) + 1);
                         lGraphRestaurants_Supermarkets.addVertex(obj);
-                    }else{
+                    } else {
                         Supermarket obj = new Supermarket(datos[1], datos[2], Integer.parseInt(datos[3]));
-                        obj.setAutoID(Integer.parseInt(datos[3]));
+                        obj.setAutoID(Integer.parseInt(datos[3]) + 1);
                         lGraphRestaurants_Supermarkets.addVertex(obj);
                     }
-                }else{
+                } else {
                     lGraphRestaurants_Supermarkets.addEdge(lGraphRestaurants_Supermarkets.getVertexByIndex(Integer.parseInt(datos[0])),
                             lGraphRestaurants_Supermarkets.getVertexByIndex(Integer.parseInt(datos[1])));
                     lGraphRestaurants_Supermarkets.addWeight(lGraphRestaurants_Supermarkets.getVertexByIndex(Integer.parseInt(datos[0])),
                             lGraphRestaurants_Supermarkets.getVertexByIndex(Integer.parseInt(datos[1])),
                             Integer.parseInt(datos[2]));
                 }
+
             }
         }
         if (file.existFile("Users.txt")) {
@@ -328,10 +340,27 @@ public class Utility {
                 String[] datos = list.get(i).split(",");
                 getUsers().add(new Security(datos[0], desBinaryCodify(datos[1])));
             }
+
         }
-        
-        
+        if (file.existFile("comidas.txt")) {
+            list = file.readFile("comidas.txt");
+            for (int i = 0; i < list.size(); i++) {
+                String[] datos = list.get(i).split(",");
+                getTreeFood().add(new Food(datos[0], Double.valueOf(datos[1]), Integer.parseInt(datos[2])));
+            }
+        }
+        if (file.existFile("productos.txt")) {
+            list = file.readFile("productos.txt");
+            for (int i = 0; i < list.size(); i++) {
+                String[] datos = list.get(i).split(",");
+                Product p = new Product(datos[1], Double.valueOf(datos[2]), Integer.parseInt(datos[3]));
+                p.setID(Integer.parseInt(datos[0]));
+                p.setAutoID(Integer.parseInt(datos[0]) + 1);
+                getTreeProducts().add(p);
+            }
+        }
     }
+    
 
     public static String binaryCodify(String dato) { //codifica un string
         String code = "";

@@ -6,8 +6,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@../tema%20Oscuro.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16" fx:controller="main.Comidas.FXMLModificarComidasController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@../tema%20Oscuro.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.Comidas.FXMLModificarComidasController">
    <children>
       <ComboBox fx:id="comboComidas" layoutX="402.0" layoutY="27.0" onAction="#comboComidas" prefHeight="50.0" prefWidth="184.0" promptText="Comidas" />
       <Button fx:id="btnModificar" layoutX="184.0" layoutY="296.0" mnemonicParsing="false" onAction="#btnModificar" prefHeight="76.0" prefWidth="193.0" text="Modificar" />

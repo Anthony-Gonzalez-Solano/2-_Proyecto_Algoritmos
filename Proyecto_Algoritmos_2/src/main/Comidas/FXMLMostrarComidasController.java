@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import main.productos.FXMLMostrarProductosController;
@@ -31,14 +32,15 @@ import main.productos.FXMLMostrarProductosController;
 public class FXMLMostrarComidasController implements Initializable {
 
     private List<String> list;
+
     @FXML
-    private TableView<List<String>> tableComidas;
+    private TableView<List<String>> tableViewComidas;
     @FXML
-    private TableColumn<List<String>, String> colum0;
+    private TableColumn<List<String>, String> columnaNombre;
     @FXML
-    private TableColumn<List<String>, String> colum1;
+    private TableColumn<List<String>, String> columnaPrecio;
     @FXML
-    private TableColumn<List<String>, String> colum2;
+    private TableColumn<List<String>, String> columnaRestaurante;
 
     /**
      * Initializes the controller class. NO LISTA TODAVIA
@@ -46,13 +48,14 @@ public class FXMLMostrarComidasController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        colum0.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().get(0)));
+        columnaNombre.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().get(0)));
+        columnaPrecio.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().get(1)));
+        columnaRestaurante.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().get(2)));
+//
+//        this.tableViewComidas.getColumns().add(columnaNombre);
+//        this.tableViewComidas.getColumns().add(columnaPrecio);
+//        this.tableViewComidas.getColumns().add(columnaRestaurante);
 
-        colum1.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().get(1)));
-
-        colum2.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().get(2)));
-
-        this.tableComidas.getColumns().addAll(colum0, colum1, colum2);
         try {
             preOrder();
         } catch (TreeException ex) {
@@ -64,22 +67,24 @@ public class FXMLMostrarComidasController implements Initializable {
 
     public String preOrder() throws TreeException, ListException {
         if (isEmpty()) {
-            throw new TreeException("Binary Search Tree is empty");
+          Alert a = new Alert(Alert.AlertType.INFORMATION);
+            a.setHeaderText("No hay comidas agregados. Por favor ingrese una comida primero");
+            a.showAndWait();
         }
-        return preOrder(util.Utility.getTreeProducts().getRoot());
+        return preOrder(util.Utility.getTreeFood().getRoot());
     }
 
     public boolean isEmpty() {
-        return util.Utility.getTreeProducts().getRoot() == null;
+        return util.Utility.getTreeFood().getRoot() == null;
     }
 
     private String preOrder(BTreeNode node) throws ListException {
         String result = "";
-        List list = new ArrayList();
+        list = new ArrayList();
         if (node != null) {
             Food f = (Food) node.data;
-            list.add(f.getName());
-            list.add(f.getPrice());
+            list.add(f.getName());                                         
+            list.add(f.getPrice() + "");
             for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
                 if (util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data.getClass() == Restaurant.class) {
                     Restaurant r = (Restaurant) util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
@@ -88,8 +93,7 @@ public class FXMLMostrarComidasController implements Initializable {
                     }
                 }
             }
-
-            tableComidas.getItems().add(list);//se llena la talba
+            tableViewComidas.getItems().add(list);//se llena la talba
             preOrder(node.left);
             preOrder(node.right);
         }
