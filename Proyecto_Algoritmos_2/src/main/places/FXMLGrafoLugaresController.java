@@ -116,7 +116,7 @@ public class FXMLGrafoLugaresController implements Initializable {
                 Logger.getLogger(FXMLGrafoLugaresController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        checkList = new CheckBox[10];
+        checkList = new CheckBox[10]; //lsita de chekcbox de lugares
         checkList[0] = chbTierraBlanca;
         checkList[1] = chbCaballoBlanco;
         checkList[2] = chbCachi;
@@ -132,7 +132,7 @@ public class FXMLGrafoLugaresController implements Initializable {
         col_dist.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().get(1)));
     }   
 
-    private void fillGraph(){
+    private void fillGraph(){ // llenamos el grafo con los lugares seleccionado y distancias random
         grafoMatrix = new AdjacencyMatrixGraph(10);
         try { 
             for (int i = 0; i < 10; i++) {
@@ -167,7 +167,7 @@ public class FXMLGrafoLugaresController implements Initializable {
             this.chbOrosi.isSelected() || this.chbParaiso.isSelected() ||
             this.chbSantaRosa.isSelected() || this.chbTierraBlanca.isSelected() ||
             this.chbTurrialba.isSelected() || this.chbUjarras.isSelected()) 
-        {      
+        {      // validamos que tenga que seleccionar almenos
             int x = 0;
             for (int i = 0; i < 10; i++) {
                 if(checkList[i].isSelected()){
