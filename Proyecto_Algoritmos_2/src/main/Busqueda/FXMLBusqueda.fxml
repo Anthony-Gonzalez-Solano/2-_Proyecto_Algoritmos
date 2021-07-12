@@ -16,13 +16,18 @@
 
 <AnchorPane id="AnchorPane" prefHeight="572.0" prefWidth="1010.0" stylesheets="@../tema%20Oscuro.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.Busqueda.FXMLBusquedaController">
    <children>
+      <ImageView fitHeight="572.0" fitWidth="1010.0" opacity="0.2" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@fondo.png" />
+         </image>
+      </ImageView>
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="520.0" layoutX="21.0" layoutY="31.0" opacity="0.12" stroke="BLACK" strokeType="INSIDE" width="287.0" />
       <RadioButton fx:id="Rbtn_Foods" layoutX="55.0" layoutY="190.0" mnemonicParsing="false" onAction="#Rbtn_Foods" style="-fx-font-size: 20;" text="Comidas" textFill="#fefecc">
          <toggleGroup>
             <ToggleGroup fx:id="comidas_productos" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton fx:id="Rbtn_Products" layoutX="54.0" layoutY="156.0" mnemonicParsing="false" onAction="#Rbtn_Products" selected="true" style="-fx-font-size: 20;" text="Productos" textFill="#fefecc" toggleGroup="$comidas_productos">
+      <RadioButton fx:id="Rbtn_Products" layoutX="54.0" layoutY="156.0" mnemonicParsing="false" onAction="#Rbtn_Products" style="-fx-font-size: 20;" text="Productos" textFill="#fefecc" toggleGroup="$comidas_productos">
          <font>
             <Font size="28.0" />
          </font>

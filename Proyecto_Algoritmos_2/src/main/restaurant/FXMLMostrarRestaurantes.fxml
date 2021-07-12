@@ -1,11 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@../tema%20Oscuro.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16" fx:controller="main.restaurant.FXMLMostrarRestaurantesController">
+<AnchorPane id="AnchorPane" prefHeight="572.0" prefWidth="1010.0" stylesheets="@../tema%20Oscuro.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.restaurant.FXMLMostrarRestaurantesController">
    <children>
-      <TableView fx:id="tableRestaurantes" layoutX="-2.0" layoutY="-3.0" prefHeight="400.0" prefWidth="600.0" />
+      <ImageView fitHeight="572.0" fitWidth="1010.0" opacity="0.2" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@fondo.png" />
+         </image>
+      </ImageView>
+      <TableView fx:id="tableRestaurantes" layoutX="205.0" layoutY="116.0" prefHeight="387.0" prefWidth="600.0" />
+      <Text fill="#fefecc" layoutX="363.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Restaurantes">
+         <font>
+            <Font size="50.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

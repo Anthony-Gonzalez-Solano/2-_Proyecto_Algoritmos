@@ -4,15 +4,30 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@../tema%20Oscuro.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.supermarket.FXMLModificarSuperMercadoController">
+<AnchorPane id="AnchorPane" prefHeight="572.0" prefWidth="1010.0" stylesheets="@../tema%20Oscuro.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.supermarket.FXMLModificarSuperMercadoController">
    <children>
-      <ComboBox fx:id="cBoxSuperMarkets" layoutX="300.0" layoutY="26.0" onAction="#cBoxSuperMarkets" prefHeight="33.0" prefWidth="271.0" promptText="Supermercados" />
-      <Label layoutX="35.0" layoutY="30.0" text="Nombre" />
-      <TextField fx:id="txtFieldName" layoutX="14.0" layoutY="68.0" />
-      <Button fx:id="btnModify" layoutX="213.0" layoutY="286.0" mnemonicParsing="false" onAction="#btnModify" prefHeight="63.0" prefWidth="171.0" text="Modificar" />
-      <Label layoutX="23.0" layoutY="136.0" text="Ubicacion" />
-      <ComboBox fx:id="cBoxPlace" layoutX="14.0" layoutY="184.0" prefHeight="33.0" prefWidth="212.0" />
+      <ImageView fitHeight="572.0" fitWidth="1010.0" opacity="0.2" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@fondo.png" />
+         </image>
+      </ImageView>
+      <ComboBox fx:id="cBoxSuperMarkets" layoutX="522.0" layoutY="282.0" onAction="#cBoxSuperMarkets" prefHeight="33.0" prefWidth="292.0" promptText="Supermercados" />
+      <Label layoutX="197.0" layoutY="199.0" text="Nombre" />
+      <TextField fx:id="txtFieldName" layoutX="197.0" layoutY="224.0" prefHeight="34.0" prefWidth="292.0" />
+      <Button fx:id="btnModify" layoutX="414.0" layoutY="476.0" mnemonicParsing="false" onAction="#btnModify" prefHeight="52.0" prefWidth="182.0" text="Modificar" />
+      <Label layoutX="197.0" layoutY="303.0" text="Ubicacion" />
+      <ComboBox fx:id="cBoxPlace" layoutX="197.0" layoutY="327.0" prefHeight="33.0" prefWidth="292.0" />
+      <Label layoutX="522.0" layoutY="252.0" text="Supermercados" />
+      <Text fill="#fefecc" layoutX="206.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modificar Supermercados">
+         <font>
+            <Font size="50.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

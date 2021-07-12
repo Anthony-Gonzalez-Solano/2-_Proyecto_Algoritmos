@@ -7,64 +7,72 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane id="AnchorPane" fx:id="ap" prefHeight="572.0" prefWidth="1010.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.places.FXMLGrafoLugaresController">
+<AnchorPane id="AnchorPane" fx:id="ap" prefHeight="572.0" prefWidth="1010.0" stylesheets="@tema%20Oscuro.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.places.FXMLGrafoLugaresController">
    <children>
-      <CheckBox fx:id="chbCartago" layoutX="53.0" layoutY="122.0" mnemonicParsing="false" text="Cartago">
+      <ImageView fitHeight="572.0" fitWidth="1010.0" opacity="0.2" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@fondo.png" />
+         </image>
+      </ImageView>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="200.0" layoutX="14.0" layoutY="17.0" opacity="0.1" stroke="BLACK" strokeType="INSIDE" width="248.0" />
+      <CheckBox fx:id="chbCartago" layoutX="31.0" layoutY="122.0" mnemonicParsing="false" text="Cartago" textFill="#fefecc">
          <opaqueInsets>
             <Insets bottom="20.0" left="20.0" right="20.0" />
          </opaqueInsets></CheckBox>
-      <CheckBox fx:id="chbTierraBlanca" layoutX="53.0" layoutY="272.0" mnemonicParsing="false" text="Tierra Blanca">
+      <CheckBox fx:id="chbTierraBlanca" layoutX="153.0" layoutY="122.0" mnemonicParsing="false" text="Tierra Blanca" textFill="#fefecc">
          <opaqueInsets>
             <Insets bottom="20.0" left="20.0" right="20.0" />
          </opaqueInsets></CheckBox>
-      <CheckBox fx:id="chbSantaRosa" layoutX="53.0" layoutY="242.0" mnemonicParsing="false" text="Santa Rosa">
+      <CheckBox fx:id="chbSantaRosa" layoutX="153.0" layoutY="92.0" mnemonicParsing="false" text="Santa Rosa" textFill="#fefecc">
          <opaqueInsets>
             <Insets bottom="20.0" left="20.0" right="20.0" />
          </opaqueInsets></CheckBox>
-      <CheckBox fx:id="chbOrosi" layoutX="53.0" layoutY="182.0" mnemonicParsing="false" text="Orosi">
+      <CheckBox fx:id="chbOrosi" layoutX="31.0" layoutY="182.0" mnemonicParsing="false" text="Orosi" textFill="#fefecc">
          <opaqueInsets>
             <Insets bottom="20.0" left="20.0" right="20.0" />
          </opaqueInsets></CheckBox>
-      <CheckBox fx:id="chbCachi" layoutX="53.0" layoutY="92.0" mnemonicParsing="false" text="Cachí">
+      <CheckBox fx:id="chbCachi" layoutX="31.0" layoutY="92.0" mnemonicParsing="false" text="Cachí" textFill="#fefecc">
          <opaqueInsets>
             <Insets bottom="20.0" left="20.0" right="20.0" />
          </opaqueInsets></CheckBox>
-      <CheckBox fx:id="chbUjarras" layoutX="53.0" layoutY="332.0" mnemonicParsing="false" text="Ujarrás">
+      <CheckBox fx:id="chbUjarras" layoutX="153.0" layoutY="182.0" mnemonicParsing="false" text="Ujarrás" textFill="#fefecc">
          <opaqueInsets>
             <Insets bottom="20.0" left="20.0" right="20.0" />
          </opaqueInsets></CheckBox>
-      <CheckBox fx:id="chbCervantes" layoutX="53.0" layoutY="152.0" mnemonicParsing="false" text="Cervantes">
+      <CheckBox fx:id="chbCervantes" layoutX="31.0" layoutY="152.0" mnemonicParsing="false" text="Cervantes" textFill="#fefecc">
          <opaqueInsets>
             <Insets bottom="20.0" left="20.0" right="20.0" />
          </opaqueInsets></CheckBox>
-      <CheckBox fx:id="chbTurrialba" layoutX="53.0" layoutY="302.0" mnemonicParsing="false" text="Turrialba">
+      <CheckBox fx:id="chbTurrialba" layoutX="153.0" layoutY="152.0" mnemonicParsing="false" text="Turrialba" textFill="#fefecc">
          <opaqueInsets>
             <Insets bottom="20.0" left="20.0" right="20.0" />
          </opaqueInsets></CheckBox>
-      <CheckBox fx:id="chbParaiso" layoutX="53.0" layoutY="212.0" mnemonicParsing="false" text="Paraíso">
+      <CheckBox fx:id="chbParaiso" layoutX="153.0" layoutY="62.0" mnemonicParsing="false" text="Paraíso" textFill="#fefecc">
          <opaqueInsets>
             <Insets bottom="20.0" left="20.0" right="20.0" />
          </opaqueInsets>
       </CheckBox>
-      <CheckBox fx:id="chbCaballoBlanco" layoutX="53.0" layoutY="62.0" mnemonicParsing="false" text="Caballo Blanco">
+      <CheckBox fx:id="chbCaballoBlanco" layoutX="31.0" layoutY="62.0" mnemonicParsing="false" text="Caballo Blanco" textFill="#fefecc">
          <opaqueInsets>
             <Insets bottom="20.0" left="20.0" right="20.0" />
          </opaqueInsets>
       </CheckBox>
-      <Label layoutX="53.0" layoutY="30.0" text="Listado de Lugares" />
-      <Button fx:id="btnGenerarGrafo" layoutX="59.0" layoutY="394.0" mnemonicParsing="false" onAction="#btnGenerarGrafo" text="Generar Grafo" />
-      <AnchorPane fx:id="apGraph" layoutX="202.0" layoutY="19.0" prefHeight="404.0" prefWidth="652.0">
+      <Label layoutX="25.0" layoutY="21.0" text="Listado de Lugares" />
+      <Button fx:id="btnGenerarGrafo" layoutX="384.0" layoutY="460.0" mnemonicParsing="false" onAction="#btnGenerarGrafo" prefHeight="42.0" prefWidth="188.0" text="Generar Grafo" />
+      <AnchorPane fx:id="apGraph" layoutX="384.0" layoutY="62.0" prefHeight="354.0" prefWidth="551.0">
          <children>
-            <TextField fx:id="txtVertexGraph" disable="true" layoutX="307.0" layoutY="190.0" prefHeight="25.0" prefWidth="39.0" visible="false" />
+            <TextField fx:id="txtVertexGraph" disable="true" layoutX="256.0" layoutY="160.0" prefHeight="25.0" prefWidth="39.0" visible="false" />
          </children></AnchorPane>
-      <TableView fx:id="tblVDistancias" layoutX="53.0" layoutY="425.0" prefHeight="127.0" prefWidth="450.0">
+      <TableView fx:id="tblVDistancias" layoutX="9.0" layoutY="248.0" prefHeight="310.0" prefWidth="335.0">
          <columns>
-            <TableColumn fx:id="col_Orig_Dest" prefWidth="289.0" text="Origen, Destino" />
-            <TableColumn fx:id="col_dist" prefWidth="160.0" text="Distancia" />
+            <TableColumn fx:id="col_Orig_Dest" prefWidth="217.0" text="Origen, Destino" />
+            <TableColumn fx:id="col_dist" prefWidth="90.0" text="Distancia" />
          </columns></TableView>
-      <Label fx:id="lblDistancias" layoutX="519.0" layoutY="425.0" prefHeight="127.0" prefWidth="216.0" />
-      <Button fx:id="btnDistancias" layoutX="811.0" layoutY="453.0" mnemonicParsing="false" onAction="#btnDistancias" text="Distancias" />
+      <Button fx:id="btnDistancias" layoutX="614.0" layoutY="460.0" mnemonicParsing="false" onAction="#btnDistancias" prefHeight="42.0" prefWidth="177.0" text="Distancias" />
    </children>
 </AnchorPane>

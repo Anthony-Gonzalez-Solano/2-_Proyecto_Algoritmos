@@ -4,15 +4,30 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@../tema%20Oscuro.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.productos.FXMLModificarProductoController">
+<AnchorPane id="AnchorPane" prefHeight="572.0" prefWidth="1010.0" stylesheets="@../tema%20Oscuro.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.productos.FXMLModificarProductoController">
    <children>
-      <ComboBox fx:id="cBoxProduct" layoutX="346.0" layoutY="30.0" prefHeight="33.0" prefWidth="209.0" promptText="Producto" />
-      <TextField fx:id="txtFieldName" layoutX="70.0" layoutY="98.0" />
-      <TextField fx:id="txtFieldPrice" layoutX="70.0" layoutY="210.0" />
-      <Button fx:id="btnModify" layoutX="223.0" layoutY="291.0" mnemonicParsing="false" onAction="#btnModify" prefHeight="58.0" prefWidth="155.0" text="Modificar" />
-      <Label layoutX="78.0" layoutY="63.0" text="Nombre" />
-      <Label layoutX="78.0" layoutY="176.0" text="Precio" />
+      <ImageView fitHeight="572.0" fitWidth="1010.0" opacity="0.2" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@fondo.png" />
+         </image>
+      </ImageView>
+      <ComboBox fx:id="cBoxProduct" layoutX="524.0" layoutY="295.0" prefHeight="40.0" prefWidth="311.0" promptText="Producto" />
+      <TextField fx:id="txtFieldName" layoutX="175.0" layoutY="245.0" prefHeight="34.0" prefWidth="311.0" />
+      <TextField fx:id="txtFieldPrice" layoutX="175.0" layoutY="357.0" prefHeight="34.0" prefWidth="311.0" />
+      <Button fx:id="btnModify" layoutX="422.0" layoutY="457.0" mnemonicParsing="false" onAction="#btnModify" prefHeight="58.0" prefWidth="155.0" text="Modificar" />
+      <Label layoutX="183.0" layoutY="210.0" text="Nombre" />
+      <Label layoutX="183.0" layoutY="323.0" text="Precio" />
+      <Text fill="#fefecc" layoutX="274.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modificar Productos">
+         <font>
+            <Font size="50.0" />
+         </font>
+      </Text>
+      <Label layoutX="524.0" layoutY="262.0" text="Productos" />
    </children>
 </AnchorPane>

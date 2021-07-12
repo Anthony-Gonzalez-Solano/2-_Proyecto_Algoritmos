@@ -4,16 +4,30 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@../tema%20Oscuro.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16" fx:controller="main.Comidas.FXMLAgregarComidaController">
+<AnchorPane id="AnchorPane" prefHeight="572.0" prefWidth="1010.0" stylesheets="@../tema%20Oscuro.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.Comidas.FXMLAgregarComidaController">
    <children>
-      <TextField fx:id="textFieldNombre" layoutX="89.0" layoutY="92.0" />
-      <TextField fx:id="textFieldPrecio" layoutX="89.0" layoutY="200.0" />
-      <Label layoutX="61.0" layoutY="55.0" text="Nombre" />
-      <Label layoutX="64.0" layoutY="165.0" prefHeight="24.0" prefWidth="85.0" text="Precio" />
-      <Button fx:id="btnAgregar" layoutX="176.0" layoutY="314.0" mnemonicParsing="false" onAction="#btnAgregar" prefHeight="55.0" prefWidth="182.0" text="Agregar" />
-      <ComboBox fx:id="comboRestaurantes" layoutX="418.0" layoutY="43.0" onAction="#comboRestaurantes" prefHeight="48.0" prefWidth="182.0" promptText="Restaurantes" />
+      <ImageView fitHeight="572.0" fitWidth="1010.0" opacity="0.2" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@fondo.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="textFieldNombre" layoutX="215.0" layoutY="198.0" prefHeight="34.0" prefWidth="310.0" />
+      <TextField fx:id="textFieldPrecio" layoutX="215.0" layoutY="306.0" prefHeight="34.0" prefWidth="310.0" />
+      <Label layoutX="187.0" layoutY="161.0" text="Nombre" />
+      <Label layoutX="190.0" layoutY="271.0" prefHeight="24.0" prefWidth="85.0" text="Precio" />
+      <Button fx:id="btnAgregar" layoutX="434.0" layoutY="456.0" mnemonicParsing="false" onAction="#btnAgregar" prefHeight="55.0" prefWidth="182.0" text="Agregar" />
+      <ComboBox fx:id="comboRestaurantes" layoutX="606.0" layoutY="247.0" onAction="#comboRestaurantes" prefHeight="48.0" prefWidth="265.0" promptText="Restaurantes" />
+      <Text fill="#fefecc" layoutX="324.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Agregar Comida">
+         <font>
+            <Font size="50.0" />
+         </font>
+      </Text>
+      <Label layoutX="590.0" layoutY="215.0" text="Restaurantes" />
    </children>
 </AnchorPane>

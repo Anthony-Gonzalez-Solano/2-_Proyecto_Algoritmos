@@ -16,9 +16,7 @@
         <menus>
             <Menu fx:id="M_grafoLugares" mnemonicParsing="false" text="Grafo de Lugares">
               <items>
-                <MenuItem fx:id="MI_GLugares_Agregar" mnemonicParsing="false" onAction="#MI_GLugares_Agregar" text="Agregar Lugar" />
-                  <MenuItem fx:id="MI_GLugares_Eliminar" mnemonicParsing="false" onAction="#MI_GLugares_Eliminar" text="Eliminar Lugar" />
-                  <MenuItem fx:id="MI_GLugares_Mostrar" mnemonicParsing="false" onAction="#MI_GLugares_Mostrar" text="Mostrar Lugares" />
+                <MenuItem fx:id="MI_GLugares_Agregar" mnemonicParsing="false" onAction="#MI_GLugares_Agregar" text="Seleccionar Lugares" />
               </items>
             </Menu>
             <Menu fx:id="M_Establecimientos" mnemonicParsing="false" text="Mantenimiento  de Establecimientos">

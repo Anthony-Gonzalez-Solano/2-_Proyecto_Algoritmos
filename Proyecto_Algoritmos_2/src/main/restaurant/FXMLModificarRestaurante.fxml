@@ -4,16 +4,32 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@../tema%20Oscuro.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.restaurant.FXMLModificarRestauranteController">
+<AnchorPane id="AnchorPane" prefHeight="572.0" prefWidth="1010.0" stylesheets="@../tema%20Oscuro.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.restaurant.FXMLModificarRestauranteController">
    <children>
-      <ComboBox fx:id="comboRestaurantes" layoutX="366.0" layoutY="44.0" onAction="#comboRestaurantes" prefHeight="46.0" prefWidth="210.0" promptText="Restaurantes" />
-      <Button fx:id="btnModificar" layoutX="84.0" layoutY="316.0" mnemonicParsing="false" onAction="#btnModificar" prefHeight="61.0" prefWidth="182.0" text="Modificar" />
-      <TextField fx:id="textFieldNombre" layoutX="84.0" layoutY="148.0" />
-      <Label fx:id="txtNombre" layoutX="56.0" layoutY="104.0" prefHeight="24.0" prefWidth="97.0" text="Nombre" />
+      <ImageView fitHeight="572.0" fitWidth="1010.0" opacity="0.2" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@fondo.png" />
+         </image>
+      </ImageView>
+      <ComboBox fx:id="comboRestaurantes" layoutX="580.0" layoutY="276.0" onAction="#comboRestaurantes" prefHeight="46.0" prefWidth="274.0" promptText="Restaurantes" />
+      <Button fx:id="btnModificar" layoutX="414.0" layoutY="495.0" mnemonicParsing="false" onAction="#btnModificar" prefHeight="46.0" prefWidth="182.0" text="Modificar" />
+      <TextField fx:id="textFieldNombre" layoutX="206.0" layoutY="226.0" prefHeight="34.0" prefWidth="326.0" />
+      <Label fx:id="txtNombre" layoutX="178.0" layoutY="182.0" prefHeight="24.0" prefWidth="97.0" text="Nombre" />
       <Label layoutX="55.0" layoutY="208.0" text="Localizacion" visible="false" />
       <TextField fx:id="textFieldLocation" layoutX="88.0" layoutY="242.0" visible="false" />
-      <ComboBox fx:id="cBoxPlace" layoutX="84.0" layoutY="216.0" onAction="#cBoxPlace" prefHeight="33.0" prefWidth="212.0" promptText="Localizacion" />
+      <ComboBox fx:id="cBoxPlace" layoutX="206.0" layoutY="337.0" onAction="#cBoxPlace" prefHeight="33.0" prefWidth="326.0" promptText="Localizacion" />
+      <Text fill="#fefecc" layoutX="245.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modificar  Restaurantes">
+         <font>
+            <Font size="50.0" />
+         </font>
+      </Text>
+      <Label fx:id="txtNombre1" layoutX="167.0" layoutY="299.0" prefHeight="24.0" prefWidth="161.0" text="Localización" />
+      <Label fx:id="txtNombre2" layoutX="580.0" layoutY="242.0" prefHeight="24.0" prefWidth="253.0" text="Restaurantes" />
    </children>
 </AnchorPane>

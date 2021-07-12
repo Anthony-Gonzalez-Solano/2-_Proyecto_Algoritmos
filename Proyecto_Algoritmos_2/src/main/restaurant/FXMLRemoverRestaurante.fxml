@@ -2,16 +2,29 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@../tema%20Oscuro.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.restaurant.FXMLRemoverRestauranteController">
+<AnchorPane id="AnchorPane" prefHeight="572.0" prefWidth="1010.0" stylesheets="@../tema%20Oscuro.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.restaurant.FXMLRemoverRestauranteController">
    <children>
-      <ComboBox fx:id="comboRestaurantes" layoutX="394.0" layoutY="59.0" onAction="#comboRestaurantes" prefHeight="53.0" prefWidth="192.0" promptText="Restaurantes" />
-      <Button fx:id="btnRemover" layoutX="155.0" layoutY="302.0" mnemonicParsing="false" onAction="#btnRemover" prefHeight="75.0" prefWidth="199.0" text="Remover">
+      <ImageView fitHeight="572.0" fitWidth="1010.0" opacity="0.2" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@fondo.png" />
+         </image>
+      </ImageView>
+      <ComboBox fx:id="comboRestaurantes" layoutX="313.0" layoutY="255.0" onAction="#comboRestaurantes" prefHeight="63.0" prefWidth="386.0" promptText="Restaurantes" />
+      <Button fx:id="btnRemover" layoutX="406.0" layoutY="468.0" mnemonicParsing="false" onAction="#btnRemover" prefHeight="63.0" prefWidth="199.0" text="Remover">
          <font>
             <Font size="41.0" />
          </font>
       </Button>
+      <Text fill="#fefecc" layoutX="269.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Eliminar Restaurantes">
+         <font>
+            <Font size="50.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

@@ -4,15 +4,30 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@../tema%20Oscuro.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.Comidas.FXMLModificarComidasController">
+<AnchorPane id="AnchorPane" prefHeight="572.0" prefWidth="1010.0" stylesheets="@../tema%20Oscuro.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.Comidas.FXMLModificarComidasController">
    <children>
-      <ComboBox fx:id="comboComidas" layoutX="402.0" layoutY="27.0" onAction="#comboComidas" prefHeight="50.0" prefWidth="184.0" promptText="Comidas" />
-      <Button fx:id="btnModificar" layoutX="184.0" layoutY="296.0" mnemonicParsing="false" onAction="#btnModificar" prefHeight="76.0" prefWidth="193.0" text="Modificar" />
-      <TextField fx:id="textFieldNombre" layoutX="91.0" layoutY="116.0" />
-      <TextField fx:id="textFieldPrecio" layoutX="91.0" layoutY="226.0" />
-      <Label layoutX="77.0" layoutY="69.0" text="Nombre" />
-      <Label layoutX="77.0" layoutY="188.0" text="Precio" />
+      <ImageView fitHeight="572.0" fitWidth="1010.0" opacity="0.2" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@fondo.png" />
+         </image>
+      </ImageView>
+      <ComboBox fx:id="comboComidas" layoutX="535.0" layoutY="250.0" onAction="#comboComidas" prefHeight="50.0" prefWidth="266.0" promptText="Comidas" />
+      <Button fx:id="btnModificar" layoutX="398.0" layoutY="470.0" mnemonicParsing="false" onAction="#btnModificar" prefHeight="58.0" prefWidth="193.0" text="Modificar" />
+      <TextField fx:id="textFieldNombre" layoutX="221.0" layoutY="203.0" prefHeight="34.0" prefWidth="266.0" />
+      <TextField fx:id="textFieldPrecio" layoutX="221.0" layoutY="313.0" prefHeight="34.0" prefWidth="266.0" />
+      <Label layoutX="207.0" layoutY="165.0" text="Nombre" />
+      <Label layoutX="207.0" layoutY="275.0" text="Precio" />
+      <Text fill="#fefecc" layoutX="294.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modificar comida">
+         <font>
+            <Font size="50.0" />
+         </font>
+      </Text>
+      <Label layoutX="516.0" layoutY="220.0" text="Comidas" />
    </children>
 </AnchorPane>

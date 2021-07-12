@@ -225,7 +225,7 @@ public class FXMLGrafoLugaresController implements Initializable {
     
     private void drawGraph(Graph grafo) throws ListException, GraphException {
         apGraph.getChildren().clear();
-        longitud = 180;
+        longitud = 150;
         cont = 0;
         buttonArray = new Button[grafo.size()];
         drawVertex(grafo);

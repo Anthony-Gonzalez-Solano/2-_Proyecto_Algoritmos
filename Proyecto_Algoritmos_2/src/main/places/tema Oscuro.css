@@ -1,0 +1,183 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 21 may. 2021, 11:28:53
+    Author     : Anthony G.S
+*/
+/*
+color fondo: #02475e
+color fonfo 2: #023c4f
+color botones o simiar: #687980
+color bordes quizas: #f3bda1
+color text : #fefecc
+*/
+
+.root{
+    -fx-font-family: "Verdana";
+    -fx-background-color: #02475e;
+}
+.background {
+    -fx-background-color: #02475e;
+}
+.combo-box .arrow, .combo-box .arrow-button{
+    -fx-background-color: #02475e;
+    
+}
+.combo-box{
+    -fx-border-color:#687980;
+    -fx-border-style:solid;
+    -fx-border-width:2;
+
+}
+.combo-box .list-cell:hover {
+    -fx-background-color: #fefecc;
+    -fx-text-fill: #02475e;
+}
+.combo-box .arrow{
+    -fx-background-color:white;
+}
+.combo-box .arrow-button{
+    -fx-background-color:#023c4f;
+    -fx-border-style:none;
+}
+.combo-box .arrow-button{
+    -fx-background-color:#023c4f;
+}
+.combo-box .list-cell{
+    -fx-background-color:#02475e;
+    -fx-font-size: 11pt;
+    -fx-text-fill: #fefecc;
+}
+.label {
+    -fx-font-size: 14pt;
+    -fx-text-fill:#fefecc;
+    -fx-opacity: 0.8;
+}
+.label-bright {
+    -fx-text-fill:#fefecc;
+    -fx-opacity: 1;
+}
+.label-header {
+    -fx-font-size: 32pt;
+    -fx-text-fill:#fefecc;
+    -fx-opacity: 1;
+}
+.table-view {
+    -fx-base: #02475e;
+    -fx-control-inner-background: #02475e;
+    -fx-background-color: #02475e;
+    -fx-table-cell-border-color: transparent;
+    -fx-table-header-border-color: transparent;
+    -fx-padding: 7;
+}
+.table-view .column-header-background {
+    -fx-background-color: transparent;
+}
+.table-view .column-header, .table-view .filler {
+    -fx-size: 30;
+    -fx-border-width: 0 0 1 0;
+    -fx-background-color: transparent;
+    -fx-border-color: 
+        transparent
+        transparent
+        derive(-fx-base, 80%) 
+        transparent;
+    -fx-border-insets: 0 10 1 0;
+}
+.table-view .column-header .label {
+    -fx-font-size: 9pt;
+    -fx-text-fill: #fefecc;
+    -fx-alignment: CENTER;
+    -fx-opacity: 1;
+    -fx-font-weight: normal;
+}
+.table-view:focused .table-row-cell:filled:focused:selected {
+    -fx-background-color: -fx-focus-color;
+}
+.split-pane:horizontal > .split-pane-divider {
+    -fx-border-color: transparent #02475e transparent #02475e;
+    -fx-background-color: transparent, derive(#02475e,20%);
+}
+.split-pane {
+    -fx-padding: 1 0 0 0;
+}
+.menu-bar .label {
+    -fx-font-size: 12pt;
+    -fx-text-fill: #fefecc;
+    -fx-opacity: 0.7;
+}
+.menu-bar {
+    -fx-background-color: #032935;
+    -fx-selection-bar: #023c4f;
+   
+}
+.context-menu {
+    -fx-background-color: #032935;
+}
+.menu-item:focused {
+    -fx-background-color: none;
+}
+.menu-item:hover{
+    -fx-background-color: #023c4f;
+}
+.menu:hover {
+    -fx-background-color: #023c4f;
+}
+.menu .left-container {
+    -fx-background-color: black;
+}
+.text-field {
+    -fx-font-size: 10pt;
+    -fx-background-color: derive(#687980, 20%);
+    -fx-background-radius: 5px;
+    -fx-border-color: #687980;
+    -fx-border-radius: 5px;
+    -fx-text-fill: #fefecc;
+}
+.button {
+    -fx-padding: 5 22 5 22;   
+    -fx-border-color: #687980;
+    -fx-border-width: 2;
+    -fx-background-radius: 0;
+    -fx-background-color: #02475e;
+    -fx-font-size: 9pt;
+    -fx-text-fill: #fefecc;
+    -fx-font-weight: bold;
+    -fx-background-insets: 0 0 0 0, 0, 1, 2;
+}
+.button:hover {
+    -fx-background-color: #fefecc;
+    -fx-text-fill: #02475e;
+}
+.button:pressed, .button:default:hover:pressed {
+  -fx-background-color: #fefecc;
+  -fx-text-fill: #1d1d1d;
+}
+.button:disabled, .button:default:disabled {
+    -fx-opacity: 0.4;
+    -fx-background-color: #1d1d1d;
+    -fx-text-fill: white;
+}
+.button:default {
+    -fx-background-color: -fx-focus-color;
+    -fx-text-fill: #ffffff;
+}
+.button:default:hover {
+    -fx-background-color: derive(-fx-focus-color,30%);
+}
+.text-field {
+    -fx-font-size: 12pt;
+    -fx-border-color: #e2e2e2;
+    -fx-border-width: 2;
+}
+.date-picker .arrow-button{
+    -fx-background-color:#023c4f;
+    -fx-border-style:none;
+    -fx-background-radius: 5px;
+    -fx-border-color: #687980;
+    -fx-background-withd: 5px;
+    -fx-border-radius: 5px;
+}

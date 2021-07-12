@@ -4,15 +4,30 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@../tema%20Oscuro.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.productos.FXMLAgregarProductoController">
+<AnchorPane id="AnchorPane" prefHeight="572.0" prefWidth="1010.0" stylesheets="@../tema%20Oscuro.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.productos.FXMLAgregarProductoController">
    <children>
-      <ComboBox fx:id="cBoxSuper" layoutX="324.0" layoutY="41.0" prefHeight="41.0" prefWidth="243.0" promptText="Supermercado" />
-      <TextField fx:id="txtFieldName" layoutX="62.0" layoutY="101.0" prefHeight="34.0" prefWidth="276.0" />
-      <TextField fx:id="txtFieldPrice" layoutX="62.0" layoutY="175.0" prefHeight="34.0" prefWidth="276.0" />
-      <Label layoutX="62.0" layoutY="70.0" text="Nombre" />
-      <Label layoutX="62.0" layoutY="147.0" text="Precio" />
-      <Button fx:id="btnAdd" layoutX="221.0" layoutY="258.0" mnemonicParsing="false" onAction="#btnAdd" prefHeight="56.0" prefWidth="154.0" text="Agregar" />
+      <ImageView fitHeight="572.0" fitWidth="1010.0" opacity="0.2" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@fondo.png" />
+         </image>
+      </ImageView>
+      <ComboBox fx:id="cBoxSuper" layoutX="534.0" layoutY="266.0" prefHeight="41.0" prefWidth="289.0" promptText="Supermercado" />
+      <TextField fx:id="txtFieldName" layoutX="186.0" layoutY="228.0" prefHeight="34.0" prefWidth="304.0" />
+      <TextField fx:id="txtFieldPrice" layoutX="186.0" layoutY="322.0" prefHeight="34.0" prefWidth="304.0" />
+      <Label layoutX="186.0" layoutY="197.0" text="Nombre" />
+      <Label layoutX="186.0" layoutY="294.0" text="Precio" />
+      <Button fx:id="btnAdd" layoutX="428.0" layoutY="447.0" mnemonicParsing="false" onAction="#btnAdd" prefHeight="56.0" prefWidth="154.0" text="Agregar" />
+      <Text fill="#fefecc" layoutX="309.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Agregar Producto">
+         <font>
+            <Font size="50.0" />
+         </font>
+      </Text>
+      <Label layoutX="534.0" layoutY="233.0" text="Supermercados" />
    </children>
 </AnchorPane>
