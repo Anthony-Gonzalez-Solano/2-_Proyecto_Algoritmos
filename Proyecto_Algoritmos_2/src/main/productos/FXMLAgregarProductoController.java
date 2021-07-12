@@ -74,66 +74,68 @@ public class FXMLAgregarProductoController implements Initializable {
         Product sT = null;
         Supermarket c = null;
         boolean found = false;
-        for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
-            Object a = util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
-            if (a instanceof Supermarket) {
-                c = (Supermarket) a;
-                if (c.getName().equals(cBoxSuper.getValue())) {
-                    sT = new Product(txtFieldName.getText(), Double.valueOf(this.txtFieldPrice.getText()), c.getId());
-                    if (!util.Utility.getTreeProducts().isEmpty() && (util.Utility.getTreeProducts().contains(sT))) {
-                        found = true;//se busca el objeto que se quiere agregar para ver si ya existe
-                    }
-                }
-            }
-        }
-        if (txtFieldName.getText().isEmpty() || cBoxSuper.getValue().equals("") || this.txtFieldPrice.getText().isEmpty()) {//validaciones de campos vacios
+        if (txtFieldName.getText().isEmpty() || cBoxSuper.getSelectionModel().getSelectedIndex()==-1 || this.txtFieldPrice.getText().isEmpty()) {//validaciones de campos vacios
             a.setAlertType(Alert.AlertType.INFORMATION);//se valida que los campos no esten vacios
             a.setHeaderText("No debe dejar campos vacios");
             a.showAndWait();
-        }
-        if (found == true) {
-            a.setAlertType(Alert.AlertType.INFORMATION);
-            a.setHeaderText("Producto ingresado ya existe");//se valida que no exista
-            a.showAndWait();
-        } else {
-            Supermarket b = null;
-            if (util.Utility.getTreeProducts().isEmpty()) {//si la lista esta vacia simpelmente se agrega
-                for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
-                    Object y = util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
-                    if (y instanceof Supermarket) {
-                        b = (Supermarket) y;
-                        if (b.getName().equals(cBoxSuper.getValue())) {
-                            Product p = new Product(txtFieldName.getText(), Double.valueOf(this.txtFieldPrice.getText()), b.getId());
-                            util.Utility.getTreeProducts().add(p);
-                            txtFieldName.setText("");
-                            txtFieldPrice.setText("");
-                            cBoxSuper.getSelectionModel().clearSelection();
-                            txt.writeFile("productos.txt", p.secondToSting());
-                            a.setAlertType(Alert.AlertType.INFORMATION);
-                            a.setHeaderText("Producto ingresado existosamente");
-                            a.showAndWait();
+        }else{
+            for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
+                Object a = util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
+                if (a instanceof Supermarket) {
+                    c = (Supermarket) a;
+                    if (c.getName().equals(cBoxSuper.getValue())) {
+                        sT = new Product(txtFieldName.getText(), Double.valueOf(this.txtFieldPrice.getText()), c.getId());
+                        if (!util.Utility.getTreeProducts().isEmpty() && (util.Utility.getTreeProducts().contains(sT))) {
+                            found = true;//se busca el objeto que se quiere agregar para ver si ya existe
                         }
                     }
                 }
+            }
+        
+            if (found == true) {
+                a.setAlertType(Alert.AlertType.INFORMATION);
+                a.setHeaderText("Producto ingresado ya existe");//se valida que no exista
+                a.showAndWait();
             } else {
-                Product sT2 = null;
-                for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
-                    Object y = util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
-                    if (y instanceof Supermarket) {
-                        b = (Supermarket) y;
-                        if (b.getName().equals(cBoxSuper.getValue())) {//se busca el id del supermercado
-                            sT2 = new Product(txtFieldName.getText(), Double.valueOf(this.txtFieldPrice.getText()), b.getId());
-
-                            if (found == false) {
-                                util.Utility.getTreeProducts().add(sT2);//se agrega el producto tanto al a la lista como al txt
-                                txtFieldName.setText("");//se limpia textfields
+                Supermarket b = null;
+                if (util.Utility.getTreeProducts().isEmpty()) {//si la lista esta vacia simpelmente se agrega
+                    for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
+                        Object y = util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
+                        if (y instanceof Supermarket) {
+                            b = (Supermarket) y;
+                            if (b.getName().equals(cBoxSuper.getValue())) {
+                                Product p = new Product(txtFieldName.getText(), Double.valueOf(this.txtFieldPrice.getText()), b.getId());
+                                util.Utility.getTreeProducts().add(p);
+                                txtFieldName.setText("");
                                 txtFieldPrice.setText("");
                                 cBoxSuper.getSelectionModel().clearSelection();
-                                txt.writeFile("productos.txt", sT2.secondToSting());
+                                txt.writeFile("productos.txt", p.secondToSting());
                                 a.setAlertType(Alert.AlertType.INFORMATION);
                                 a.setHeaderText("Producto ingresado existosamente");
                                 a.showAndWait();
-                                a.setAlertType(Alert.AlertType.ERROR);
+                            }
+                        }
+                    }
+                } else {
+                    Product sT2 = null;
+                    for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
+                        Object y = util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
+                        if (y instanceof Supermarket) {
+                            b = (Supermarket) y;
+                            if (b.getName().equals(cBoxSuper.getValue())) {//se busca el id del supermercado
+                                sT2 = new Product(txtFieldName.getText(), Double.valueOf(this.txtFieldPrice.getText()), b.getId());
+
+                                if (found == false) {
+                                    util.Utility.getTreeProducts().add(sT2);//se agrega el producto tanto al a la lista como al txt
+                                    txtFieldName.setText("");//se limpia textfields
+                                    txtFieldPrice.setText("");
+                                    cBoxSuper.getSelectionModel().clearSelection();
+                                    txt.writeFile("productos.txt", sT2.secondToSting());
+                                    a.setAlertType(Alert.AlertType.INFORMATION);
+                                    a.setHeaderText("Producto ingresado existosamente");
+                                    a.showAndWait();
+                                    a.setAlertType(Alert.AlertType.ERROR);
+                                }
                             }
                         }
                     }

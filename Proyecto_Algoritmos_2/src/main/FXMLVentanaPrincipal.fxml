@@ -9,6 +9,7 @@
 <?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.shape.Line?>
 
 <BorderPane fx:id="bp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1010.0" stylesheets="@tema%20Oscuro.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.FXMLVentanaPrincipalController">
    <top>
@@ -92,6 +93,7 @@
                   <Image url="@fondo.png" />
                </image>
             </ImageView>
+            <Line endX="100.0" layoutX="382.0" layoutY="147.0" startX="13.0" startY="83.0" stroke="#fefecc" />
          </children></AnchorPane>
    </center>
 </BorderPane>

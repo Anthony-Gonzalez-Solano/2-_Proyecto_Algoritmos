@@ -119,6 +119,7 @@ public class FXMLVentanaPrincipalController implements Initializable {
     private void Mi_Options_close(ActionEvent event) {
         Alert a2 = new Alert(Alert.AlertType.CONFIRMATION);
         a2.setHeaderText("¿Esta seguro que quiere Cerrar la seción?");
+        a2.setContentText("Me vas a dejar solo?  ( ._.) ");
         DialogPane dp = a2.getDialogPane();
         dp.getStylesheets().add(getClass().getResource("myDialogs.css").toExternalForm());
         dp.getStyleClass().add("myDialog");
@@ -147,6 +148,7 @@ public class FXMLVentanaPrincipalController implements Initializable {
     private void Mi_Options_finish(ActionEvent event) {
         Alert a2 = new Alert(Alert.AlertType.CONFIRMATION);
         a2.setHeaderText("¿Esta seguro que quiere Finalizar el programa?");
+        a2.setContentText("me quiere matar?! T^T ");
         DialogPane dp = a2.getDialogPane();
         dp.getStylesheets().add(getClass().getResource("myDialogs.css").toExternalForm());
         dp.getStyleClass().add("myDialog");

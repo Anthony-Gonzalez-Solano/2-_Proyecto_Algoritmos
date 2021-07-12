@@ -182,8 +182,13 @@ public class FXMLGrafoLugaresController implements Initializable {
                 loadTable(grafoMatrix.getAdjacencyMatrix());
             }else{
                 a.setHeaderText("Debe seleccionar almenos 2 \nlugares para al busqued");
+                a.setContentText(" ");
                 a.showAndWait();
             }
+        }else{
+            a.setHeaderText("Debe seleccionar almenos 2 \nlugares para al busqued");
+            a.setContentText(" ");
+            a.showAndWait();
         }
     }
 

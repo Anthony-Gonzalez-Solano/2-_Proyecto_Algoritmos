@@ -71,7 +71,7 @@ public class FXMLModificarProductoController implements Initializable {
 
     @FXML
     private void btnModify(ActionEvent event) throws TreeException {
-        if (txtFieldName.getText().isEmpty() || txtFieldPrice.getText().isEmpty()) { //validamos campos vacios
+        if (txtFieldName.getText().isEmpty() || txtFieldPrice.getText().isEmpty() || cBoxProduct.getSelectionModel().getSelectedIndex()==-1) { //validamos campos vacios
             a.setAlertType(Alert.AlertType.INFORMATION);
             a.setHeaderText("No debe dejar campos vacios. Ingrese un nombre y precio para poder modificarlo");
             a.showAndWait();

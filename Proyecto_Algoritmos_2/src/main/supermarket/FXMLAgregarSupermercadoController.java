@@ -48,16 +48,16 @@ public class FXMLAgregarSupermercadoController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         txt = new FileTXT(); // crear txt
-        cBoxPlace.getItems().add("Cachi");//se agregan los objetos al combobox
+        cBoxPlace.getItems().add("Cachí");//se agregan los objetos al combobox
         cBoxPlace.getItems().add("Caballo Blanco");
         cBoxPlace.getItems().add("Cartago");
         cBoxPlace.getItems().add("Cervantes");
         cBoxPlace.getItems().add("Orosi");
-        cBoxPlace.getItems().add("Paraiso");
+        cBoxPlace.getItems().add("Paraíso");
         cBoxPlace.getItems().add("Santa Rosa");
         cBoxPlace.getItems().add("Tierra Blanca");
         cBoxPlace.getItems().add("Turrialba");
-        cBoxPlace.getItems().add("Ujarras");
+        cBoxPlace.getItems().add("Ujarrás");
         a = new Alert(Alert.AlertType.ERROR);//se declara alerta con estilo personalizado
         a.setContentText(" ");
         DialogPane dp = a.getDialogPane();
@@ -69,7 +69,7 @@ public class FXMLAgregarSupermercadoController implements Initializable {
     private void btnAdd(ActionEvent event) throws GraphException, ListException {
         Supermarket t;
         t = new Supermarket(txtFieldName.getText(), cBoxPlace.getValue());
-        if (txtFieldName.getText().isEmpty() || cBoxPlace.getValue().equals("")) {//validaciones de campos vacios
+        if (txtFieldName.getText().isEmpty() || cBoxPlace.getSelectionModel().getSelectedIndex()==-1) {//validaciones de campos vacios
             a.setAlertType(Alert.AlertType.INFORMATION);
             a.setHeaderText("No debe dejar campos vacios");
             a.showAndWait();

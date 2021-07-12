@@ -54,16 +54,16 @@ public class FXMLModificarRestauranteController implements Initializable {
             DialogPane dp = a5.getDialogPane();
             dp.getStylesheets().add(getClass().getResource("myDialogs.css").toExternalForm());
             dp.getStyleClass().add("myDialog");
-            cBoxPlace.getItems().add("Cachi");//se agregan los lugares al combobox
+            cBoxPlace.getItems().add("Cachí");//se agregan los lugares al combobox
             cBoxPlace.getItems().add("Caballo Blanco");
             cBoxPlace.getItems().add("Cartago");
             cBoxPlace.getItems().add("Cervantes");
             cBoxPlace.getItems().add("Orosi");
-            cBoxPlace.getItems().add("Paraiso");
+            cBoxPlace.getItems().add("Paraíso");
             cBoxPlace.getItems().add("Santa Rosa");
             cBoxPlace.getItems().add("Tierra Blanca");
             cBoxPlace.getItems().add("Turrialba");
-            cBoxPlace.getItems().add("Ujarras");
+            cBoxPlace.getItems().add("Ujarrás");
             txt = new FileTXT();
             for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
                 if (util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data.getClass() == Restaurant.class) {
@@ -107,7 +107,7 @@ public class FXMLModificarRestauranteController implements Initializable {
                 textFieldNombre.setText("");
 
                 a5.setAlertType(Alert.AlertType.CONFIRMATION);
-                a5.setHeaderText("El  restaurante ha sido mofificado correctamente");
+                a5.setHeaderText("El  restaurante ha sido mofidicado correctamente");
                 a5.setContentText(" ");
                 a5.showAndWait();
                 

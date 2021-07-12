@@ -60,21 +60,21 @@ public class FXMLModificarSuperMercadoController implements Initializable {
             Logger.getLogger(FXMLModificarSuperMercadoController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        cBoxPlace.getItems().add("Cachi");//se agregan los lugares al combobox
+        cBoxPlace.getItems().add("Cachí");//se agregan los lugares al combobox
         cBoxPlace.getItems().add("Caballo Blanco");
         cBoxPlace.getItems().add("Cartago");
         cBoxPlace.getItems().add("Cervantes");
         cBoxPlace.getItems().add("Orosi");
-        cBoxPlace.getItems().add("Paraiso");
+        cBoxPlace.getItems().add("Paraíso");
         cBoxPlace.getItems().add("Santa Rosa");
         cBoxPlace.getItems().add("Tierra Blanca");
         cBoxPlace.getItems().add("Turrialba");
-        cBoxPlace.getItems().add("Ujarras");
+        cBoxPlace.getItems().add("Ujarrás");
     }
 
     @FXML
     private void btnModify(ActionEvent event) throws GraphException, ListException {
-        if (txtFieldName.getText().isEmpty()) {//validaciones de campos vacios
+        if (txtFieldName.getText().isEmpty() || cBoxPlace.getSelectionModel().getSelectedIndex()==-1 || cBoxSuperMarkets.getSelectionModel().getSelectedIndex()==-1) {//validaciones de campos vacios
             a.setAlertType(Alert.AlertType.INFORMATION);
             a.setHeaderText("No debe dejar campos vacios");
             a.showAndWait();
