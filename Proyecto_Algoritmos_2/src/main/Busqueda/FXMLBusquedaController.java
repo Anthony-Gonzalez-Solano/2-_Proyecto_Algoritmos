@@ -500,7 +500,7 @@ public class FXMLBusquedaController implements Initializable {
     @FXML
     private void Ubic_Ujarras(MouseEvent event) {
         if(Ubic_Ujarras.getOpacity()==0.0){
-        lbl_Ubicacion.setText("Ujarás");
+        lbl_Ubicacion.setText("Ujarrás");
         }else{
             a.setHeaderText("Ujarás no esta los lugares\ndesignados a la busqueda");
             a.setContentText("Verifiquelo en 'Grafos Lugares'");

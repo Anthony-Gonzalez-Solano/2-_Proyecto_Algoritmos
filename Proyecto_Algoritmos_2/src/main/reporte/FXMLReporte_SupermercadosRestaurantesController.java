@@ -118,7 +118,7 @@ public class FXMLReporte_SupermercadosRestaurantesController implements Initiali
         String content = "";
         document.open();
         //aqui agregamos imagen al pdf
-        Image image = Image.getInstance("src/assets/logoNombre.jpeg");
+        Image image = Image.getInstance("src/assets/logoNombre.png");
         image.scaleToFit(200, 200);
         image.setAlignment(Chunk.ALIGN_CENTER);
         document.add(image);

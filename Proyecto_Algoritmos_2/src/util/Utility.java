@@ -240,7 +240,7 @@ public class Utility {
             {
                 leeterL = true;
             }
-            if ((32 < x && x < 44)) // Verifica si tiene Signos
+            if ((32 < x && x < 48)) // Verifica si tiene Signos
             {
                 sings = true;
             }
