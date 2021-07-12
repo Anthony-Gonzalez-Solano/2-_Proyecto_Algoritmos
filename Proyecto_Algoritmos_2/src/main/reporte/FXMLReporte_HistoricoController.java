@@ -137,58 +137,49 @@ public class FXMLReporte_HistoricoController implements Initializable {
         document.add(parrafosBusqueda);
         boolean found = false;
         //Tabla de restaurantes con su contenido
-        PdfPTable tableRest = new PdfPTable(3);//campos
-        tableRest.addCell("Id");
-        tableRest.addCell("Nombre");
-        tableRest.addCell("Ubicacion");
+        PdfPTable tableSearch = new PdfPTable(3);//campos
+        tableSearch.addCell("Busqueda");
+        tableSearch.addCell("Fecha");
+        tableSearch.addCell("Hora");
+        //instancias
+        CircularDoublyLinkedList search = new CircularDoublyLinkedList();
+        //CircularDoublyLinkedList searchList = fillSearchTable(util.Utility.getListSearchs(), search);
+
         if (!util.Utility.getListSearchs().isEmpty()) {
             
+            for (int i = 1; i <= search.size(); i++) {
+                Paragraph parrafoSearch = new Paragraph();
+                parrafoSearch.add("----------------------------------------------------------------------------------------------------------------------------------");
+                document.add(parrafoSearch);
+
+            }//for
+            /*
+            for (int i = 0; i < search.size(); i++) {
+
+            }//for
+            */
+        }//if
+        document.add(tableSearch);
+        //aqui el footer
+        Paragraph footer = new Paragraph();
+        footer.setAlignment(Paragraph.ALIGN_BOTTOM);
+        footer.setFont(FontFactory.getFont("Tahoma", 14, Font.NORMAL, BaseColor.DARK_GRAY));
+        footer.add("\n\nSherchplit Sistema de Sugerencias de Restaurantes y Supermercados\n\n"
+                + "Av. 258 San Jose, Costa Rica\n\nTelefono 8888-8888\n\nCorreo");
+        document.add(footer);
+        /*
+        if (found == false) {
+            //si no tiene restaurantes ni supermecados se pone este mensaje
+            content += "No existen supermercados ni restaurantes registrados\n";
         }
-        //instancias
-        CircularDoublyLinkedList searchList = new CircularDoublyLinkedList();
-        //Tabla de restaurantes con su contenido
-       // PdfPTable tableRest = new PdfPTable(3);//campos
-        tableRest.addCell("Id");
-        tableRest.addCell("Name");
-        tableRest.addCell("Ubicación");
-        //Tabla de supermercados con su contenido
-        PdfPTable tableSuper = new PdfPTable(3);//campos
-        tableSuper.addCell("Id");
-        tableSuper.addCell("Name");
-        tableSuper.addCell("Ubicación");
-        //si no hay supermercados o restaurantes se pone un mensaje pero se espera que el usuario no lo vea
-        if (!searchList.isEmpty()) {
-            /*try {
-                for (int i = 1; i <= searchList.size(); i++) {
-                    Paragraph parrafo = new Paragraph();
-
-                    
-
-                }
-
-            } catch (ListException | DocumentException e) {
-                System.out.println(e);
-            }*/
-        } else {
-            Paragraph parrafoTemp = new Paragraph();
-            parrafoTemp.setAlignment(Paragraph.ALIGN_CENTER);
-            parrafoTemp.add("\nThere's no search made\n");
-            document.add(parrafoTemp);
-        }
-        //se controla el tamaño,tipo y color de la letra
-        Paragraph parrafo = new Paragraph("Lista de supermercados y restaurantes \n\n" + content,
-                FontFactory.getFont("arial",
-                        12,
-                        Font.BOLD,
-                        BaseColor.BLACK
-                ));
-        document.add(parrafo);//se agrega el contenido
-        //metadatos
-        document.addTitle("Lista de cursos retirados");
-        document.addKeywords("Java, PDF, Lista de Cursos Retirados");
-        document.addAuthor("Projecto 2 Algoritmos");
-        document.addCreator("Grupo No.3");
-        document.close();
+        found = false;
+         */
+        //document.add (tableRest);
+        document.addTitle ("Lista de Restaurantes y Supermercados");
+        document.addKeywords ("Java, PDF, Lista de Restaurantes y Supermercados");
+        document.addAuthor ("Projecto 2 Algoritmos");
+        document.addCreator ("Grupo No.11");
+        document.close ();
     }//createPDF
 
     private void createViewer(BorderPane bp) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException, InterruptedException {

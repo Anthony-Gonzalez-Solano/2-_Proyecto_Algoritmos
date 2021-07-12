@@ -211,7 +211,7 @@ public class FXMLReporte_SupermercadosRestaurantesController implements Initiali
         footer.setAlignment(Paragraph.ALIGN_BOTTOM);
         footer.setFont(FontFactory.getFont("Tahoma", 14, Font.NORMAL, BaseColor.DARK_GRAY));
         footer.add("\n\nSherchplit Sistema de Sugerencias de Restaurantes y Supermercados\n\n"
-                + "Direccion\n\nTelefono 8888-8888\n\nCorreo");
+                + "Av. 258 San Jose, Costa Rica\n\nTelefono 8888-8888\n\nCorreo");
         document.add(footer);
         /*
         if (found == false) {
