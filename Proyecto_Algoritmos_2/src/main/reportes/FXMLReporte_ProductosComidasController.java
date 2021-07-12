@@ -121,9 +121,27 @@ public class FXMLReporte_ProductosComidasController implements Initializable {
         document.open();
         //aqui agregamos imagen al pdf
         Image image = Image.getInstance("src/assets/logoNombre.jpeg");
-        image.scaleToFit(250, 250);
+        image.scaleToFit(200, 200);
         image.setAlignment(Chunk.ALIGN_CENTER);
         document.add(image);
+        //aqui el encabezado
+        Paragraph encabezado = new Paragraph();
+        encabezado.setAlignment(Paragraph.ALIGN_CENTER);
+        encabezado.setFont(FontFactory.getFont("Chandas", 16, Font.NORMAL, BaseColor.BLACK));
+        encabezado.add("\n\nSherchplit Sistema de Sugerencias de Restaurantes y Supermercados\n\n");
+        document.add(encabezado);
+        //aqui creamos el pdf
+        Paragraph parrafoProductos = new Paragraph();
+        parrafoProductos.setAlignment(Paragraph.ALIGN_CENTER);
+        parrafoProductos.setFont(FontFactory.getFont("Tahoma", 16, Font.BOLD, BaseColor.BLACK));
+        parrafoProductos.add("\n\nRegistro de Productos\n\n");
+        document.add(parrafoProductos);
+        //aqui agregamos imagen al pdf
+        /*Image imageBarra = Image.getInstance("src/assets/barra.jpeg");
+        imageBarra.scaleToFit(200, 100);
+        imageBarra.setAlignment(Chunk.ALIGN_CENTER);
+        document.add(imageBarra);*/
+        //aqui se genera el contenido del pdf
         //aqui se genera el contenido del pdf
         Product prod = null;
         Food food = null;
@@ -134,6 +152,41 @@ public class FXMLReporte_ProductosComidasController implements Initializable {
         tableProd.addCell("Nombre");
         tableProd.addCell("Precio");
         tableProd.addCell("Supermercado");
+        //instancias para recorrer los arboles de product y food
+        CircularLinkedList listProduct = new CircularLinkedList();
+        CircularLinkedList finalListProduct = fillTreeTable(util.Utility.getTreeProducts().getRoot(), listProduct);
+        //verificacion y contenido del pdf
+        if (!util.Utility.getTreeProducts().isEmpty()) {
+            Supermarket sp = null;
+            for (int k = 1; k <= finalListProduct.size(); k++) {
+                prod = (Product) finalListProduct.getNode(k).data;
+                tableProd.addCell(String.valueOf(prod.getID()));
+                tableProd.addCell(prod.getName());
+                tableProd.addCell(String.valueOf(prod.getPrice()));
+                tableProd.addCell(String.valueOf(sp.getId()));//revisar
+            }//for producto
+            document.add(tableProd);
+        } else {
+            //content += "No hay supermercados ni restaurantes agregados por el momento\n";
+            Paragraph parrafo = new Paragraph("Lista de supermercados y restaurantes \n\n" + content,
+                    FontFactory.getFont("arial",
+                            16,
+                            Font.BOLD,
+                            BaseColor.BLACK
+                    ));
+            Paragraph parrafoTemp = new Paragraph();
+            parrafoTemp.setAlignment(Paragraph.ALIGN_CENTER);
+            parrafoTemp.add("\n\nNo hay productos resgistrados por el momento\n\n");
+            document.add(tableProd);//Agrega la tabla al documento 
+            document.add(parrafoTemp);
+            document.add(parrafo);//se agrega el contenido
+        }//if productos
+        //aqui creamos el pdf
+        Paragraph parrafoComidas = new Paragraph();
+        parrafoComidas.setAlignment(Paragraph.ALIGN_CENTER);
+        parrafoComidas.setFont(FontFactory.getFont("Tahoma", 16, Font.BOLD, BaseColor.BLACK));
+        parrafoComidas.add("\n\nRegistro de Comidas\n\n");
+        document.add(parrafoComidas);
         //Tabla de supermercados con su contenido
         PdfPTable tableFood = new PdfPTable(4);//campos
         tableFood.addCell("Id");
@@ -141,72 +194,51 @@ public class FXMLReporte_ProductosComidasController implements Initializable {
         tableFood.addCell("Precio");
         tableFood.addCell("Restaurante");
         //instancias para recorrer los arboles de product y food
-        CircularLinkedList listProduct = new CircularLinkedList();
-        CircularLinkedList finalListProduct = fillTreeTable(util.Utility.getTreeProducts().getRoot(), listProduct);
         CircularLinkedList listFood = new CircularLinkedList();
-        CircularLinkedList finalListFood = fillTreeTable(util.Utility.getTreeFood().getRoot(), listFood);
-        //si no hay supermercados o restaurantes se pone un mensaje pero se espera que el usuario no lo vea
-        if (util.Utility.getTreeProducts().isEmpty() == true) {
-            content += "No hay productos agregados por el momento\n";
-        } else {
-            Supermarket sp=null;
-            for (int k = 1; k <= finalListProduct.size(); k++) {
-                prod = (Product) finalListProduct.getNode(k).data;
-                tableProd.addCell(String.valueOf(prod.getID()));
-                tableProd.addCell(prod.getName());
-                tableProd.addCell(String.valueOf(prod.getPrice()));
-                for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
-                    if(util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data instanceof Supermarket){
-                        sp=(Supermarket)util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
-                            if(sp.getId()==prod.getSupermarketID())
-                                tableProd.addCell(sp.getName());//se agrega nombre de super
-                    }
-                }
-                
-            }//for restaurant
-            tableProd.completeRow();//las tablas hechas en itext ignoran filas que no esten completas
-            document.add(tableProd);
-            
-            if (found == false) {
-                //si no tiene productos se pone este mensaje
-                content += "No hay registro de productos\n";
-            }
-            found = false;
-            //document.add(tableProd);
-        }
-        if (util.Utility.getTreeFood().isEmpty() == true) {
-            content += "No hay comidas agregadas por el momento\n";
-        } else {
+        CircularLinkedList finalListFood = fillTreeTable(util.Utility.getTreeProducts().getRoot(), listProduct);
+        //verificacion y contenido del pdf
+        if (!util.Utility.getTreeFood().isEmpty()) {
+            Restaurant res = null;
             for (int i = 1; i <= finalListFood.size(); i++) {
                 food = (Food) finalListFood.getNode(i).data;
                 // tableFood.addCell(String.valueOf(food.getId()));
+                tableFood.addCell(String.valueOf(prod.getID()));
                 tableFood.addCell(food.getName());
                 tableFood.addCell(String.valueOf(food.getPrice()));
-                tableFood.addCell(restaurant.getName());//revisar
-            }//for restaurant    
+                tableFood.addCell(res.getName());//revisar
+            }//for food    
             document.add(tableFood);
-            if (found == false) {
-                //si no tiene restaurantes ni supermecados se pone este mensaje
-                content += "No hay registro de comidas\n";
-            }
-            found = false;
-            //document.add(tableProd);
+        } else {
+            //content += "\n" + sup.getAutoID() + " " + sup.getName() + " " + sup.getLocation() + " " /*+ rest.getId() + " "*/ + "\n";
+            Paragraph parrafo = new Paragraph();
+            parrafo.setAlignment(Paragraph.ALIGN_CENTER);
+            parrafo.add("\n\nNo hay supermercados resgistrados por el momento\n\n");
+            document.add(tableFood);//Agrega la tabla al documento 
+            document.add(parrafo);
+            document.add(parrafo);//se agrega el contenido
+        }//if comidas
+        document.add(tableFood);
+        //aqui el footer
+        Paragraph footer = new Paragraph();
+        footer.setAlignment(Paragraph.ALIGN_BOTTOM);
+        footer.setFont(FontFactory.getFont("Tahoma", 14, Font.NORMAL, BaseColor.DARK_GRAY));
+        footer.add("\n\nSherchplit Sistema de Sugerencias de Restaurantes y Supermercados\n\n"
+                + "Direccion\n\nTelefono 8888-8888\n\nCorreo");
+        document.add(footer);
+        /*
+        if (found == false) {
+            //si no tiene restaurantes ni supermecados se pone este mensaje
+            content += "No existen supermercados ni restaurantes registrados\n";
         }
-        //se controla el tamaño,tipo y color de la letra
-        Paragraph parrafo = new Paragraph("Lista de productos y comidas \n\n" + content,
-                FontFactory.getFont("arial",
-                        12,
-                        Font.BOLD,
-                        BaseColor.BLACK
-                ));
-        document.add(parrafo);//se agrega el contenido
-        //metadatos
-        document.addTitle("Lista de cursos retirados");
-        document.addKeywords("Java, PDF, Lista de Cursos Retirados");
-        document.addAuthor("Projecto 2 Algoritmos");
-        document.addCreator("Grupo No.3");
-        document.close();
-    }
+        found = false;
+         */
+        //document.add (tableRest);
+        document.addTitle ("Lista de Productos y Comidas");
+        document.addKeywords ("Java, PDF, Lista de Productos y Comidas");
+        document.addAuthor ("Projecto 2 Algoritmos");
+        document.addCreator ("Grupo No.11");
+        document.close ();
+    }//createPDF
 
     private void createViewer(BorderPane bp) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException, InterruptedException {
         //se usa LookAndFeel para establecer el estilo y color ya que es un componente Java Swing
@@ -296,3 +328,13 @@ public class FXMLReporte_ProductosComidasController implements Initializable {
     }
 
 }
+/*este en medio del for de producto
+for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
+                        if (util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data instanceof Supermarket) {
+                            sp = (Supermarket) util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
+                            if (sp.getId() == prod.getSupermarketID()) {
+                                tableProd.addCell(sp.getName());//se agrega nombre de super
+                            }//if
+                        }//if
+                    }//for
+ */

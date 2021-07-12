@@ -201,10 +201,10 @@ public class FXMLReporte_SupermercadosRestaurantesController implements Initiali
             Paragraph parrafo = new Paragraph();
             parrafo.setAlignment(Paragraph.ALIGN_CENTER);
             parrafo.add("\n\nNo hay supermercados resgistrados por el momento\n\n");
-            document.add(tableRest);//Agrega la tabla al documento 
+            document.add(tableSuper);//Agrega la tabla al documento 
             document.add(parrafo);
             document.add(parrafo);//se agrega el contenido
-        }//for supermarket
+        }//if supermarket
         document.add(tableSuper);
         //aqui el footer
         Paragraph footer = new Paragraph();
@@ -221,12 +221,12 @@ public class FXMLReporte_SupermercadosRestaurantesController implements Initiali
         found = false;
          */
         //document.add (tableRest);
-        document.addTitle ("Lista de cursos retirados");
-        document.addKeywords ("Java, PDF, Lista de Cursos Retirados");
+        document.addTitle ("Lista de Restaurantes y Supermercados");
+        document.addKeywords ("Java, PDF, Lista de Restaurantes y Supermercados");
         document.addAuthor ("Projecto 2 Algoritmos");
         document.addCreator ("Grupo No.11");
         document.close ();
-    }
+    }//createPDF
     //si no hay supermercados o restaurantes se pone un mensaje pero se espera que el usuario no lo vea
     //document.add (parrafosSup);//se agrega el contenido
     //metadatos
