@@ -5,7 +5,6 @@
  */
 package main.places;
 
-import domain.graph.AdjacencyListGraph;
 import domain.graph.AdjacencyMatrixGraph;
 import domain.graph.Graph;
 import domain.graph.GraphException;
@@ -16,13 +15,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.IntegerBinding;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.collections.ObservableSet;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -30,16 +23,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
-import javafx.util.Callback;
 import org.w3c.dom.Text;
 
 /**
@@ -101,12 +93,18 @@ public class FXMLGrafoLugaresController implements Initializable {
     private TableColumn<List<String>, String> col_Orig_Dest;
     @FXML
     private TableColumn<List<String>, String> col_dist;
+    private Alert a;
     
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        a = new Alert(Alert.AlertType.ERROR);
+        DialogPane dp = a.getDialogPane();
+        a.setContentText(" ");
+        dp.getStylesheets().add(getClass().getResource("myDialogs.css").toExternalForm());
+        dp.getStyleClass().add("myDialog");
         if (!util.Utility.getmGraphPlace().isEmpty()) {
             try {
                 grafoMatrix = util.Utility.getmGraphPlace(); 
@@ -176,14 +174,13 @@ public class FXMLGrafoLugaresController implements Initializable {
                     x++;
                 }
             }
-            if(x>2){
+            if(x>=2){
                 fillGraph();
                 num = grafoMatrix.size();
                 drawGraph(grafoMatrix);
                 util.Utility.setmGraphPlace(grafoMatrix);
                 loadTable(grafoMatrix.getAdjacencyMatrix());
             }else{
-                Alert a = new Alert(Alert.AlertType.ERROR);
                 a.setHeaderText("Debe seleccionar almenos 2 \nlugares para al busqued");
                 a.showAndWait();
             }

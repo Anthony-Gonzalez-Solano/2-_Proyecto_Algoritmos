@@ -7,6 +7,7 @@ package main;
 
 import domain.Restaurant;
 import domain.Supermarket;
+import domain.graph.Graph;
 import domain.list.ListException;
 import java.io.IOException;
 import java.net.URL;
@@ -116,16 +117,20 @@ public class FXMLVentanaPrincipalController implements Initializable {
 
     @FXML
     private void Mi_Options_close(ActionEvent event) {
-        a.setAlertType(Alert.AlertType.CONFIRMATION);
-        a.setHeaderText("¿Esta seguro que quiere Cerrar la seción?");
+        Alert a2 = new Alert(Alert.AlertType.CONFIRMATION);
+        a2.setHeaderText("¿Esta seguro que quiere Cerrar la seción?");
+        DialogPane dp = a2.getDialogPane();
+        dp.getStylesheets().add(getClass().getResource("myDialogs.css").toExternalForm());
+        dp.getStyleClass().add("myDialog");
         ButtonType yes = new ButtonType("Sí");
         ButtonType no = new ButtonType("No");
-        a.getButtonTypes().clear();
-        a.getButtonTypes().addAll(yes, no);
-        a.setAlertType(Alert.AlertType.ERROR);
+        a2.getButtonTypes().clear();
+        a2.getButtonTypes().addAll(yes, no);
+        a2.setAlertType(Alert.AlertType.ERROR);
 
-        Optional<ButtonType> option = a.showAndWait();
+        Optional<ButtonType> option = a2.showAndWait();
         if (option.get() == yes) {
+            util.Utility.getmGraphPlace().clear();
             Parent root = null;
             try {
                 root = FXMLLoader.load(getClass().getResource("FXMLSecurity.fxml"));
@@ -140,15 +145,18 @@ public class FXMLVentanaPrincipalController implements Initializable {
 
     @FXML
     private void Mi_Options_finish(ActionEvent event) {
-        a.setAlertType(Alert.AlertType.CONFIRMATION);
-        a.setHeaderText("¿Esta seguro que quiere Finalizar el programa?");
+        Alert a2 = new Alert(Alert.AlertType.CONFIRMATION);
+        a2.setHeaderText("¿Esta seguro que quiere Finalizar el programa?");
+        DialogPane dp = a2.getDialogPane();
+        dp.getStylesheets().add(getClass().getResource("myDialogs.css").toExternalForm());
+        dp.getStyleClass().add("myDialog");
         ButtonType yes = new ButtonType("Sí");
         ButtonType no = new ButtonType("No");
-        a.getButtonTypes().clear();
-        a.getButtonTypes().addAll(yes, no);
-        a.setAlertType(Alert.AlertType.ERROR);
+        a2.getButtonTypes().clear();
+        a2.getButtonTypes().addAll(yes, no);
+        a2.setAlertType(Alert.AlertType.ERROR);
         
-        Optional<ButtonType> option = a.showAndWait();
+        Optional<ButtonType> option = a2.showAndWait();
         if (option.get() == yes) {
             System.exit(0);
         }
@@ -304,6 +312,12 @@ public class FXMLVentanaPrincipalController implements Initializable {
 
     @FXML
     private void MI_Comida_Agregar(ActionEvent event) {
+        if(util.Utility.getlGraphRestaurants_Supermarkets().isEmpty()){
+            a.setAlertType(Alert.AlertType.INFORMATION);
+            a.setHeaderText("No podemos agregar comida sin Restaurantes?");
+            a.setContentText("Agregamos algunos!! :D ");
+            a.showAndWait();
+        }else
         loadPage("Comidas/FXMLAgregarComida");
     }
 
@@ -342,6 +356,12 @@ public class FXMLVentanaPrincipalController implements Initializable {
 
     @FXML
     private void MI_Producto_Agregar(ActionEvent event) {
+        if(util.Utility.getlGraphRestaurants_Supermarkets().isEmpty()){
+            a.setAlertType(Alert.AlertType.INFORMATION);
+            a.setHeaderText("No podemos agregar Productos sin Supermerados?");
+            a.setContentText("Agregamos algunos!! :D ");
+            a.showAndWait();
+        }else
         loadPage("productos/FXMLAgregarProducto");
     }
 

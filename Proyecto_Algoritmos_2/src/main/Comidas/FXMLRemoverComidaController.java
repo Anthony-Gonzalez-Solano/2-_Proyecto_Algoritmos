@@ -54,7 +54,7 @@ public class FXMLRemoverComidaController implements Initializable {
         } catch (TreeException ex) {
             a5.setAlertType(Alert.AlertType.ERROR);
             a5.setHeaderText("No hay comidas");
-            a5.setContentText("");
+            a5.setContentText(" ");
             a5.showAndWait();
         }
     }
@@ -92,7 +92,7 @@ public class FXMLRemoverComidaController implements Initializable {
                         comboComidas.getSelectionModel().clearSelection();//limpiamos el comboBox
                         a5.setAlertType(Alert.AlertType.ERROR);
                         a5.setHeaderText(" La comida ha sido eliminada correctamente");
-                        a5.setContentText("");
+                        a5.setContentText(" ");
                         a5.showAndWait();
                         util.Utility.getTreeFood().remove(f);
 
@@ -100,7 +100,7 @@ public class FXMLRemoverComidaController implements Initializable {
                 } else {
                     a5.setAlertType(Alert.AlertType.ERROR);
                     a5.setHeaderText(" La comida " + comboComidas.getSelectionModel().getSelectedItem().getName() + "   no existe");
-                    a5.setContentText("");
+                    a5.setContentText(" ");
                     a5.showAndWait();
                 }
 
@@ -114,7 +114,7 @@ public class FXMLRemoverComidaController implements Initializable {
         if (isEmpty()) {
             a5.setAlertType(Alert.AlertType.ERROR);
             a5.setHeaderText("El arbol esta vacio ");
-            a5.setContentText("");
+            a5.setContentText(" ");
             a5.showAndWait();
         }
         return preOrder(util.Utility.getTreeFood().getRoot());

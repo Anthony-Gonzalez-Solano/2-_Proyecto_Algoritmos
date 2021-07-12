@@ -50,6 +50,7 @@ public class FXMLAgregarComidaController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         txt = new FileTXT();
         a5 = new Alert(Alert.AlertType.ERROR);
+        a5.setContentText(" ");
         DialogPane dp = a5.getDialogPane();
         dp.getStylesheets().add(getClass().getResource("myDialogs.css").toExternalForm());
         dp.getStyleClass().add("myDialog");
@@ -63,7 +64,7 @@ public class FXMLAgregarComidaController implements Initializable {
         } catch (ListException ex) {
             a5.setAlertType(Alert.AlertType.INFORMATION);
             a5.setHeaderText("No hay restaurantes agregados. Por favor ingrese un restaurante primero");
-            a5.setContentText("");
+            a5.setContentText(" ");
             a5.showAndWait();
 
         }
@@ -79,7 +80,7 @@ public class FXMLAgregarComidaController implements Initializable {
             if (comboRestaurantes.getSelectionModel().isEmpty() || textFieldNombre.getText().isEmpty() || textFieldPrecio.getText().isEmpty()) {
                 a5.setAlertType(Alert.AlertType.INFORMATION);
                 a5.setHeaderText("No debe dejar campos vacios, verifique los campos de texto.\n Y que haya elegido un restaurante donde agregar su comida");
-                a5.setContentText("");
+                a5.setContentText(" ");
                 a5.showAndWait();
 
             } else if (util.Utility.getTreeFood().isEmpty()) {
@@ -97,7 +98,7 @@ public class FXMLAgregarComidaController implements Initializable {
                             comboRestaurantes.getSelectionModel().clearSelection();//limpiamos el comboBox
                             a5.setAlertType(Alert.AlertType.CONFIRMATION);
                             a5.setHeaderText(" La comida" + textFieldNombre.getText() + " fue agregada correctamente");
-                            a5.setContentText("");
+                            a5.setContentText(" ");
                             a5.showAndWait();
                             textFieldNombre.setText("");
                             textFieldPrecio.setText("");
@@ -128,7 +129,7 @@ public class FXMLAgregarComidaController implements Initializable {
                     comboRestaurantes.getSelectionModel().clearSelection();//limpiamos el comboBox
                     a5.setAlertType(Alert.AlertType.CONFIRMATION);
                     a5.setHeaderText(" La comida " + textFieldNombre.getText() + " fue agregada correctamente");
-                    a5.setContentText("");
+                    a5.setContentText(" ");
 
                     a5.showAndWait();
 
@@ -139,7 +140,7 @@ public class FXMLAgregarComidaController implements Initializable {
                     a5.setAlertType(Alert.AlertType.INFORMATION);
                     a5.setHeaderText("La comida " + textFieldNombre.getText() + " ya esta en este restaurante");
                     a5.showAndWait();
-                    a5.setContentText("");
+                    
 
                 }
             }
@@ -147,7 +148,7 @@ public class FXMLAgregarComidaController implements Initializable {
         } catch (ListException e) {
             a5.setAlertType(Alert.AlertType.INFORMATION);
             a5.setHeaderText("No hay restaurantes agregados. Por favor ingrese un restaurante primero");
-            a5.setContentText("");
+            a5.setContentText(" ");
             a5.showAndWait();
         } catch (TreeException ex) {
             Logger.getLogger(FXMLAgregarComidaController.class.getName()).log(Level.SEVERE, null, ex);

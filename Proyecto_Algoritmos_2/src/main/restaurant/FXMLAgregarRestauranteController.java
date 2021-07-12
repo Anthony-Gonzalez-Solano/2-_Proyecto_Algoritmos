@@ -50,6 +50,7 @@ public class FXMLAgregarRestauranteController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         txt = new FileTXT(); // crear txt
         a5 = new Alert(Alert.AlertType.ERROR);
+        a5.setContentText(" ");
         DialogPane dp = a5.getDialogPane();
         dp.getStylesheets().add(getClass().getResource("myDialogs.css").toExternalForm());
         dp.getStyleClass().add("myDialog");

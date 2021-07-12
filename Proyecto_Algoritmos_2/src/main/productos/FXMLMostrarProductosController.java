@@ -46,6 +46,7 @@ public class FXMLMostrarProductosController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         a = new Alert(Alert.AlertType.ERROR);
+        a.setContentText(" ");
         DialogPane dp = a.getDialogPane();
         dp.getStylesheets().add(getClass().getResource("myDialogs.css").toExternalForm());
         dp.getStyleClass().add("myDialog");

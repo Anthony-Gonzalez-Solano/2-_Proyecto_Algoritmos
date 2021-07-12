@@ -47,6 +47,7 @@ public class FXMLModificarComidasController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         txt = new FileTXT();
         a5 = new Alert(Alert.AlertType.ERROR);
+        a5.setContentText(" ");
         DialogPane dp = a5.getDialogPane();
         dp.getStylesheets().add(getClass().getResource("myDialogs.css").toExternalForm());
         dp.getStyleClass().add("myDialog");
@@ -70,7 +71,7 @@ public class FXMLModificarComidasController implements Initializable {
         if (textFieldNombre.getText().isEmpty() || textFieldPrecio.getText().isEmpty()) { //validamos campos vacios
             a5.setAlertType(Alert.AlertType.INFORMATION);
             a5.setHeaderText("No debe dejar campos vacios. Ingrese un nombre y precio para poder modificarlo");
-            a5.setContentText("");
+            a5.setContentText(" ");
             a5.showAndWait();
         } else {
 
@@ -90,7 +91,7 @@ public class FXMLModificarComidasController implements Initializable {
 
                     a5.setAlertType(Alert.AlertType.CONFIRMATION);
                     a5.setHeaderText("La comida ha sido modificada correctamente");
-                    a5.setContentText("");
+                    a5.setContentText(" ");
                     a5.showAndWait();
 
                 }

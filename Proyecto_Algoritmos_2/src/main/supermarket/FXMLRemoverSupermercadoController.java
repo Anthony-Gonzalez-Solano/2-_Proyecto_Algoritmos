@@ -47,6 +47,7 @@ public class FXMLRemoverSupermercadoController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         txt = new FileTXT();
         a = new Alert(Alert.AlertType.ERROR);
+        a.setContentText(" ");
         DialogPane dp = a.getDialogPane();
         dp.getStylesheets().add(getClass().getResource("myDialogs.css").toExternalForm());
         dp.getStyleClass().add("myDialog");
@@ -70,14 +71,18 @@ public class FXMLRemoverSupermercadoController implements Initializable {
             a.showAndWait();
         } else {
 
-            a.setAlertType(Alert.AlertType.CONFIRMATION);//se pregunta si se quiere remover el supermercado
-            a.setHeaderText("¿Esta seguro que quiere remover el Supermercado: " + cBoxSupermarkets.getSelectionModel().getSelectedItem() + "?");
+            Alert a2= new Alert(Alert.AlertType.CONFIRMATION);//se pregunta si se quiere remover el supermercado
+            a2.setHeaderText("¿Esta seguro que quiere remover el Supermercado: " + cBoxSupermarkets.getSelectionModel().getSelectedItem() + "?");
+            a2.setContentText(" ");
+            DialogPane dp = a2.getDialogPane();
+            dp.getStylesheets().add(getClass().getResource("myDialogs.css").toExternalForm());
+            dp.getStyleClass().add("myDialog");
             ButtonType yes = new ButtonType("Si");
             ButtonType no = new ButtonType("No");
-            a.getButtonTypes().clear();
-            a.getButtonTypes().addAll(yes, no);
+            a2.getButtonTypes().clear();
+            a2.getButtonTypes().addAll(yes, no);
 
-            Optional<ButtonType> option = a.showAndWait();
+            Optional<ButtonType> option = a2.showAndWait();
             if (option.get() == yes) {//si dice "Si" se remueve
 
                 for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {//se recorre el grafo y se asegura que el objeto sacado sea tipo Supermarket

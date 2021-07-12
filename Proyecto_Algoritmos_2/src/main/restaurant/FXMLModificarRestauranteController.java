@@ -50,6 +50,7 @@ public class FXMLModificarRestauranteController implements Initializable {
         try {
             textFieldNombre.setVisible(true);
             a5 = new Alert(Alert.AlertType.ERROR);
+            a5.setContentText(" ");
             DialogPane dp = a5.getDialogPane();
             dp.getStylesheets().add(getClass().getResource("myDialogs.css").toExternalForm());
             dp.getStyleClass().add("myDialog");
@@ -72,7 +73,7 @@ public class FXMLModificarRestauranteController implements Initializable {
         } catch (ListException ex) {
             a5.setAlertType(Alert.AlertType.ERROR);
             a5.setHeaderText("No hay restaurantes agregados");
-            a5.setContentText("");
+            a5.setContentText(" ");
             a5.showAndWait();
         }
     }
@@ -80,9 +81,10 @@ public class FXMLModificarRestauranteController implements Initializable {
     @FXML
     private void btnModificar(ActionEvent event) {
         if (textFieldNombre.getText().isEmpty() || comboRestaurantes.getSelectionModel().isEmpty()||cBoxPlace.getSelectionModel().isEmpty()) { //validamos campos vacios
-            Alert a = new Alert(Alert.AlertType.INFORMATION);
-            a.setHeaderText("Debe ingresar un restaurante para poder modificarlo");
-            a.showAndWait();
+            a5.setAlertType(Alert.AlertType.INFORMATION);
+            a5.setHeaderText("Debe ingresar un restaurante para poder modificarlo");
+            a5.showAndWait();
+            a5.setAlertType(Alert.AlertType.ERROR);
         } else {
             Restaurant r = new Restaurant(textFieldNombre.getText(), cBoxPlace.getValue());
             try {
@@ -106,14 +108,14 @@ public class FXMLModificarRestauranteController implements Initializable {
 
                 a5.setAlertType(Alert.AlertType.CONFIRMATION);
                 a5.setHeaderText("El  restaurante ha sido mofificado correctamente");
-                a5.setContentText("");
+                a5.setContentText(" ");
                 a5.showAndWait();
                 
 
             } catch (ListException e) {
                 a5.setAlertType(Alert.AlertType.ERROR);
                 a5.setHeaderText("No hay restaurantes agregados");
-                a5.setContentText("");
+                a5.setContentText(" ");
                 a5.showAndWait();
             }
         }

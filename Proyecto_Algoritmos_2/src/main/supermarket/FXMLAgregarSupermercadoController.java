@@ -59,6 +59,7 @@ public class FXMLAgregarSupermercadoController implements Initializable {
         cBoxPlace.getItems().add("Turrialba");
         cBoxPlace.getItems().add("Ujarras");
         a = new Alert(Alert.AlertType.ERROR);//se declara alerta con estilo personalizado
+        a.setContentText(" ");
         DialogPane dp = a.getDialogPane();
         dp.getStylesheets().add(getClass().getResource("myDialogs.css").toExternalForm());
         dp.getStyleClass().add("myDialog");

@@ -43,6 +43,7 @@ public class FXMLRemoverProductoController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         txt = new FileTXT(); // crear txt
         a = new Alert(Alert.AlertType.ERROR);
+        a.setContentText(" ");
         DialogPane dp = a.getDialogPane();
         dp.getStylesheets().add(getClass().getResource("myDialogs.css").toExternalForm());
         dp.getStyleClass().add("myDialog");
