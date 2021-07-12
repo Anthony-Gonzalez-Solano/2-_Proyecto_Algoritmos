@@ -13,6 +13,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -68,6 +69,11 @@ public class FXMLAgregarComidaController implements Initializable {
             a5.showAndWait();
 
         }
+        textFieldPrecio.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+            if (!newValue.matches("\\d*")) {//metodo que solamente deja introducir numeros al textfield
+                textFieldPrecio.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
     }
 
     @FXML
