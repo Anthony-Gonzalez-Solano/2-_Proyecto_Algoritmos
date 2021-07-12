@@ -6,9 +6,7 @@
 package main.Comidas;
 
 import domain.Food;
-import domain.Product;
 import domain.Restaurant;
-import domain.Supermarket;
 import domain.list.ListException;
 import domain.tree.BTreeNode;
 import domain.tree.TreeException;
@@ -59,9 +57,7 @@ public class FXMLMostrarComidasController implements Initializable {
         colum2.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().get(2)));
         
 
-//        this.tableViewComidas.getColumns().add(columnaNombre);
-//        this.tableViewComidas.getColumns().add(columnaPrecio);
-//        this.tableViewComidas.getColumns().add(columnaRestaurante);
+
 
         try {
             preOrder();
@@ -86,7 +82,7 @@ public class FXMLMostrarComidasController implements Initializable {
     }
 
     private String preOrder(BTreeNode node) throws ListException {
-
+// agregamos los objetos de tipo comida a la lista para agregarlos a la tabla
         String result = "";
         list = new ArrayList();
         if (node != null) {
@@ -97,7 +93,7 @@ public class FXMLMostrarComidasController implements Initializable {
             for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
                 if (util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data.getClass()== Restaurant.class) {
                     Restaurant s = (Restaurant) util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
-                    if (s.getId() == f.getRestaurantID()) {
+                    if (s.getId() == f.getRestaurantID()) {//verificamos que tengan el mismo ID
                         list.add(s.getName());
                     }
                 }
@@ -105,7 +101,7 @@ public class FXMLMostrarComidasController implements Initializable {
             if(list.size()==3){
                 tableViewComidas.getItems().add(list);//se llena la tabla
             }
-            preOrder(node.left);
+            preOrder(node.left);//recorremos los siguientes elementos
             preOrder(node.right);
         }
         return result;

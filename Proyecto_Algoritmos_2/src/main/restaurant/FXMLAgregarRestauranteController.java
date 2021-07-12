@@ -78,7 +78,7 @@ public class FXMLAgregarRestauranteController implements Initializable {
                 textFieldNombre.setText("");
                 comboLugares.getSelectionModel().clearSelection();
 
-            } else if (util.Utility.getlGraphRestaurants_Supermarkets().isEmpty()) {
+            } else if (util.Utility.getlGraphRestaurants_Supermarkets().isEmpty()) {// comprobacion para que no se caiga cuando no hay elementos
                 Restaurant r = new Restaurant(this.textFieldNombre.getText(), comboLugares.getSelectionModel().getSelectedItem());
                 util.Utility.getlGraphRestaurants_Supermarkets().addVertex(r);
                 txt.writeFile("Restaurant_Supermarket.txt", r.secondToString());// escribimos en los txt
@@ -91,11 +91,11 @@ public class FXMLAgregarRestauranteController implements Initializable {
             } else {
 
                 Restaurant r = new Restaurant(this.textFieldNombre.getText(), comboLugares.getSelectionModel().getSelectedItem());
-                if (!util.Utility.getlGraphRestaurants_Supermarkets().containsVertex(r)) {
+                if (!util.Utility.getlGraphRestaurants_Supermarkets().containsVertex(r)) { // si no existe el vertice en el grafo se agrega
                     util.Utility.getlGraphRestaurants_Supermarkets().addVertex(r);
                     for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
                         for (int j = 0; j < util.Utility.getlGraphRestaurants_Supermarkets().size(); j++) {
-                            if (!util.Utility.getlGraphRestaurants_Supermarkets().containsEdge(util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data, util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(j).data)) {
+                            if (!util.Utility.getlGraphRestaurants_Supermarkets().containsEdge(util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data, util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(j).data)) {// agregamos las aristas y pesos a los vertices
                                 util.Utility.getlGraphRestaurants_Supermarkets().addEdge(util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data, util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(j).data);
                                 util.Utility.getlGraphRestaurants_Supermarkets().addWeight(util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data, util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(j).data, util.Utility.random(50) + "km");
                             }
@@ -103,14 +103,14 @@ public class FXMLAgregarRestauranteController implements Initializable {
                     }
                 }
 //       
-                if (new File("aristas.txt").exists()) {
+                if (new File("aristas.txt").exists()) {// borramos el txt para que no se sobrecargue y que no aparescan las anteriores aristas
                     new File("aristas.txt").delete();
                 }
                 txt.writeFile("aristas.txt", util.Utility.getlGraphRestaurants_Supermarkets().toString());
                 txt.writeFile("Restaurant_Supermarket.txt", r.secondToString());// escribimos en los txt
 
                 a5.setAlertType(Alert.AlertType.CONFIRMATION);
-                a5.setHeaderText(" El restaurante " + textFieldNombre.getText() + " fue agregado correctamente");
+                a5.setHeaderText(" El restaurante " + textFieldNombre.getText() + " fue agregado correctamente");//mensaje
                 a5.setContentText(" ");
                 a5.showAndWait();
                 comboLugares.getSelectionModel().clearSelection();

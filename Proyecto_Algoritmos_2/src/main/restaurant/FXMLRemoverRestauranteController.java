@@ -87,10 +87,10 @@ public class FXMLRemoverRestauranteController implements Initializable {
             if (option.get() == yes) {
                 try {
                     for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
-                        if (util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data.getClass() == Restaurant.class) {
+                        if (util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data.getClass() == Restaurant.class) {// solo sean objetos Restaurantes
                             Restaurant t = (Restaurant) util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
                             if (t.getName().equals(this.comboRestaurantes.getValue())) {
-                                if (!(util.Utility.getTreeFood().isEmpty()) && findProduct(t.getId()) == true) {
+                                if (!(util.Utility.getTreeFood().isEmpty()) && findProduct(t.getId()) == true) {//validacion que no se borre un restaurante si hay comidas en este
                                     a5.setAlertType(Alert.AlertType.ERROR);
                                     a5.setHeaderText("No ha podido ser removido porque existen comidas ligadas al restaurante");
                                     a5.setContentText(" ");
@@ -148,7 +148,7 @@ public class FXMLRemoverRestauranteController implements Initializable {
 
         if (node == null) {
             return false;
-        } else {
+        } else {                // encontrar si el producto existe 
             Food p = (Food) node.data;
             if (p.getRestaurantID() == restaurantID) {
                 return true; //ya lo encontro

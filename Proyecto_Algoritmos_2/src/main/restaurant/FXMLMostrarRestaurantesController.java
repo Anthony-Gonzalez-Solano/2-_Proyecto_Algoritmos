@@ -51,7 +51,7 @@ public class FXMLMostrarRestaurantesController implements Initializable {
                 this.tableRestaurantes.getItems().remove(0);
             }
             for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
-                if (util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data.getClass() == Restaurant.class) {
+                if (util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data.getClass() == Restaurant.class) {// solo objetos Restaurantes
                     this.tableRestaurantes.getItems().add((Restaurant) util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data);//recorremos la lista de restaurantes y casteamos para agregar los datos de la lista a la tabla 
                 }
             }

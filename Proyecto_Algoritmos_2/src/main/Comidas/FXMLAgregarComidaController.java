@@ -81,19 +81,19 @@ public class FXMLAgregarComidaController implements Initializable {
                 a5.setAlertType(Alert.AlertType.INFORMATION);
                 a5.setHeaderText("No debe dejar campos vacios, verifique los campos de texto.\n Y que haya elegido un restaurante donde agregar su comida");
                 a5.setContentText(" ");
-                a5.showAndWait();
+                a5.showAndWait(); // validacion campos vacios
 
-            } else if (util.Utility.getTreeFood().isEmpty()) {
+            } else if (util.Utility.getTreeFood().isEmpty()) { // si no hay comidas se agrega
                 Restaurant r2 = null;
 
                 for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
                     Object a = util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
-                    if (a.getClass() == Restaurant.class) {
+                    if (a.getClass() == Restaurant.class) { //validamos que sea un objeto Restaurante
                         r2 = (Restaurant) a;
 
-                        if (r2.getName().equals(comboRestaurantes.getSelectionModel().getSelectedItem().getName())) {
+                        if (r2.getName().equals(comboRestaurantes.getSelectionModel().getSelectedItem().getName())) {// si son iguales con respecto al nombre
                             Food f = new Food(textFieldNombre.getText(), Double.valueOf(textFieldPrecio.getText()), r2.getId());
-                            util.Utility.getTreeFood().add(f);
+                            util.Utility.getTreeFood().add(f);//agregamos al arbol
                             txt.writeFile("comidas.txt", f.secondToString());// escribimos en los txt
                             comboRestaurantes.getSelectionModel().clearSelection();//limpiamos el comboBox
                             a5.setAlertType(Alert.AlertType.CONFIRMATION);
@@ -112,18 +112,18 @@ public class FXMLAgregarComidaController implements Initializable {
                 Restaurant r3 = null;
                 for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
                     Object a = util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
-                    if (a.getClass() == Restaurant.class) {
+                    if (a.getClass() == Restaurant.class) {//verificamos que sea objeto Restaurante
                         r3 = (Restaurant) a;
-                        if (r3.getName().equals(comboRestaurantes.getSelectionModel().getSelectedItem().getName())) {
+                        if (r3.getName().equals(comboRestaurantes.getSelectionModel().getSelectedItem().getName())) {//verificamos que sean iguales
                             f3 = new Food(textFieldNombre.getText(), Double.valueOf(this.textFieldPrecio.getText()), r3.getId());
 
                         }
-                        if ((util.Utility.getTreeFood().contains(f3))) {
+                        if ((util.Utility.getTreeFood().contains(f3))) {//si ya existe lo pone true
                             found = true;
                         }
                     }
                 }
-                if (found == false) {
+                if (found == false) {// si no existe lo agrega
                     txt.writeFile("comidas.txt", f3.secondToString());// escribimos en los txt
                     util.Utility.getTreeFood().add(f3);
                     comboRestaurantes.getSelectionModel().clearSelection();//limpiamos el comboBox
@@ -156,7 +156,7 @@ public class FXMLAgregarComidaController implements Initializable {
     }
 
     @FXML
-    private void comboRestaurantes(ActionEvent event) {
+    private void comboRestaurantes(ActionEvent event) {// no se produzca errores
         if (comboRestaurantes.getSelectionModel().getSelectedIndex() != -1) {
 
         }

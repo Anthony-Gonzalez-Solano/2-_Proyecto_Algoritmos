@@ -44,7 +44,7 @@ public class FXMLRemoverComidaController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         txt = new FileTXT();
         a5 = new Alert(Alert.AlertType.ERROR);
-        DialogPane dp = a5.getDialogPane();
+        DialogPane dp = a5.getDialogPane();// estilos a las alertas
         dp.getStylesheets().add(getClass().getResource("myDialogs.css").toExternalForm());
         dp.getStyleClass().add("myDialog");
         try {
@@ -66,14 +66,14 @@ public class FXMLRemoverComidaController implements Initializable {
     @FXML
     private void btnRemover(ActionEvent event) {
         boolean exist = false;
-        if (comboComidas.getSelectionModel().isEmpty()) {
+        if (comboComidas.getSelectionModel().isEmpty()) {//validacion campos vacios
             a5.setAlertType(Alert.AlertType.ERROR);
             a5.setHeaderText("Debe seleccionar una comida para poder removerlo");
             a5.showAndWait();
         } else {
             try {
                 Food f = new Food(comboComidas.getSelectionModel().getSelectedItem().getName(), comboComidas.getSelectionModel().getSelectedItem().getPrice(), comboComidas.getSelectionModel().getSelectedItem().getRestaurantID());
-                if (util.Utility.getTreeFood().contains(f) == true) {
+                if (util.Utility.getTreeFood().contains(f) == true) {// si existe el elemento se remueve
 
                     a5.setAlertType(Alert.AlertType.ERROR);
                     a5.setHeaderText("¿Esta seguro que quiere remover esta comida: " + comboComidas.getSelectionModel().getSelectedItem().getName() + " ?");
@@ -86,7 +86,7 @@ public class FXMLRemoverComidaController implements Initializable {
                     if (option.get() == yes) {
                         util.Utility.getTreeFood();
 
-                        txt.removeElement("comidas.txt", comboComidas.getSelectionModel().getSelectedItem().secondToString());
+                        txt.removeElement("comidas.txt", comboComidas.getSelectionModel().getSelectedItem().secondToString());// escribimos en el txt
                         int x = comboComidas.getSelectionModel().getSelectedIndex(); // tomamos el valor del indice
                         comboComidas.getItems().remove(x); // se remueve
                         comboComidas.getSelectionModel().clearSelection();//limpiamos el comboBox
@@ -94,7 +94,7 @@ public class FXMLRemoverComidaController implements Initializable {
                         a5.setHeaderText(" La comida ha sido eliminada correctamente");
                         a5.setContentText(" ");
                         a5.showAndWait();
-                        util.Utility.getTreeFood().remove(f);
+                        util.Utility.getTreeFood().remove(f);// se remueve
 
                     }
                 } else {
@@ -125,7 +125,7 @@ public class FXMLRemoverComidaController implements Initializable {
     }
 
     private String preOrder(BTreeNode node) {
-        String result = "";
+        String result = "";// agregamos los elementos del arbol al ComboBox
         if (node != null) {
             comboComidas.getItems().add((Food) node.data);
             // result = node.data + " ";

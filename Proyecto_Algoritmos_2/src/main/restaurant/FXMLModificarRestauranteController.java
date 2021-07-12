@@ -67,7 +67,7 @@ public class FXMLModificarRestauranteController implements Initializable {
             txt = new FileTXT();
             for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
                 if (util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data.getClass() == Restaurant.class) {
-                    comboRestaurantes.getItems().add((Restaurant) util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data);
+                    comboRestaurantes.getItems().add((Restaurant) util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data);//agregamos los elementos al comboBox
                 }
             }
         } catch (ListException ex) {
@@ -89,10 +89,10 @@ public class FXMLModificarRestauranteController implements Initializable {
             Restaurant r = new Restaurant(textFieldNombre.getText(), cBoxPlace.getValue());
             try {
                 for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
-                    if (util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data instanceof Restaurant) {
+                    if (util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data instanceof Restaurant) {//validamos que sean solo objetos Restaurantes
                         Restaurant r2 = (Restaurant) util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
-                        if (r2.getClass() == Restaurant.class) {
-                            if (r2.equals(comboRestaurantes.getSelectionModel().getSelectedItem())) {
+                        if (r2.getClass() == Restaurant.class) {// que sean solo Restaurantes
+                            if (r2.equals(comboRestaurantes.getSelectionModel().getSelectedItem())) {// si es el mismo se actualiza
                                 util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data = r;
                             }
                         }
