@@ -24,6 +24,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DialogPane;
 import util.FileTXT;
 
 /**
@@ -32,6 +33,7 @@ import util.FileTXT;
  * @author Adrian Ureña Moraga <Agitor Lucens V>
  */
 public class FXMLRemoverSupermercadoController implements Initializable {
+    private Alert a;
     private util.FileTXT txt;
     @FXML
     private ComboBox<String> cBoxSupermarkets;
@@ -43,85 +45,89 @@ public class FXMLRemoverSupermercadoController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-         txt = new FileTXT();
+        txt = new FileTXT();
+        a = new Alert(Alert.AlertType.ERROR);
+        DialogPane dp = a.getDialogPane();
+        dp.getStylesheets().add(getClass().getResource("myDialogs.css").toExternalForm());
+        dp.getStyleClass().add("myDialog");
         try {
-            for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
-                if (util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data.getClass() == Supermarket.class){
-                    Supermarket t=(Supermarket)util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
-                this.cBoxSupermarkets.getItems().add(t.getName());
+            for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {//se llena el combobox de supermercados asegurandose que al recorrer el grafo el objeto sea tipo Supermarket
+                if (util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data.getClass() == Supermarket.class) {
+                    Supermarket t = (Supermarket) util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
+                    this.cBoxSupermarkets.getItems().add(t.getName());
                 }
             }
-    }   catch (ListException ex) {    
+        } catch (ListException ex) {
             Logger.getLogger(FXMLModificarSuperMercadoController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }    
+    }
 
     @FXML
     private void btnRemove(ActionEvent event) throws GraphException, ListException, TreeException {
-        if (cBoxSupermarkets.getSelectionModel().isEmpty()) {
-            Alert a = new Alert(Alert.AlertType.ERROR);
+        if (cBoxSupermarkets.getSelectionModel().isEmpty()) {//se asegura que el haya seleccionado un supermercado a eliminar
+            a = new Alert(Alert.AlertType.ERROR);
             a.setHeaderText("Debe seleccionar un restaurante para poder removerlo");
             a.showAndWait();
         } else {
-            
-        Alert a = new Alert(Alert.AlertType.INFORMATION);
-                a.setHeaderText("¿Esta seguro que quiere remover el Supermercado: " + cBoxSupermarkets.getSelectionModel().getSelectedItem() + "?");
-                ButtonType yes = new ButtonType("Si");
-                ButtonType no = new ButtonType("No");
-                a.getButtonTypes().clear();
-                a.getButtonTypes().addAll(yes, no);
 
-                Optional<ButtonType> option = a.showAndWait();
-                if (option.get() == yes) {
-                    
-        for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
-                if (util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data.getClass() == Supermarket.class){
-                    Supermarket t=(Supermarket)util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
-                    if(t.getName().equals(this.cBoxSupermarkets.getValue())){
-                        if(!(util.Utility.getTreeProducts().isEmpty())&&findProduct(t.getId())==true){
-                            Alert u = new Alert(Alert.AlertType.ERROR);
-                            u.setHeaderText("No ha podido ser removido porque existen productos ligados al supermercado");
-                            u.showAndWait();
-                        }else{
-                         int x = cBoxSupermarkets.getSelectionModel().getSelectedIndex(); // tomamos el valor del indice
-                         cBoxSupermarkets.getItems().remove(x); // se remueve
-                        cBoxSupermarkets.getSelectionModel().clearSelection();//limpiamos el comboBox
-                        util.Utility.getlGraphRestaurants_Supermarkets().removeVertex(t);
-                        txt.removeElement("Restaurant_Supermarket.txt", t.toString());
-                        Alert u = new Alert(Alert.AlertType.INFORMATION);
-                            u.setHeaderText("Removido exitosamente");
-                            u.showAndWait();
+            a = new Alert(Alert.AlertType.INFORMATION);//se pregunta si se quiere remover el supermercado
+            a.setHeaderText("¿Esta seguro que quiere remover el Supermercado: " + cBoxSupermarkets.getSelectionModel().getSelectedItem() + "?");
+            ButtonType yes = new ButtonType("Si");
+            ButtonType no = new ButtonType("No");
+            a.getButtonTypes().clear();
+            a.getButtonTypes().addAll(yes, no);
+
+            Optional<ButtonType> option = a.showAndWait();
+            if (option.get() == yes) {//si dice "Si" se remueve
+
+                for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {//se recorre el grafo y se asegura que el objeto sacado sea tipo Supermarket
+                    if (util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data.getClass() == Supermarket.class) {
+                        Supermarket t = (Supermarket) util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
+                        if (t.getName().equals(this.cBoxSupermarkets.getValue())) {
+                            if (!(util.Utility.getTreeProducts().isEmpty()) && findProduct(t.getId()) == true) {//si la lista no esta vacia y encontro un producto ligado al supermercado niega la peticion
+                                a = new Alert(Alert.AlertType.ERROR);
+                                a.setHeaderText("No ha podido ser removido porque existen productos ligados al supermercado");
+                                a.showAndWait();
+                            } else {
+                                int x = cBoxSupermarkets.getSelectionModel().getSelectedIndex(); // tomamos el valor del indice
+                                cBoxSupermarkets.getItems().remove(x); // se remueve
+                                cBoxSupermarkets.getSelectionModel().clearSelection();//limpiamos el comboBox
+                                util.Utility.getlGraphRestaurants_Supermarkets().removeVertex(t);//se remueve el supermercado
+                                txt.removeElement("Restaurant_Supermarket.txt", t.toString());
+                                a = new Alert(Alert.AlertType.INFORMATION);
+                                a.setHeaderText("Removido exitosamente");
+                                a.showAndWait();
+                            }
                         }
                     }
                 }
-            }   
             }
         }
     }
     public boolean isEmpty() {
         return util.Utility.getTreeProducts().getRoot() == null;
     }
-    
-    public boolean findProduct(int superID) throws TreeException {
+
+    public boolean findProduct(int superID) throws TreeException {//metodo recursivo para ver si existe el producto
         if (isEmpty()) {
             throw new TreeException("Binary Search Tree is empty");
         }
-        return findProduct(util.Utility.getTreeProducts().getRoot(),superID);
+        return findProduct(util.Utility.getTreeProducts().getRoot(), superID);
     }
-    
+
     private boolean findProduct(BTreeNode node, int superID) {
-        
-        if(node==null)
+
+        if (node == null) {
             return false;
-        else{
-            Product p = (Product)node.data;
-            if(p.getSupermarketID()==superID){
+        } else {
+            Product p = (Product) node.data;
+            if (p.getSupermarketID() == superID) {
                 return true; //ya lo encontro
-            }else
-                if(util.Utility.lessT(superID, p.getSupermarketID()))
-                    return findProduct(node.left, superID);
-                else
-                    return findProduct(node.right, superID);
+            } else if (util.Utility.lessT(superID, p.getSupermarketID())) {
+                return findProduct(node.left, superID);
+            } else {
+                return findProduct(node.right, superID);
+            }
         }
     }
 }

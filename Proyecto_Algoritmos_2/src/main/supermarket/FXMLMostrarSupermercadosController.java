@@ -16,6 +16,8 @@ import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
@@ -37,7 +39,7 @@ public class FXMLMostrarSupermercadosController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
          if(this.tableView.getColumns().isEmpty()){
-            column1=new TableColumn<>("Nombre");
+            column1=new TableColumn<>("Nombre");//Se declara las columnas y se agregan a la tabla
             column1.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().get(0)));
             column2=new TableColumn<>("Lugar");
             column2.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().get(1)));
@@ -52,13 +54,12 @@ public class FXMLMostrarSupermercadosController implements Initializable {
             for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
                 List list = new ArrayList(); 
                  if (util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data.getClass() == Supermarket.class) {
-                 //recorremos la lista y casteamos para agregar los datos de la lista a la tabla
-               
+                 //recorremos la lista y casteamos para agregar los datos de la lista a la tabla          
                 s=(Supermarket) util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
-                list.add(s.getName());
+                list.add(s.getName());//agregamos nombre, localidad e ID y se agregan a la lista
                 list.add(s.getLocation());
                 list.add(String.valueOf(s.getId()));
-                tableView.getItems().add(list);
+                tableView.getItems().add(list);//se agrega la lista a la tabla
                  }
             }   } catch (ListException ex) {
             Logger.getLogger(FXMLMostrarSupermercadosController.class.getName()).log(Level.SEVERE, null, ex);

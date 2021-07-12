@@ -8,7 +8,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@../tema%20Oscuro.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.productos.FXMLAgregarProductoController">
    <children>
-      <ComboBox fx:id="cBoxSuper" layoutX="324.0" layoutY="41.0" prefHeight="41.0" prefWidth="243.0" />
+      <ComboBox fx:id="cBoxSuper" layoutX="324.0" layoutY="41.0" prefHeight="41.0" prefWidth="243.0" promptText="Supermercado" />
       <TextField fx:id="txtFieldName" layoutX="62.0" layoutY="101.0" prefHeight="34.0" prefWidth="276.0" />
       <TextField fx:id="txtFieldPrice" layoutX="62.0" layoutY="175.0" prefHeight="34.0" prefWidth="276.0" />
       <Label layoutX="62.0" layoutY="70.0" text="Nombre" />

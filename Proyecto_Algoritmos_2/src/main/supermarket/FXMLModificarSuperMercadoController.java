@@ -22,6 +22,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextField;
 import util.FileTXT;
 
@@ -31,6 +32,7 @@ import util.FileTXT;
  * @author Adrian Ureña Moraga <Agitor Lucens V>
  */
 public class FXMLModificarSuperMercadoController implements Initializable {
+    private Alert a;
     private util.FileTXT txt;
     @FXML
     private ComboBox<String> cBoxSuperMarkets;
@@ -47,63 +49,79 @@ public class FXMLModificarSuperMercadoController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         txt = new FileTXT();
+        a = new Alert(Alert.AlertType.ERROR);
+        DialogPane dp = a.getDialogPane();
+        dp.getStylesheets().add(getClass().getResource("myDialogs.css").toExternalForm());
+        dp.getStyleClass().add("myDialog");
         try {
-            fillcBoxSuper();
+            fillcBoxSuper();//metodo que recorre el grafo de supermercados y restaurante y agrega los supermercados
         } catch (ListException ex) {
             Logger.getLogger(FXMLModificarSuperMercadoController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //            for (int i = 0; i < util.Utility.getmGraphPlace().size(); i++) {
-//                this.cBoxPlace.getItems().add((Place)util.Utility.getmGraphPlace().getVertexByIndex(i).data);
-//        }
-cBoxPlace.getItems().add("Cachi");
-cBoxPlace.getItems().add("Caballo Blanco");
-cBoxPlace.getItems().add("Cartago");
-cBoxPlace.getItems().add("Cervantes");
-cBoxPlace.getItems().add("Orosi");
-cBoxPlace.getItems().add("Paraiso");
-cBoxPlace.getItems().add("Santa Rosa");
-cBoxPlace.getItems().add("Tierra Blanca");
-cBoxPlace.getItems().add("Turrialba");
-cBoxPlace.getItems().add("Ujarras");
+
+        cBoxPlace.getItems().add("Cachi");//se agregan los lugares al combobox
+        cBoxPlace.getItems().add("Caballo Blanco");
+        cBoxPlace.getItems().add("Cartago");
+        cBoxPlace.getItems().add("Cervantes");
+        cBoxPlace.getItems().add("Orosi");
+        cBoxPlace.getItems().add("Paraiso");
+        cBoxPlace.getItems().add("Santa Rosa");
+        cBoxPlace.getItems().add("Tierra Blanca");
+        cBoxPlace.getItems().add("Turrialba");
+        cBoxPlace.getItems().add("Ujarras");
     }
+
     @FXML
     private void btnModify(ActionEvent event) throws GraphException, ListException {
         if (txtFieldName.getText().isEmpty()) {//validaciones de campos vacios
-            Alert a = new Alert(Alert.AlertType.INFORMATION);
+            a = new Alert(Alert.AlertType.INFORMATION);
             a.setHeaderText("No debe dejar campos vacios");
             a.showAndWait();
-        }else{
-            Supermarket sT=null;
-        for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
-                if(util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data instanceof Supermarket){
-                Supermarket t=(Supermarket)util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
-                    if(t.getName().equals(cBoxSuperMarkets.getValue()))
-                        sT=t;
+        } else {
+            Supermarket sT = null;
+            for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {//recorre el grafo y cada objeto sacado se asegura que sea de tipo supermercado
+                if (util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data instanceof Supermarket) {
+                    Supermarket t = (Supermarket) util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
+                    if (t.getName().equals(cBoxSuperMarkets.getValue())) {//si el nombre corresponde entonces lo encontro
+                        sT = t;
+                    }
                 }
             }
-        Supermarket sT2=new Supermarket(txtFieldName.getText(), cBoxPlace.getValue());
-        int aux=sT.getId();
-        util.Utility.getlGraphRestaurants_Supermarkets().removeVertex(sT);
-        sT2.setId(aux);
-        util.Utility.getlGraphRestaurants_Supermarkets().addVertex(sT2);
-        txt.modifyFile("Restaurant_Supermarket.txt", sT.toString(), sT2.toString());
-        int x = cBoxSuperMarkets.getSelectionModel().getSelectedIndex(); // tomamos el valor del indice
-                         cBoxSuperMarkets.getItems().remove(x); // se remueve
-                        cBoxSuperMarkets.getSelectionModel().clearSelection();//limpiamos el comboBox
-                        this.txtFieldName.setText("");
-                        cBoxPlace.getSelectionModel().clearSelection();
-                        fillcBoxSuper();
-                        Alert a = new Alert(Alert.AlertType.INFORMATION);
-                        a.setHeaderText(sT.getName()+" modificado exitosamente!");
-                        a.showAndWait();
+            Supermarket sT2 = new Supermarket(txtFieldName.getText(), cBoxPlace.getValue());
+            int aux = sT.getId();//guarda el id del objeto a modificar para que no se cambie
+            util.Utility.getlGraphRestaurants_Supermarkets().removeVertex(sT);//remueve el objeto
+            sT2.setId(aux);//cambia su id para que correpsonda con el eliminado
+            util.Utility.getlGraphRestaurants_Supermarkets().addVertex(sT2);//agrega el objeto
+            txt.modifyFile("Restaurant_Supermarket.txt", sT.toString(), sT2.toString());//modifica el elemento en el txt
+            int x = cBoxSuperMarkets.getSelectionModel().getSelectedIndex(); // tomamos el valor del indice
+            cBoxSuperMarkets.getItems().remove(x); // se remueve
+            cBoxSuperMarkets.getSelectionModel().clearSelection();//limpiamos el comboBox
+            this.txtFieldName.setText("");//limpia texfield
+            cBoxPlace.getSelectionModel().clearSelection();
+            fillcBoxSuper();//actualiza el combobox
+            a = new Alert(Alert.AlertType.INFORMATION);
+            a.setHeaderText(sT.getName() + " modificado exitosamente!");
+            a.showAndWait();
         }
     }
-    public void fillcBoxSuper() throws ListException{
+
+    public void fillcBoxSuper() throws ListException {//llena el combobox con los supermercados ingresados
         for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
-                if(util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data instanceof Supermarket){
-                Supermarket t=(Supermarket)util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
+            if (util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data instanceof Supermarket) {
+                Supermarket t = (Supermarket) util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
                 this.cBoxSuperMarkets.getItems().add(t.getName());
-                }
             }
+        }
+    }
+
+    @FXML
+    private void cBoxSuperMarkets(ActionEvent event) throws ListException {//metodo para que a la hora de seleccionar el supermercado automaticamente se seleccione el lugar que tenia previamente
+        for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
+            if (util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data instanceof Supermarket) {
+                Supermarket t = (Supermarket) util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
+                if(t.getName().equals(cBoxSuperMarkets.getValue()))
+                    cBoxPlace.getSelectionModel().select(t.getLocation());//escoge en el combobox el lugar al que pertenece este supermercado
+            }
+        }
     }
 }
