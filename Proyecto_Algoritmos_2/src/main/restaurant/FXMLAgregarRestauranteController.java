@@ -72,9 +72,9 @@ public class FXMLAgregarRestauranteController implements Initializable {
         try {
             if (textFieldNombre.getText().isEmpty() || comboLugares.getSelectionModel().isEmpty()) { // si algun campo de texto esta vacio, mandara una alerta
 
-                Alert a = new Alert(Alert.AlertType.ERROR);
-                a.setHeaderText("No debe dejar campos vacios");
-                a.showAndWait();
+                a5.setAlertType(Alert.AlertType.ERROR);
+                a5.setHeaderText("No debe dejar campos vacios");
+                a5.showAndWait();
                 textFieldNombre.setText("");
                 comboLugares.getSelectionModel().clearSelection();
 
