@@ -119,9 +119,26 @@ public class FXMLReporte_SupermercadosRestaurantesController implements Initiali
         document.open();
         //aqui agregamos imagen al pdf
         Image image = Image.getInstance("src/assets/logoNombre.jpeg");
-        image.scaleToFit(250, 250);
+        image.scaleToFit(200, 200);
         image.setAlignment(Chunk.ALIGN_CENTER);
         document.add(image);
+        //aqui el encabezado
+        Paragraph encabezado = new Paragraph();
+        encabezado.setAlignment(Paragraph.ALIGN_CENTER);
+        encabezado.setFont(FontFactory.getFont("Chandas", 16, Font.NORMAL, BaseColor.BLACK));
+        encabezado.add("\n\nSherchplit Sistema de Sugerencias de Restaurantes y Supermercados\n\n");
+        document.add(encabezado);
+        //aqui creamos el pdf
+        Paragraph parrafosSup = new Paragraph();
+        parrafosSup.setAlignment(Paragraph.ALIGN_CENTER);
+        parrafosSup.setFont(FontFactory.getFont("Tahoma", 16, Font.BOLD, BaseColor.BLACK));
+        parrafosSup.add("\n\nRegistro de Restaurantes\n\n");
+        document.add(parrafosSup);
+        //aqui agregamos imagen al pdf
+        /*Image imageBarra = Image.getInstance("src/assets/barra.jpeg");
+        imageBarra.scaleToFit(200, 100);
+        imageBarra.setAlignment(Chunk.ALIGN_CENTER);
+        document.add(imageBarra);*/
         //aqui se genera el contenido del pdf
         Supermarket sup = null;
         Restaurant rest = null;
@@ -130,54 +147,90 @@ public class FXMLReporte_SupermercadosRestaurantesController implements Initiali
         PdfPTable tableRest = new PdfPTable(3);//campos
         tableRest.addCell("Id");
         tableRest.addCell("Nombre");
-        tableRest.addCell("Ubicación");
-        //Tabla de supermercados con su contenido
+        tableRest.addCell("Ubicacion");
+        //verificacion y contenido del pdf
+        if (!util.Utility.getlGraphRestaurants_Supermarkets().isEmpty()) {
+            for (int k = 0; k < util.Utility.getlGraphRestaurants_Supermarkets().size(); k++) {
+                if (util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(k).data instanceof Restaurant) {
+                    rest = (Restaurant) util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(k).data;
+                    tableRest.addCell(String.valueOf(rest.getId()));
+                    tableRest.addCell(rest.getName());
+                    tableRest.addCell(rest.getLocation());
+                }//if
+            }//for restaurant
+            document.add(tableRest);
+        } else {
+            //content += "No hay supermercados ni restaurantes agregados por el momento\n";
+            Paragraph parrafo = new Paragraph("Lista de supermercados y restaurantes \n\n" + content,
+                    FontFactory.getFont("arial",
+                            16,
+                            Font.BOLD,
+                            BaseColor.BLACK
+                    ));
+            Paragraph parrafoTemp = new Paragraph();
+            parrafoTemp.setAlignment(Paragraph.ALIGN_CENTER);
+            parrafoTemp.add("\n\nNo hay restaurantes resgistrados por el momento\n\n");
+            document.add(tableRest);//Agrega la tabla al documento 
+            document.add(parrafoTemp);
+            document.add(parrafo);//se agrega el contenido
+        }//if restaurantes
+        //aqui creamos el pdf
+        Paragraph parrafosSupe = new Paragraph();
+        parrafosSupe.setAlignment(Paragraph.ALIGN_CENTER);
+        parrafosSupe.setFont(FontFactory.getFont("Tahoma", 16, Font.BOLD, BaseColor.BLACK));
+        parrafosSupe.add("\n\nRegistro de Supermercados\n\n");
+        document.add(parrafosSupe);
+        //Tabla de restaurantes con su contenido
         PdfPTable tableSuper = new PdfPTable(3);//campos
         tableSuper.addCell("Id");
         tableSuper.addCell("Nombre");
-        tableSuper.addCell("Ubicación");
-        //si no hay supermercados o restaurantes se pone un mensaje pero se espera que el usuario no lo vea
-        if (util.Utility.getlGraphRestaurants_Supermarkets().isEmpty() == true) {
-            content += "No hay supermercados ni restaurantes agregados por el momento\n";
-        } else {
+        tableSuper.addCell("Ubicacion");
+        if (!util.Utility.getlGraphRestaurants_Supermarkets().isEmpty()) {
             for (int k = 0; k < util.Utility.getlGraphRestaurants_Supermarkets().size(); k++) {
-                if(util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(k).data instanceof Restaurant){
-                rest = (Restaurant) util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(k).data;
-                tableRest.addCell(String.valueOf(rest.getId()));
-                tableRest.addCell(rest.getName());
-                tableRest.addCell(rest.getLocation());
-                //content += "\n" + rest.getAutoId() + " " + rest.getName() + " " + rest.getLocation() + " " /*+ rest.getId() + " "*/ + "\n";
-                }else{
+                if (util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(k).data instanceof Supermarket) {
                     sup = (Supermarket) util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(k).data;
-                    tableSuper.addCell(String.valueOf(supermarket.getId()));
-                    tableSuper.addCell(supermarket.getName());
-                    tableSuper.addCell(supermarket.getLocation());
-                    //content += "\n" + sup.getAutoID() + " " + sup.getName() + " " + sup.getLocation() + " " /*+ rest.getId() + " "*/ + "\n";
-                }//for supermarket
-                document.add(tableSuper);
-                if (found == false) {
-                    //si no tiene restaurantes ni supermecados se pone este mensaje
-                    content += "No existen supermercados ni restaurantes registrados\n";
-                }
-                found = false;
-            }//for restaurant
-            document.add(tableRest);
+                    tableSuper.addCell(String.valueOf(sup.getId()));
+                    tableSuper.addCell(sup.getName());
+                    tableSuper.addCell(sup.getLocation());
+                    //content += "\n" + sup.getAutoId() + " " + sup.getName() + " " + sup.getLocation() + " " /*+ sup.getId() + " "*/ + "\n";
+                }//if 
+            }//for supermarket
+            document.add(tableSuper);
+        } else {
+            //content += "\n" + sup.getAutoID() + " " + sup.getName() + " " + sup.getLocation() + " " /*+ rest.getId() + " "*/ + "\n";
+            Paragraph parrafo = new Paragraph();
+            parrafo.setAlignment(Paragraph.ALIGN_CENTER);
+            parrafo.add("\n\nNo hay supermercados resgistrados por el momento\n\n");
+            document.add(tableRest);//Agrega la tabla al documento 
+            document.add(parrafo);
+            document.add(parrafo);//se agrega el contenido
+        }//for supermarket
+        document.add(tableSuper);
+        //aqui el footer
+        Paragraph footer = new Paragraph();
+        footer.setAlignment(Paragraph.ALIGN_BOTTOM);
+        footer.setFont(FontFactory.getFont("Tahoma", 14, Font.NORMAL, BaseColor.DARK_GRAY));
+        footer.add("\n\nSherchplit Sistema de Sugerencias de Restaurantes y Supermercados\n\n"
+                + "Direccion\n\nTelefono 8888-8888\n\nCorreo");
+        document.add(footer);
+        /*
+        if (found == false) {
+            //si no tiene restaurantes ni supermecados se pone este mensaje
+            content += "No existen supermercados ni restaurantes registrados\n";
         }
-        //se controla el tamaño,tipo y color de la letra
-        Paragraph parrafo = new Paragraph("Lista de supermercados y restaurantes \n\n" + content,
-                FontFactory.getFont("arial",
-                        12,
-                        Font.BOLD,
-                        BaseColor.BLACK
-                ));
-        document.add(parrafo);//se agrega el contenido
-        //metadatos
-        document.addTitle("Lista de cursos retirados");
-        document.addKeywords("Java, PDF, Lista de Cursos Retirados");
-        document.addAuthor("Projecto 2 Algoritmos");
-        document.addCreator("Grupo No.3");
-        document.close();
+        found = false;
+         */
+        //document.add (tableRest);
+        document.addTitle ("Lista de cursos retirados");
+        document.addKeywords ("Java, PDF, Lista de Cursos Retirados");
+        document.addAuthor ("Projecto 2 Algoritmos");
+        document.addCreator ("Grupo No.11");
+        document.close ();
     }
+    //si no hay supermercados o restaurantes se pone un mensaje pero se espera que el usuario no lo vea
+    //document.add (parrafosSup);//se agrega el contenido
+    //metadatos
+    
 
     private void createViewer(BorderPane bp) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException, InterruptedException {
         //se usa LookAndFeel para establecer el estilo y color ya que es un componente Java Swing
@@ -211,7 +264,7 @@ public class FXMLReporte_SupermercadosRestaurantesController implements Initiali
                     swingController = new SwingController();
                     swingController.setIsEmbeddedComponent(true);
                     PropertiesManager properties = new PropertiesManager(System.getProperties(),
-                    ResourceBundle.getBundle(PropertiesManager.DEFAULT_MESSAGE_BUNDLE));
+                            ResourceBundle.getBundle(PropertiesManager.DEFAULT_MESSAGE_BUNDLE));
                     properties.set(PropertiesManager.PROPERTY_SHOW_TOOLBAR_FIT, "false");
                     properties.set(PropertiesManager.PROPERTY_SHOW_TOOLBAR_ROTATE, "false");
                     properties.set(PropertiesManager.PROPERTY_SHOW_TOOLBAR_TOOL, "false");
@@ -235,10 +288,11 @@ public class FXMLReporte_SupermercadosRestaurantesController implements Initiali
                     swingController.setUtilityPaneVisible(false);
                 }
             });
-        } catch (InvocationTargetException ex) {
-            Logger.getLogger(FXMLReporte_SupermercadosRestaurantesController.class.getName()).log(Level.SEVERE, null, ex);
-        }
 
+        } catch (InvocationTargetException ex) {
+            Logger.getLogger(FXMLReporte_SupermercadosRestaurantesController.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void openDocument(String document) {
@@ -251,4 +305,4 @@ public class FXMLReporte_SupermercadosRestaurantesController implements Initiali
         });
     }
 
-}
+}//fin clase
