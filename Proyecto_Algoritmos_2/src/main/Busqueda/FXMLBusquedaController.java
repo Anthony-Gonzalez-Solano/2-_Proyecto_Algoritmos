@@ -109,8 +109,8 @@ public class FXMLBusquedaController implements Initializable {
         dp.getStylesheets().add(getClass().getResource("myDialogs.css").toExternalForm());
         dp.getStyleClass().add("myDialog");
         try {
-            for (int i = 0; i < util.Utility.getmGraphPlace().size(); i++) {
-                Vertex v = util.Utility.getmGraphPlace().getVertexByIndex(i);
+            for (int i = 0; i < util.Utility.getmGraphPlace().size(); i++) {    // verificamos cuales lugares se registraron
+                Vertex v = util.Utility.getmGraphPlace().getVertexByIndex(i);   // y le quitamos la cubierta negra
                 if(v.data.equals("Tierra Blanca")){
                     Ubic_TierraBlanca.setOpacity(0.0);
                 }
@@ -148,7 +148,7 @@ public class FXMLBusquedaController implements Initializable {
     }    
 
     @FXML
-    private void Rbtn_Foods(ActionEvent event) {
+    private void Rbtn_Foods(ActionEvent event) {  // llenamos el combobox con las comidas
         if(!util.Utility.getTreeFood().isEmpty()){
             cb_Comidas_Productos.getItems().clear();
             cb_Comidas_Productos.getSelectionModel().clearSelection();
@@ -157,7 +157,7 @@ public class FXMLBusquedaController implements Initializable {
     }
 
     @FXML
-    private void Rbtn_Products(ActionEvent event) {
+    private void Rbtn_Products(ActionEvent event) {  // llenamos el combobox con los productos
         if(!util.Utility.getTreeProducts().isEmpty()){
             cb_Comidas_Productos.getItems().clear();
             cb_Comidas_Productos.getSelectionModel().clearSelection();
@@ -166,7 +166,7 @@ public class FXMLBusquedaController implements Initializable {
     }
 
     @FXML
-    private void btn_Recomendacion(ActionEvent event) {
+    private void btn_Recomendacion(ActionEvent event) { // hacemo las busqueda de la recomendacion
         Recomend[0]="-";
         Recomend[1]="-";
         Recomend[2]="-";
@@ -174,7 +174,8 @@ public class FXMLBusquedaController implements Initializable {
             try {
                 if(util.Utility.getmGraphPlace().size()>1){
                     if(!lbl_Ubicacion.getText().isEmpty()){
-                        Dijkstra d = new Dijkstra();
+                        Dijkstra d = new Dijkstra();  // combertimos la matriz del grafo en una matriz de ints
+                                                        // ya que nuestro metodo dijkstra funciona asi
                         int[][] intMatrix = new int[util.Utility.getmGraphPlace().size()][util.Utility.getmGraphPlace().size()];
                         for (int i = 0; i < util.Utility.getmGraphPlace().size(); i++) {
                             for (int j = 0; j < util.Utility.getmGraphPlace().size(); j++) {
@@ -184,28 +185,34 @@ public class FXMLBusquedaController implements Initializable {
                         d.dijkstra(intMatrix, util.Utility.getmGraphPlace().getIndexOfVertex(lbl_Ubicacion.getText()));
                         ArrayList<String> distances = d.getSolution();
                         
-                        
+                        // revisamos si el restaurante o supermercado, se encuentra en la misma ubicacion selecionada
                         for (int j = 0; j < util.Utility.getlGraphRestaurants_Supermarkets().size(); j++) {
                             if(Rbtn_Foods.isSelected()){
+                                // si estamos buscando una comida necesitamos un restaurantes
                                 if(util.Utility.getlGraphRestaurants_Supermarkets().getVertexList()[j].data.getClass()==Restaurant.class){
                                     Restaurant r = (Restaurant)util.Utility.getlGraphRestaurants_Supermarkets().getVertexList()[j].data;
                                     if(r.getLocation().equals(lbl_Ubicacion.getText())){
+                                        // si un restaurante se enuentra en la ubicacion seleciona, buscamos si tiene la comida
                                         searchFood(util.Utility.getTreeFood().getRoot(), r,cb_Comidas_Productos.getSelectionModel().getSelectedItem(),0);                                      
                                     }
                                 }
                             }else{
+                                // si no estasmos buscando comidas, son productos, asi que necesitamos un supermercado
                                if(util.Utility.getlGraphRestaurants_Supermarkets().getVertexList()[j].data.getClass()==Supermarket.class){
                                     Supermarket s = (Supermarket)util.Utility.getlGraphRestaurants_Supermarkets().getVertexList()[j].data;
                                     if(s.getLocation().equals(lbl_Ubicacion.getText())){
+                                        // si un supermercado se enuentra en la ubicacion seleciona, buscamos si tiene el producto
                                         searchProduct(util.Utility.getTreeProducts().getRoot(), s,cb_Comidas_Productos.getSelectionModel().getSelectedItem(),0);                     
                                     }
                                 }  
                             }
                         } 
-                        
+                        //si hay espacios vacios en las recomendaciones, buscamos en otro lugares
                         if(Recomend[2].equals("-")){
                             for (int i = 0; i < distances.size(); i++) {
-                                String location = (String) util.Utility.getmGraphPlace().getVertexList()[Integer.parseInt(distances.get(i).split(",")[0].split("-")[1])].data;           
+                                //usamos distances, que es el resultado del dijkstra                                        hacemos estos splits para obtener el indice del lugar buscado
+                                String location = (String) util.Utility.getmGraphPlace().getVertexList()[Integer.parseInt(distances.get(i).split(",")[0].split("-")[1])].data;     
+                                //hacemos lo mismo que antes, solo que ahora con ubicaiones diferentes
                                 for (int j = 0; j < util.Utility.getlGraphRestaurants_Supermarkets().size(); j++) {
                                     if(Rbtn_Foods.isSelected()){
                                         if(util.Utility.getlGraphRestaurants_Supermarkets().getVertexList()[j].data.getClass()==Restaurant.class){
@@ -233,6 +240,7 @@ public class FXMLBusquedaController implements Initializable {
                         }
                         Date date = new Date();
                         String[] hour = date.toString().split(" ")[3].split(":");
+                        //generamos el string que necesitaremos para guardar
                         recomendations = "Recomendaciones/Ubicacion Actual: "+lbl_Ubicacion.getText()+"/Producto: "+cb_Comidas_Productos.getSelectionModel().getSelectedItem()+
                                 "/1° - "+Recomend[0]+"/2° - "+Recomend[1]+"/3° - "+Recomend[2]+"/"+util.Utility.dateFormat(date) + " - "+hour[0]+":"+hour[1]+"/"+user;
                         String[] s = recomendations.split("/");
@@ -246,6 +254,7 @@ public class FXMLBusquedaController implements Initializable {
                         
                         boolean exit = false;
                         while(exit==false){
+                            //generamos un nuevo alert, con el que se decide si enviiar o no un correo
                             Alert a2 = new Alert(Alert.AlertType.CONFIRMATION);
                             DialogPane dp = a2.getDialogPane();
                             dp.getStylesheets().add(getClass().getResource("myDialogs.css").toExternalForm());
@@ -299,7 +308,7 @@ public class FXMLBusquedaController implements Initializable {
         }
     }
 
-    
+    //metodo que recore el albol de comidas o productos y los agrega al combobox
     private void fillCB(BTreeNode node){
         if(node!=null){
             if(cb_Comidas_Productos.getItems().isEmpty()){
@@ -313,7 +322,8 @@ public class FXMLBusquedaController implements Initializable {
             fillCB(node.right);
         }
     }
-    
+    // recorre el arbol de comidas, buscando la comida indicada, y que se encuentre en el restaurant indicado
+    // si lo encuentra genera un string con toda la info, y lo guarda
     private void searchFood(BTreeNode node,Restaurant r,String name,int dis){
         if(node!=null){
             Food f = (Food) node.data;
@@ -334,8 +344,9 @@ public class FXMLBusquedaController implements Initializable {
             searchFood(node.right,r,name,dis);
         }
     }
-    
-        private void searchProduct(BTreeNode node,Supermarket p,String name,int dis){
+    // recorre el arbol de productos, buscando el producto indicado, y que se encuentre en el supermercado indicado
+    // si lo encuentra genera un string con toda la info, y lo guarda
+    private void searchProduct(BTreeNode node,Supermarket p,String name,int dis){
         if(node!=null){
             Product pro = (Product) node.data;
             if(pro.getSupermarketID()==p.getId()){
