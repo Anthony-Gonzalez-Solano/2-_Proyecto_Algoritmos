@@ -1,33 +1,61 @@
 ADJACENCY LIST GRAPH CONTENT...
 The vertex in the position: 0 is: gfrrf
 ....EDGES AND WEIGHTS:SINGLY LINKED LIST
-Edge=gfrrf. Weight=25km
+Edge=gfrrf. Weight=7km
 Edge=gfrrf
-Edge=MINITA. Weight=31km
-Edge=supermarket,tio nacho,Caballo Blanco,2. Weight=2km
-Edge=supermarket,edf,Cachi,3. Weight=39km
+Edge=MINITA. Weight=34km
+Edge=supermarket,tio nacho,Caballo Blanco,2. Weight=14km
+Edge=supermarket,edf,Cachi,3. Weight=40km
+Edge=panshos. Weight=6km
+Edge=asdadadassd. Weight=50km
 
 The vertex in the position: 1 is: MINITA
 ....EDGES AND WEIGHTS:SINGLY LINKED LIST
-Edge=gfrrf. Weight=31km
+Edge=gfrrf. Weight=34km
 Edge=MINITA. Weight=42km
 Edge=MINITA
-Edge=supermarket,tio nacho,Caballo Blanco,2. Weight=33km
-Edge=supermarket,edf,Cachi,3. Weight=38km
+Edge=supermarket,tio nacho,Caballo Blanco,2. Weight=36km
+Edge=supermarket,edf,Cachi,3. Weight=48km
+Edge=panshos. Weight=43km
+Edge=asdadadassd. Weight=31km
 
 The vertex in the position: 2 is: supermarket,tio nacho,Caballo Blanco,2
 ....EDGES AND WEIGHTS:SINGLY LINKED LIST
-Edge=gfrrf. Weight=2km
-Edge=MINITA. Weight=33km
-Edge=supermarket,tio nacho,Caballo Blanco,2. Weight=26km
+Edge=gfrrf. Weight=14km
+Edge=MINITA. Weight=36km
+Edge=supermarket,tio nacho,Caballo Blanco,2. Weight=8km
 Edge=supermarket,tio nacho,Caballo Blanco,2
-Edge=supermarket,edf,Cachi,3. Weight=37km
+Edge=supermarket,edf,Cachi,3. Weight=40km
+Edge=panshos. Weight=31km
+Edge=asdadadassd. Weight=3km
 
 The vertex in the position: 3 is: supermarket,edf,Cachi,3
 ....EDGES AND WEIGHTS:SINGLY LINKED LIST
-Edge=gfrrf. Weight=39km
-Edge=MINITA. Weight=38km
-Edge=supermarket,tio nacho,Caballo Blanco,2. Weight=37km
-Edge=supermarket,edf,Cachi,3. Weight=25km
+Edge=gfrrf. Weight=40km
+Edge=MINITA. Weight=48km
+Edge=supermarket,tio nacho,Caballo Blanco,2. Weight=40km
+Edge=supermarket,edf,Cachi,3. Weight=27km
 Edge=supermarket,edf,Cachi,3
+Edge=panshos. Weight=31km
+Edge=asdadadassd. Weight=34km
+
+The vertex in the position: 4 is: panshos
+....EDGES AND WEIGHTS:SINGLY LINKED LIST
+Edge=gfrrf. Weight=6km
+Edge=MINITA. Weight=43km
+Edge=supermarket,tio nacho,Caballo Blanco,2. Weight=31km
+Edge=supermarket,edf,Cachi,3. Weight=31km
+Edge=panshos. Weight=45km
+Edge=panshos
+Edge=asdadadassd. Weight=1km
+
+The vertex in the position: 5 is: asdadadassd
+....EDGES AND WEIGHTS:SINGLY LINKED LIST
+Edge=gfrrf. Weight=50km
+Edge=MINITA. Weight=31km
+Edge=supermarket,tio nacho,Caballo Blanco,2. Weight=3km
+Edge=supermarket,edf,Cachi,3. Weight=34km
+Edge=panshos. Weight=1km
+Edge=asdadadassd. Weight=32km
+Edge=asdadadassd
 

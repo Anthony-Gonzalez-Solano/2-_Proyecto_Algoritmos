@@ -53,16 +53,16 @@ public class FXMLAgregarRestauranteController implements Initializable {
         DialogPane dp = a5.getDialogPane();
         dp.getStylesheets().add(getClass().getResource("myDialogs.css").toExternalForm());
         dp.getStyleClass().add("myDialog");
-        comboLugares.getItems().add("Cachi");
+        comboLugares.getItems().add("Cachí");
         comboLugares.getItems().add("Caballo Blanco");//agregamos los lugares
         comboLugares.getItems().add("Cartago");
         comboLugares.getItems().add("Cervantes");
         comboLugares.getItems().add("Orosi");
-        comboLugares.getItems().add("Paraiso");
+        comboLugares.getItems().add("Paraíso");
         comboLugares.getItems().add("Santa Rosa");
         comboLugares.getItems().add("Tierra Blanca");
         comboLugares.getItems().add("Turrialba");
-        comboLugares.getItems().add("Ujarras");
+        comboLugares.getItems().add("Ujarrás");
 
     }
 
@@ -83,7 +83,7 @@ public class FXMLAgregarRestauranteController implements Initializable {
                 txt.writeFile("Restaurant_Supermarket.txt", r.secondToString());// escribimos en los txt
                 a5.setAlertType(Alert.AlertType.CONFIRMATION);
                 a5.setHeaderText(" El restaurante " + textFieldNombre.getText() + " fue agregado correctamente!!");
-                a5.setContentText("");
+                a5.setContentText(" ");
                 a5.showAndWait();
                 textFieldNombre.setText("");
 
@@ -110,7 +110,7 @@ public class FXMLAgregarRestauranteController implements Initializable {
 
                 a5.setAlertType(Alert.AlertType.CONFIRMATION);
                 a5.setHeaderText(" El restaurante " + textFieldNombre.getText() + " fue agregado correctamente");
-                a5.setContentText("");
+                a5.setContentText(" ");
                 a5.showAndWait();
                 comboLugares.getSelectionModel().clearSelection();
                 textFieldNombre.setText("");
@@ -121,7 +121,7 @@ public class FXMLAgregarRestauranteController implements Initializable {
         } catch (ListException ex) {
             a5.setAlertType(Alert.AlertType.ERROR);
             a5.setHeaderText("No hay restaurantes agregados");
-            a5.setContentText("");
+            a5.setContentText(" ");
             a5.showAndWait();
         }
     }

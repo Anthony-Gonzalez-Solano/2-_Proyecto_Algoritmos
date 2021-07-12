@@ -33,7 +33,7 @@ import java.util.regex.Pattern;
 public class Utility {
 
     public static String dateFormat(Date date) {
-        return new SimpleDateFormat("dd/MM/yyyy").format(date);
+        return new SimpleDateFormat("dd|MM|yyyy").format(date);
     }
 
     public static int random() {
@@ -367,6 +367,12 @@ public class Utility {
                 p.setID(Integer.parseInt(datos[0]));
                 p.setAutoID(Integer.parseInt(datos[0]) + 1);
                 getTreeProducts().add(p);
+            }
+        }
+        if (file.existFile("Busquedas.txt")) {
+            list = file.readFile("Busquedas.txt");
+            for (int i = 0; i < list.size(); i++) {
+                listSearchs.add(list.get(i));
             }
         }
     }

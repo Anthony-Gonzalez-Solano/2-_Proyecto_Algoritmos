@@ -1,4 +1,6 @@
-restaurant,gfrrf,Cachi,13
+restaurant,gfrrf,Cachí,13
 restaurant,MINITA,Caballo Blanco,15
 supermarket,tio nacho,Caballo Blanco,2
-supermarket,edf,Cachi,3
+supermarket,edf,Cachí,3
+restaurant,panshos,Paraíso,16
+restaurant,asdadadassd,Orosi,17

@@ -186,41 +186,42 @@ public class FXMLBusquedaController implements Initializable {
                         
                         
                         for (int j = 0; j < util.Utility.getlGraphRestaurants_Supermarkets().size(); j++) {
-                            if(Rbtn_Foods.isSelected())
+                            if(Rbtn_Foods.isSelected()){
                                 if(util.Utility.getlGraphRestaurants_Supermarkets().getVertexList()[j].data.getClass()==Restaurant.class){
                                     Restaurant r = (Restaurant)util.Utility.getlGraphRestaurants_Supermarkets().getVertexList()[j].data;
                                     if(r.getLocation().equals(lbl_Ubicacion.getText())){
                                         searchFood(util.Utility.getTreeFood().getRoot(), r,cb_Comidas_Productos.getSelectionModel().getSelectedItem(),0);                                      
                                     }
                                 }
-                            else
+                            }else{
                                if(util.Utility.getlGraphRestaurants_Supermarkets().getVertexList()[j].data.getClass()==Supermarket.class){
                                     Supermarket s = (Supermarket)util.Utility.getlGraphRestaurants_Supermarkets().getVertexList()[j].data;
                                     if(s.getLocation().equals(lbl_Ubicacion.getText())){
-                                        searchProduct(util.Utility.getTreeProducts().getRoot(), null,cb_Comidas_Productos.getSelectionModel().getSelectedItem(),0);                     
+                                        searchProduct(util.Utility.getTreeProducts().getRoot(), s,cb_Comidas_Productos.getSelectionModel().getSelectedItem(),0);                     
                                     }
-                                }     
+                                }  
+                            }
                         } 
                         
                         if(Recomend[2].equals("-")){
                             for (int i = 0; i < distances.size(); i++) {
-                                String location = (String) util.Utility.getmGraphPlace().getVertexList()[Integer.parseInt(distances.get(i).split(",")[0].split("-")[1])].data;
-                                       
+                                String location = (String) util.Utility.getmGraphPlace().getVertexList()[Integer.parseInt(distances.get(i).split(",")[0].split("-")[1])].data;           
                                 for (int j = 0; j < util.Utility.getlGraphRestaurants_Supermarkets().size(); j++) {
-                                    if(Rbtn_Foods.isSelected())
+                                    if(Rbtn_Foods.isSelected()){
                                         if(util.Utility.getlGraphRestaurants_Supermarkets().getVertexList()[j].data.getClass()==Restaurant.class){
                                             Restaurant r = (Restaurant)util.Utility.getlGraphRestaurants_Supermarkets().getVertexList()[j].data;
                                             if(r.getLocation().equals(location)){
-                                                searchFood(util.Utility.getTreeFood().getRoot(), r,cb_Comidas_Productos.getSelectionModel().getSelectedItem(),0);                                      
+                                                searchFood(util.Utility.getTreeFood().getRoot(), r,cb_Comidas_Productos.getSelectionModel().getSelectedItem(),Integer.parseInt(distances.get(i).split(",")[1]));                                      
                                             }
                                         }
-                                    else
+                                    }else{
                                        if(util.Utility.getlGraphRestaurants_Supermarkets().getVertexList()[j].data.getClass()==Supermarket.class){
                                             Supermarket s = (Supermarket)util.Utility.getlGraphRestaurants_Supermarkets().getVertexList()[j].data;
                                             if(s.getLocation().equals(location)){
-                                                searchProduct(util.Utility.getTreeProducts().getRoot(), s,cb_Comidas_Productos.getSelectionModel().getSelectedItem(),0);                     
+                                                searchProduct(util.Utility.getTreeProducts().getRoot(), s,cb_Comidas_Productos.getSelectionModel().getSelectedItem(),Integer.parseInt(distances.get(i).split(",")[1]));                     
                                             }
-                                        }     
+                                        } 
+                                    }
                                 }  
                             }
                         }
@@ -235,6 +236,7 @@ public class FXMLBusquedaController implements Initializable {
                         recomendations = "Recomendaciones/Ubicacion Actual: "+lbl_Ubicacion.getText()+"/Producto: "+cb_Comidas_Productos.getSelectionModel().getSelectedItem()+
                                 "/1° - "+Recomend[0]+"/2° - "+Recomend[1]+"/3° - "+Recomend[2]+"/"+util.Utility.dateFormat(date) + " - "+hour[0]+":"+hour[1]+"/"+user;
                         String[] s = recomendations.split("/");
+                        a.setAlertType(Alert.AlertType.INFORMATION);
                         a.setHeaderText(s[0]+"                                                                    \n"+s[1]+"\n"+s[2]);
                         a.setContentText(s[3]+"\n"+s[4]+"\n"+s[5]);
                         FileTXT txt = new FileTXT();
@@ -244,13 +246,16 @@ public class FXMLBusquedaController implements Initializable {
                         
                         boolean exit = false;
                         while(exit==false){
-                            a.setAlertType(Alert.AlertType.CONFIRMATION);
+                            Alert a2 = new Alert(Alert.AlertType.CONFIRMATION);
+                            DialogPane dp = a2.getDialogPane();
+                            dp.getStylesheets().add(getClass().getResource("myDialogs.css").toExternalForm());
+                            dp.getStyleClass().add("myDialog");
                             ButtonType b1 = new ButtonType("Enviar", ButtonBar.ButtonData.YES);
                             ButtonType b2 = new ButtonType("No Enviar", ButtonBar.ButtonData.NO);
-                            a.getButtonTypes().setAll(b1,b2);
-                            a.setTitle("Exception Dialog");
-                            a.setHeaderText("¿Desea enviar las recomendaciones a un correo?");
-                            a.setContentText("Could not find file blabla.txt!");
+                            a2.getButtonTypes().setAll(b1,b2);
+                            a2.setTitle("Exception Dialog");
+                            a2.setHeaderText("¿Desea enviar las recomendaciones a un correo?");
+                            a2.setContentText("Could not find file blabla.txt!");
                             Label label = new Label("Ingrese un correo");
                             TextField tf = new TextField();
                             tf.setPrefWidth(350);
@@ -258,8 +263,8 @@ public class FXMLBusquedaController implements Initializable {
                             expContent.setMaxWidth(Double.MAX_VALUE);
                             expContent.add(label, 0, 0);
                             expContent.add(tf, 0, 1);
-                            a.getDialogPane().setContent(expContent);
-                            Optional<ButtonType> result = a.showAndWait();
+                            a2.getDialogPane().setContent(expContent);
+                            Optional<ButtonType> result = a2.showAndWait();
                             if(result.get()==b1){
                                 if(!tf.getText().isEmpty() && util.Utility.ValidarMail(tf.getText())){
                                     sendEmail(tf.getText());
@@ -315,16 +320,13 @@ public class FXMLBusquedaController implements Initializable {
             if(f.getRestaurantID()==r.getId()){
                 if(f.getName().equals(name)){
                     if(Recomend[0].equals("-")){
-                        Recomend[0]="Restaurante "+r.getName()+" a "+dis+" km, en "+r.getLocation()+", a un precio de "+f.getPrice()+" ₡";
-                    }
-                    if(Recomend[1].equals("-")){
-                        if(!Recomend[0].equals("Restaurante "+r.getName()+" a "+dis+" km, en "+r.getLocation()+", a un precio de "+f.getPrice()+" ₡"))
-                            Recomend[1]="Restaurante "+r.getName()+" a "+dis+" km, en "+r.getLocation()+", a un precio de "+f.getPrice()+" ₡";
-                    }
-                    if(Recomend[2].equals("-")){
-                        if(!Recomend[0].equals("Restaurante "+r.getName()+" a "+dis+" km, en "+r.getLocation()+", a un precio de "+f.getPrice()+" ₡"))
-                            if(!Recomend[1].equals("Restaurante "+r.getName()+" a "+dis+" km, en "+r.getLocation()+", a un precio de "+f.getPrice()+" ₡"))
-                                Recomend[2]="Restaurante "+r.getName()+" a "+dis+" km, en "+r.getLocation()+", a un precio de "+f.getPrice()+" ₡";
+                        Recomend[0]="Restaurante "+r.getName()+" a "+dis+" km, en "+r.getLocation()+", a un precio de ₡ "+f.getPrice();
+                    }else
+                    if(Recomend[1].equals("-")){    
+                        Recomend[1]="Restaurante "+r.getName()+" a "+dis+" km, en "+r.getLocation()+", a un precio de ₡ "+f.getPrice();
+                    }else
+                    if(Recomend[2].equals("-")){         
+                        Recomend[2]="Restaurante "+r.getName()+" a "+dis+" km, en "+r.getLocation()+", a un precio de ₡ "+f.getPrice();
                     }
                 }
             }
@@ -340,15 +342,12 @@ public class FXMLBusquedaController implements Initializable {
                 if(pro.getName().equals(name)){
                     if(Recomend[0].equals("-")){
                         Recomend[0]="Supermercado "+p.getName()+" a "+dis+" km, en "+p.getLocation()+", a un precio de "+pro.getPrice()+" ₡";
-                    }
+                    }else
                     if(Recomend[1].equals("-")){
-                        if(!Recomend[0].equals("Supermercado "+p.getName()+" a "+dis+" km, en "+p.getLocation()+", a un precio de "+pro.getPrice()+" ₡"))
-                            Recomend[1]="Supermercado "+p.getName()+" a "+dis+" km, en "+p.getLocation()+", a un precio de "+pro.getPrice()+" ₡";
-                    }
+                        Recomend[1]="Supermercado "+p.getName()+" a "+dis+" km, en "+p.getLocation()+", a un precio de "+pro.getPrice()+" ₡";
+                    }else
                     if(Recomend[2].equals("-")){
-                        if(!Recomend[0].equals("Supermercado "+p.getName()+" a "+dis+" km, en "+p.getLocation()+", a un precio de "+pro.getPrice()+" ₡"))
-                            if(!Recomend[1].equals("Supermercado "+p.getName()+" a "+dis+" km, en "+p.getLocation()+", a un precio de "+pro.getPrice()+" ₡"))
-                                Recomend[2]="Supermercado "+p.getName()+" a "+dis+" km, en "+p.getLocation()+", a un precio de "+pro.getPrice()+" ₡";
+                        Recomend[2]="Supermercado "+p.getName()+" a "+dis+" km, en "+p.getLocation()+", a un precio de "+pro.getPrice()+" ₡";
                     }
                 }
             }
@@ -415,7 +414,7 @@ public class FXMLBusquedaController implements Initializable {
                 attachmentPart.attachFile(f);
                 String[] s = recomendations.split("/");
                 if(util.Utility.getIntro()==null){
-                    textPart.setText(s[0]+"\n"+s[1]+"\n"+s[2]+"\n \n"+s[3]+"\n"+s[4]+"\n"+s[5]+"\n \n"+s[5]);
+                    textPart.setText(s[0]+"\n"+s[1]+"\n"+s[2]+"\n \n"+s[3]+"\n"+s[4]+"\n"+s[5]+"\n \n"+s[6]);
                 }else{
                    textPart.setText(s[0]+"para"+util.Utility.getIntro().getUser()+"\n"+s[1]+"\n"+s[2]+"\n \n"+s[3]+"\n"+s[4]+"\n"+s[5]); 
                 }
@@ -446,7 +445,7 @@ public class FXMLBusquedaController implements Initializable {
     @FXML
     private void Ubic_TierraBlanca(MouseEvent event) {
         if(Ubic_TierraBlanca.getOpacity()==0.0){
-            lbl_Ubicacion.setText("Tiera Blanca");
+            lbl_Ubicacion.setText("Tierra Blanca");
         }else{
             a.setHeaderText("Tierra Blanca no esta los lugares\ndesignados a la busqueda");
             a.setContentText("Verifiquelo en 'Grafos Lugares'");
@@ -501,7 +500,7 @@ public class FXMLBusquedaController implements Initializable {
     @FXML
     private void Ubic_Cachi(MouseEvent event) {
         if(Ubic_Cachi.getOpacity()==0.0){
-        lbl_Ubicacion.setText("Cachi");
+        lbl_Ubicacion.setText("Cachí");
         }else{
             a.setHeaderText("Cachi no esta los lugares\ndesignados a la busqueda");
             a.setContentText("Verifiquelo en 'Grafos Lugares'");

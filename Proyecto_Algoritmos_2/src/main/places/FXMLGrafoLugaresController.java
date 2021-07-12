@@ -11,6 +11,8 @@ import domain.graph.Graph;
 import domain.graph.GraphException;
 import domain.list.ListException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -77,16 +79,9 @@ public class FXMLGrafoLugaresController implements Initializable {
     private TextField txtVertexGraph;
     @FXML
     private Button btnDistancias;
-    private TableView<String[]> tvDistancias;
-    private TableColumn<float[], String> columnOrigenDestino;
-    private TableColumn<float[], String> columnDistancia;
     
-    private ObservableSet<CheckBox> selectedCheckBoxes = FXCollections.observableSet();
-    private ObservableSet<CheckBox> unselectedCheckBoxes = FXCollections.observableSet();
-
-    private final int maxNumSelected =  10; 
-    private IntegerBinding numCheckBoxesSelected = Bindings.size(selectedCheckBoxes);
     private CheckBox[] checkList;
+    
     Button button;
     float auxIndex;
     int longitud;
@@ -96,14 +91,16 @@ public class FXMLGrafoLugaresController implements Initializable {
     Line line = new Line();
     
     AdjacencyMatrixGraph grafoMatrix; /*= new AdjacencyMatrixGraph()*/
-    AdjacencyListGraph grafoList;
     
     public Text txtTitle;
-    
     @FXML
-    private TableView<String[]> tblVDistancias;
+    private TableView<List<String>> tblVDistancias;
     @FXML
     private Label lblDistancias;
+    @FXML
+    private TableColumn<List<String>, String> col_Orig_Dest;
+    @FXML
+    private TableColumn<List<String>, String> col_dist;
     
     /**
      * Initializes the controller class.
@@ -132,6 +129,9 @@ public class FXMLGrafoLugaresController implements Initializable {
         checkList[7] = chbSantaRosa;
         checkList[8] = chbTurrialba;
         checkList[9] = chbUjarras;
+        
+        col_Orig_Dest.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().get(0)));
+        col_dist.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().get(1)));
     }   
 
     private void fillGraph(){
@@ -140,18 +140,22 @@ public class FXMLGrafoLugaresController implements Initializable {
             for (int i = 0; i < 10; i++) {
                 if(checkList[i].isSelected()){
                     grafoMatrix.addVertex(checkList[i].getText());
+                    System.out.println(checkList[i].getText());
                 }
             }
-
             for (int k = 0; k < grafoMatrix.size(); k++) {
-                for (int i = 0; i < 1; i++) {
-                    int aux = util.Utility.random(grafoMatrix.size()-1);
-                    while(grafoMatrix.containsEdge(grafoMatrix.getVertexByIndex(k).data, grafoMatrix.getVertexByIndex(aux).data)){
-                        aux = util.Utility.random(grafoMatrix.size()-1);
+                for (int i = 0; i < grafoMatrix.size(); i++) {
+                    if(!grafoMatrix.containsEdge(grafoMatrix.getVertexByIndex(k).data, grafoMatrix.getVertexByIndex(i).data)){
+                        if(grafoMatrix.size()>4){
+                            if(util.Utility.random(3)==1){
+                                grafoMatrix.addEdge(grafoMatrix.getVertexByIndex(k).data, grafoMatrix.getVertexByIndex(i).data);
+                                grafoMatrix.addWeight(grafoMatrix.getVertexByIndex(k).data, grafoMatrix.getVertexByIndex(i).data, util.Utility.random());                         
+                            }
+                        }else{
+                            grafoMatrix.addEdge(grafoMatrix.getVertexByIndex(k).data, grafoMatrix.getVertexByIndex(i).data);
+                            grafoMatrix.addWeight(grafoMatrix.getVertexByIndex(k).data, grafoMatrix.getVertexByIndex(i).data, util.Utility.random()); 
+                        }
                     }
-                    grafoMatrix.addEdge(grafoMatrix.getVertexByIndex(k).data, grafoMatrix.getVertexByIndex(aux).data);
-                    grafoMatrix.addWeight(grafoMatrix.getVertexByIndex(k).data, grafoMatrix.getVertexByIndex(aux).data, util.Utility.random()); 
-                    
                 }
             }
         } catch (ListException | GraphException ex) {
@@ -178,6 +182,7 @@ public class FXMLGrafoLugaresController implements Initializable {
                 num = grafoMatrix.size();
                 drawGraph(grafoMatrix);
                 util.Utility.setmGraphPlace(grafoMatrix);
+                loadTable(grafoMatrix.getAdjacencyMatrix());
             }else{
                 Alert a = new Alert(Alert.AlertType.ERROR);
                 a.setHeaderText("Debe seleccionar almenos 2 \nlugares para al busqued");
@@ -197,20 +202,24 @@ public class FXMLGrafoLugaresController implements Initializable {
             }
             grafoMatrix.setAdjacencyMatrix(m);
             for (int k = 0; k < grafoMatrix.size(); k++) {
-                for (int i = 0; i < 1; i++) {
-                    int aux = util.Utility.random(grafoMatrix.size()-1);
-                    while(grafoMatrix.containsEdge(grafoMatrix.getVertexByIndex(k).data, grafoMatrix.getVertexByIndex(aux).data)){
-                        aux = util.Utility.random(grafoMatrix.size()-1);
+                for (int i = 0; i < grafoMatrix.size(); i++) {
+                    if(!grafoMatrix.containsEdge(grafoMatrix.getVertexByIndex(k).data, grafoMatrix.getVertexByIndex(i).data)){
+                        if(grafoMatrix.size()>4){
+                            if(util.Utility.random(3)==1){
+                                grafoMatrix.addEdge(grafoMatrix.getVertexByIndex(k).data, grafoMatrix.getVertexByIndex(i).data);
+                                grafoMatrix.addWeight(grafoMatrix.getVertexByIndex(k).data, grafoMatrix.getVertexByIndex(i).data, util.Utility.random());                         
+                            }
+                        }else{
+                            grafoMatrix.addEdge(grafoMatrix.getVertexByIndex(k).data, grafoMatrix.getVertexByIndex(i).data);
+                            grafoMatrix.addWeight(grafoMatrix.getVertexByIndex(k).data, grafoMatrix.getVertexByIndex(i).data, util.Utility.random()); 
+                        }
                     }
-                    grafoMatrix.addEdge(grafoMatrix.getVertexByIndex(k).data, grafoMatrix.getVertexByIndex(aux).data);
-                    grafoMatrix.addWeight(grafoMatrix.getVertexByIndex(k).data, grafoMatrix.getVertexByIndex(aux).data, util.Utility.random());
-
                 }
             }
             num = grafoMatrix.size();
             drawGraph(grafoMatrix);
             util.Utility.setmGraphPlace(grafoMatrix);
-            //loadTable(tvDistancias, m);
+            loadTable(m);
         }
     }//btnDistancias
     
@@ -309,56 +318,27 @@ public class FXMLGrafoLugaresController implements Initializable {
         contEdges = contEdges / 2;
     }
 
-    private void loadTable(TableView<String[]> table, Object[][] distanceMatrix) {
-        //columnOrigenDestino.setCellValueFactory(col -> new SimpleStringProperty(String.valueOf(tvDistancias)));
-        //columnDistancia.setCellValueFactory(col -> new SimpleStringProperty(String.valueOf(tvDistancias)));
-    
-        distanceMatrix = cleanTable(distanceMatrix);
-        
-        table.getColumns().clear();
-        
-        ObservableList<String[]> data = FXCollections.observableArrayList();
-        //data.addAll(Arrays.asList(distanceMatrix));
-        data.remove(0);
-        int x = 180;
-        for (int i = 0; i < distanceMatrix[0].length; i++) {
-            TableColumn tableCol = new TableColumn((String) distanceMatrix[0][i]);
-            tableCol.setEditable(false);
-            tableCol.setSortable(false);
-            final int numCol = i;
-            tableCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<String[], String>, ObservableValue<String>>() {
-                @Override
-                public ObservableValue<String> call(TableColumn.CellDataFeatures<String[], String> arg0) {
-                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                    //return new SimpleStringProperty((Place.getValue()[numCol]));
-                    //return [i][numCol];
+    private void loadTable(Object[][] matrix) {
+        tblVDistancias.getItems().clear();
+        int dis = 0;
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = i+1; j < matrix.length; j++) {
+                if((int)matrix[i][j]!=0){
+                    List<String> list = new ArrayList();
+                    list.add(grafoMatrix.getVertexByIndex(i).data+", "+grafoMatrix.getVertexByIndex(j).data);
+                    list.add(matrix[i][j]+" km");
+                    dis = dis + (int)matrix[i][j];
+                    tblVDistancias.getItems().add(list);
                 }
-            });
-            table.getColumns().add(tableCol);
-            tableCol.setPrefWidth(x);
-            x = 65;
+            }
         }
-        table.setItems(data);
+        List<String> list = new ArrayList();
+        list.add("----------------------");
+        list.add("  ");
+        tblVDistancias.getItems().add(list);
+        list = new ArrayList();
+        list.add("Distancia total");
+        list.add(dis + " km");
+        tblVDistancias.getItems().add(list);
     }//loadPage
-
-    
-    private Object[][] cleanTable(Object[][] m) {
-        int cont = 0;
-        for (int i = 0; i < m.length; i++) {
-            if (m[i][0] != null && !m[i][0].equals("")) {
-                cont++;
-            }
-        }
-        
-        Object auxM[][] = new Object[cont][2];
-        cont = 0;
-        for (int i = 0; i < m.length; i++) {
-            if (m[i][0] != null && !m[i][0].equals("")) {
-                auxM[cont][0] = m[i][0];
-                auxM[cont++][1] = m[i][1];
-            }
-        }
-        return auxM;
-    }
-    
 }//FXMLGrafoLugaresController
