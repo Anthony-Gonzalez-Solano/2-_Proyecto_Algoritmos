@@ -147,9 +147,14 @@ public class FXMLReporte_HistoricoController implements Initializable {
 
         if (!util.Utility.getListSearchs().isEmpty()) {
             
-            for (int i = 1; i <= search.size(); i++) {
+            for (int i = 1; i <= util.Utility.getListSearchs().size(); i++) {
+                
+                String s = (String) util.Utility.getListSearchs().getNode(i).data;
+                String[] sa = s.split("/");
                 Paragraph parrafoSearch = new Paragraph();
-                parrafoSearch.add("----------------------------------------------------------------------------------------------------------------------------------");
+                //recomendaciones, ubicacion actual, producto, comida, recoemndacion 1, 2, 3, fecha y hora, user(admin u otro)
+                parrafoSearch.add(sa[0] + "\n" + sa[1] + "\n" + sa[2] + "\n \n" + sa[3] + "\n" + sa[4] + "\n" + sa[5] +"\nFecha y Hora: " + sa[6] + "\nUsuario: " + sa[7]);
+                parrafoSearch.add("\n----------------------------------------------------------------------------------------------------------------------------------");
                 document.add(parrafoSearch);
 
             }//for
@@ -158,7 +163,15 @@ public class FXMLReporte_HistoricoController implements Initializable {
 
             }//for
             */
-        }//if
+        } else {
+            //content += "\n" + sup.getAutoID() + " " + sup.getName() + " " + sup.getLocation() + " " /*+ rest.getId() + " "*/ + "\n";
+            Paragraph parrafo = new Paragraph();
+            parrafo.setAlignment(Paragraph.ALIGN_CENTER);
+            parrafo.add("\n\nNo hay busquedas resgistradas por el momento\n\n");
+            document.add(tableSearch);//Agrega la tabla al documento 
+            document.add(parrafo);
+            document.add(parrafo);//se agrega el contenido
+        }//if search
         document.add(tableSearch);
         //aqui el footer
         Paragraph footer = new Paragraph();
