@@ -1,0 +1,76 @@
+/*
+.myDialog{
+    -fx-background-color: #273746;
+}
+.myDialog .button-bar .container{
+    -fx-background-color: #273746;
+}
+.myDialog .label .content{
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-font-color: #B3B6B7;
+}
+.myDialog:header .header-panel{
+    -fx-background-color: #273746;
+}
+.myDialog:header .header-panel .label{
+    -fx-font-size: 18px;
+    -fx-font-style: italic;
+    -fx-fill: #B3B6B7;
+}
+*/
+ .dialog-pane{
+  -fx-border-color:#273746;
+  -fx-border-width:2.0px;
+ }
+
+/**Costumization of The Bar where the buttons are located**/
+.dialog-pane > .button-bar > .container {
+  -fx-background-color:#273746;
+}
+
+.dialog-pane > .content.label {
+   -fx-padding: 0.5em 0.5em 0.5em 0.5em;
+   -fx-background-color: #273746;
+   -fx-text-fill:#B3B6B7;
+   -fx-font-size:15.0px;
+}
+
+.dialog-pane > .content > .GridPane {
+   -fx-background-color: #273746;
+}
+
+/**Costumization of DialogPane Header**/
+.dialog-pane:header .header-panel {
+  -fx-background-color: #273746;
+}
+
+.dialog-pane:header .header-panel .label{
+  -fx-background-color: #273746;
+  -fx-background-radius:10px;
+  -fx-text-fill:#B3B6B7;
+  -fx-font-size:20.0px;
+}
+
+
+/**Costumization of Buttons**/
+.dialog-pane .button{
+   -fx-background-color:#B3B6B7;
+   -fx-text-fill:#273746;
+   -fx-wrap-text: true;
+   -fx-effect: dropshadow( three-pass-box, white, 10.0, 0.0, 0.0, 0.0);
+   -fx-cursor:hand;
+ }
+
+.dialog-pane .button:hover{     
+  -fx-background-color:#566573;
+  -fx-text-fill:#B3B6B7 ;
+  -fx-font-weight:bold; 
+ }
+ .dialog-pane .GridPane{
+    -fx-background-color:#273746;
+ }
+ .dialog-pane .GridPane .label{
+    -fx-text-fill:#B3B6B7;
+    -fx-font-size:10.0px;
+ }
