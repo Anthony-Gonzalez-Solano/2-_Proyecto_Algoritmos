@@ -20,6 +20,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DialogPane;
 import util.FileTXT;
 
 /**
@@ -34,6 +35,7 @@ public class FXMLRemoverComidaController implements Initializable {
     private ComboBox<Food> comboComidas;
     @FXML
     private Button btnRemover;
+    private Alert a5;
 
     /**
      * Initializes the controller class.
@@ -41,15 +43,19 @@ public class FXMLRemoverComidaController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         txt = new FileTXT();
-
+        a5 = new Alert(Alert.AlertType.ERROR);
+        DialogPane dp = a5.getDialogPane();
+        dp.getStylesheets().add(getClass().getResource("myDialogs.css").toExternalForm());
+        dp.getStyleClass().add("myDialog");
         try {
 
             preOrder();
 
         } catch (TreeException ex) {
-            Alert a = new Alert(Alert.AlertType.ERROR);
-            a.setHeaderText("Lista vacia");
-            a.showAndWait();
+            a5.setAlertType(Alert.AlertType.ERROR);
+            a5.setHeaderText("No hay comidas");
+            a5.setContentText("");
+            a5.showAndWait();
         }
     }
 
@@ -61,22 +67,22 @@ public class FXMLRemoverComidaController implements Initializable {
     private void btnRemover(ActionEvent event) {
         boolean exist = false;
         if (comboComidas.getSelectionModel().isEmpty()) {
-            Alert a = new Alert(Alert.AlertType.ERROR);
-            a.setHeaderText("Debe seleccionar una comida para poder removerlo");
-            a.showAndWait();
+            a5.setAlertType(Alert.AlertType.ERROR);
+            a5.setHeaderText("Debe seleccionar una comida para poder removerlo");
+            a5.showAndWait();
         } else {
             try {
                 Food f = new Food(comboComidas.getSelectionModel().getSelectedItem().getName(), comboComidas.getSelectionModel().getSelectedItem().getPrice(), comboComidas.getSelectionModel().getSelectedItem().getRestaurantID());
                 if (util.Utility.getTreeFood().contains(f) == true) {
 
-                    Alert a = new Alert(Alert.AlertType.INFORMATION);
-                    a.setHeaderText("¿Esta seguro que quiere remover esta comida: " + comboComidas.getSelectionModel().getSelectedItem().getName() + " ?");
+                    a5.setAlertType(Alert.AlertType.ERROR);
+                    a5.setHeaderText("¿Esta seguro que quiere remover esta comida: " + comboComidas.getSelectionModel().getSelectedItem().getName() + " ?");
                     ButtonType yes = new ButtonType("Si");
                     ButtonType no = new ButtonType("No");
-                    a.getButtonTypes().clear();
-                    a.getButtonTypes().addAll(yes, no);
+                    a5.getButtonTypes().clear();
+                    a5.getButtonTypes().addAll(yes, no);
 
-                    Optional<ButtonType> option = a.showAndWait();
+                    Optional<ButtonType> option = a5.showAndWait();
                     if (option.get() == yes) {
                         util.Utility.getTreeFood();
 
@@ -84,16 +90,18 @@ public class FXMLRemoverComidaController implements Initializable {
                         int x = comboComidas.getSelectionModel().getSelectedIndex(); // tomamos el valor del indice
                         comboComidas.getItems().remove(x); // se remueve
                         comboComidas.getSelectionModel().clearSelection();//limpiamos el comboBox
-                        Alert a2 = new Alert(Alert.AlertType.CONFIRMATION);
-                        a2.setHeaderText(" La comida     ha sido eliminada correctamente");
-                        a2.showAndWait();
+                        a5.setAlertType(Alert.AlertType.ERROR);
+                        a5.setHeaderText(" La comida ha sido eliminada correctamente");
+                        a5.setContentText("");
+                        a5.showAndWait();
                         util.Utility.getTreeFood().remove(f);
 
                     }
                 } else {
-                    Alert a2 = new Alert(Alert.AlertType.ERROR);
-                    a2.setHeaderText(" La comida " + comboComidas.getSelectionModel().getSelectedItem().getName() + "   no existe");
-                    a2.showAndWait();
+                    a5.setAlertType(Alert.AlertType.ERROR);
+                    a5.setHeaderText(" La comida " + comboComidas.getSelectionModel().getSelectedItem().getName() + "   no existe");
+                    a5.setContentText("");
+                    a5.showAndWait();
                 }
 
             } catch (TreeException ex) {
@@ -104,9 +112,10 @@ public class FXMLRemoverComidaController implements Initializable {
 
     public String preOrder() throws TreeException {
         if (isEmpty()) {
-            Alert a2 = new Alert(Alert.AlertType.ERROR);
-            a2.setHeaderText("El arbol esta vacio ");
-            a2.showAndWait();
+            a5.setAlertType(Alert.AlertType.ERROR);
+            a5.setHeaderText("El arbol esta vacio ");
+            a5.setContentText("");
+            a5.showAndWait();
         }
         return preOrder(util.Utility.getTreeFood().getRoot());
     }

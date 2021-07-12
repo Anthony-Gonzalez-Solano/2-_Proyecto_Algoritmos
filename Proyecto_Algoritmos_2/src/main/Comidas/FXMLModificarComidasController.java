@@ -18,7 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextField;
 import util.FileTXT;
 
@@ -29,6 +29,7 @@ import util.FileTXT;
  */
 public class FXMLModificarComidasController implements Initializable {
 
+    private Alert a5;
     private util.FileTXT txt;
     @FXML
     private ComboBox<Food> comboComidas;
@@ -45,6 +46,10 @@ public class FXMLModificarComidasController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         txt = new FileTXT();
+        a5 = new Alert(Alert.AlertType.ERROR);
+        DialogPane dp = a5.getDialogPane();
+        dp.getStylesheets().add(getClass().getResource("myDialogs.css").toExternalForm());
+        dp.getStyleClass().add("myDialog");
         try {
             preOrder();
         } catch (TreeException ex) {
@@ -54,24 +59,24 @@ public class FXMLModificarComidasController implements Initializable {
 
     @FXML
     private void comboComidas(ActionEvent event) {
-        if(comboComidas.getSelectionModel().getSelectedIndex()!=-1){
+        if (comboComidas.getSelectionModel().getSelectedIndex() != -1) {
             textFieldNombre.setText(comboComidas.getSelectionModel().getSelectedItem().getName());
-            textFieldPrecio.setText( comboComidas.getSelectionModel().getSelectedItem().getPrice()+"");
+            textFieldPrecio.setText(comboComidas.getSelectionModel().getSelectedItem().getPrice() + "");
         }
     }
 
     @FXML
     private void btnModificar(ActionEvent event) {
         if (textFieldNombre.getText().isEmpty() || textFieldPrecio.getText().isEmpty()) { //validamos campos vacios
-            Alert a = new Alert(Alert.AlertType.INFORMATION);
-            a.setHeaderText("No debe dejar campos vacios. Ingrese un nombre y precio para poder modificarlo");
-            a.showAndWait();
+            a5.setAlertType(Alert.AlertType.INFORMATION);
+            a5.setHeaderText("No debe dejar campos vacios. Ingrese un nombre y precio para poder modificarlo");
+            a5.setContentText("");
+            a5.showAndWait();
         } else {
 
             try {
                 Food f = new Food(textFieldNombre.getText(), Double.valueOf(textFieldPrecio.getText()), comboComidas.getSelectionModel().getSelectedItem().getRestaurantID());
-                
-               
+
                 if (util.Utility.getTreeFood().contains(comboComidas.getSelectionModel().getSelectedItem()) == true) {
                     util.Utility.getTreeFood().remove(comboComidas.getSelectionModel().getSelectedItem());
                     util.Utility.getTreeFood().add(f);
@@ -83,11 +88,11 @@ public class FXMLModificarComidasController implements Initializable {
                     textFieldNombre.setText("");
                     textFieldPrecio.setText("");
 
-                    Alert a = new Alert(Alert.AlertType.CONFIRMATION);
-                    a.setHeaderText("La comida ha sido modificada correctamente");
-                    a.showAndWait();
+                    a5.setAlertType(Alert.AlertType.CONFIRMATION);
+                    a5.setHeaderText("La comida ha sido modificada correctamente");
+                    a5.setContentText("");
+                    a5.showAndWait();
 
-                    
                 }
             } catch (TreeException ex) {
                 Logger.getLogger(FXMLModificarComidasController.class.getName()).log(Level.SEVERE, null, ex);

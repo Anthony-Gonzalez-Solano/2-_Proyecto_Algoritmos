@@ -5,8 +5,6 @@
  */
 package domain;
 
-import java.text.DecimalFormat;
-
 /**
  *
  * @author Dell 7470

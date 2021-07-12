@@ -5,15 +5,10 @@
  */
 package main.restaurant;
 
-import domain.Food;
-import domain.Product;
 import domain.Restaurant;
-import domain.Supermarket;
 import domain.graph.EdgeWeight;
 import domain.graph.GraphException;
 import domain.list.ListException;
-import domain.tree.BTreeNode;
-import domain.tree.TreeException;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -25,6 +20,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextField;
 import util.FileTXT;
 
@@ -35,6 +31,7 @@ import util.FileTXT;
  */
 public class FXMLAgregarRestauranteController implements Initializable {
 
+    private Alert a5;
     private EdgeWeight ew2;
     private static int autoID;
     private util.FileTXT txt;
@@ -52,9 +49,12 @@ public class FXMLAgregarRestauranteController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         txt = new FileTXT(); // crear txt
-
+        a5 = new Alert(Alert.AlertType.ERROR);
+        DialogPane dp = a5.getDialogPane();
+        dp.getStylesheets().add(getClass().getResource("myDialogs.css").toExternalForm());
+        dp.getStyleClass().add("myDialog");
         comboLugares.getItems().add("Cachi");
-        comboLugares.getItems().add("Caballo Blanco");
+        comboLugares.getItems().add("Caballo Blanco");//agregamos los lugares
         comboLugares.getItems().add("Cartago");
         comboLugares.getItems().add("Cervantes");
         comboLugares.getItems().add("Orosi");
@@ -81,9 +81,10 @@ public class FXMLAgregarRestauranteController implements Initializable {
                 Restaurant r = new Restaurant(this.textFieldNombre.getText(), comboLugares.getSelectionModel().getSelectedItem());
                 util.Utility.getlGraphRestaurants_Supermarkets().addVertex(r);
                 txt.writeFile("Restaurant_Supermarket.txt", r.secondToString());// escribimos en los txt
-                Alert a = new Alert(Alert.AlertType.CONFIRMATION);
-                a.setHeaderText(" El restaurante " + textFieldNombre.getText() + " fue agregado correctamente!!");
-                a.showAndWait();
+                a5.setAlertType(Alert.AlertType.CONFIRMATION);
+                a5.setHeaderText(" El restaurante " + textFieldNombre.getText() + " fue agregado correctamente!!");
+                a5.setContentText("");
+                a5.showAndWait();
                 textFieldNombre.setText("");
 
             } else {
@@ -107,9 +108,10 @@ public class FXMLAgregarRestauranteController implements Initializable {
                 txt.writeFile("aristas.txt", util.Utility.getlGraphRestaurants_Supermarkets().toString());
                 txt.writeFile("Restaurant_Supermarket.txt", r.secondToString());// escribimos en los txt
 
-                Alert a = new Alert(Alert.AlertType.CONFIRMATION);
-                a.setHeaderText(" El restaurante " + textFieldNombre.getText() + " fue agregado correctamente");
-                a.showAndWait();
+                a5.setAlertType(Alert.AlertType.CONFIRMATION);
+                a5.setHeaderText(" El restaurante " + textFieldNombre.getText() + " fue agregado correctamente");
+                a5.setContentText("");
+                a5.showAndWait();
                 comboLugares.getSelectionModel().clearSelection();
                 textFieldNombre.setText("");
                 autoID++;
@@ -117,9 +119,10 @@ public class FXMLAgregarRestauranteController implements Initializable {
         } catch (GraphException ex) {
             Logger.getLogger(FXMLAgregarRestauranteController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ListException ex) {
-            Alert a = new Alert(Alert.AlertType.ERROR);
-            a.setHeaderText("No hay restaurantes agregados");
-            a.showAndWait();
+            a5.setAlertType(Alert.AlertType.ERROR);
+            a5.setHeaderText("No hay restaurantes agregados");
+            a5.setContentText("");
+            a5.showAndWait();
         }
     }
 
@@ -129,6 +132,5 @@ public class FXMLAgregarRestauranteController implements Initializable {
 
         }
     }
-    
 
 }

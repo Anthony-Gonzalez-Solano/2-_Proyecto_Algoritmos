@@ -1,3 +1,4 @@
 restaurant,gfrrf,Cachi,13
-restaurant,MINITA,Turrialba,14
+restaurant,MINITA,Caballo Blanco,15
 supermarket,tio nacho,Caballo Blanco,2
+supermarket,edf,Cachi,3

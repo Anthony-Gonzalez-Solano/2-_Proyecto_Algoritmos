@@ -14,5 +14,6 @@
       <Label fx:id="txtNombre" layoutX="56.0" layoutY="104.0" prefHeight="24.0" prefWidth="97.0" text="Nombre" />
       <Label layoutX="55.0" layoutY="208.0" text="Localizacion" visible="false" />
       <TextField fx:id="textFieldLocation" layoutX="88.0" layoutY="242.0" visible="false" />
+      <ComboBox fx:id="cBoxPlace" layoutX="84.0" layoutY="216.0" onAction="#cBoxPlace" prefHeight="33.0" prefWidth="212.0" promptText="Localizacion" />
    </children>
 </AnchorPane>

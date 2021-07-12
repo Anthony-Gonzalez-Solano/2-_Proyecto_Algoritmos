@@ -23,6 +23,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DialogPane;
 import util.FileTXT;
 
 /**
@@ -32,6 +33,7 @@ import util.FileTXT;
  */
 public class FXMLRemoverRestauranteController implements Initializable {
 
+    private Alert a5;
     private util.FileTXT txt;
     @FXML
     private ComboBox<String> comboRestaurantes;
@@ -44,7 +46,10 @@ public class FXMLRemoverRestauranteController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         txt = new FileTXT();
-
+        a5 = new Alert(Alert.AlertType.ERROR);
+        DialogPane dp = a5.getDialogPane();
+        dp.getStylesheets().add(getClass().getResource("myDialogs.css").toExternalForm());
+        dp.getStyleClass().add("myDialog");
         try {
 
             for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
@@ -54,9 +59,10 @@ public class FXMLRemoverRestauranteController implements Initializable {
                 }
             }
         } catch (ListException ex) {
-            Alert a = new Alert(Alert.AlertType.ERROR);
-            a.setHeaderText("Lista vacia");
-            a.showAndWait();
+            a5.setAlertType(Alert.AlertType.ERROR);
+            a5.setHeaderText("Lista vacia");
+            a5.setContentText("");
+            a5.showAndWait();
         }
 
     }
@@ -65,17 +71,18 @@ public class FXMLRemoverRestauranteController implements Initializable {
     private void btnRemover(ActionEvent event) {
 
         if (comboRestaurantes.getSelectionModel().isEmpty()) {
-            Alert a = new Alert(Alert.AlertType.ERROR);
-            a.setHeaderText("Debe seleccionar un restaurante para poder removerlo");
-            a.showAndWait();
+            a5.setAlertType(Alert.AlertType.CONFIRMATION);
+            a5.setHeaderText("Debe seleccionar un restaurante para poder removerlo");
+            a5.setContentText("");
+            a5.showAndWait();
         } else {
-            Alert a = new Alert(Alert.AlertType.INFORMATION);
-            a.setHeaderText("¿Esta seguro que quiere remover el restaurante: " + comboRestaurantes.getSelectionModel().getSelectedItem() + "?");
+            a5.setAlertType(Alert.AlertType.INFORMATION);
+            a5.setHeaderText("¿Esta seguro que quiere remover el restaurante: " + comboRestaurantes.getSelectionModel().getSelectedItem() + "?");
             ButtonType yes = new ButtonType("Si");
             ButtonType no = new ButtonType("No");
-            a.getButtonTypes().clear();
-            a.getButtonTypes().addAll(yes, no);
-            Optional<ButtonType> option = a.showAndWait();
+            a5.getButtonTypes().clear();
+            a5.getButtonTypes().addAll(yes, no);
+            Optional<ButtonType> option = a5.showAndWait();
             if (option.get() == yes) {
                 try {
                     for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
@@ -83,9 +90,10 @@ public class FXMLRemoverRestauranteController implements Initializable {
                             Restaurant t = (Restaurant) util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
                             if (t.getName().equals(this.comboRestaurantes.getValue())) {
                                 if (!(util.Utility.getTreeFood().isEmpty()) && findProduct(t.getId()) == true) {
-                                    Alert u = new Alert(Alert.AlertType.ERROR);
-                                    u.setHeaderText("No ha podido ser removido porque existen comidas ligadas al restaurante");
-                                    u.showAndWait();
+                                    a5.setAlertType(Alert.AlertType.ERROR);
+                                    a5.setHeaderText("No ha podido ser removido porque existen comidas ligadas al restaurante");
+                                    a5.setContentText("");
+                                    a5.showAndWait();
                                 } else {
                                     int x = comboRestaurantes.getSelectionModel().getSelectedIndex(); // tomamos el valor del indice
                                     comboRestaurantes.getItems().remove(x); // se remueve
@@ -93,16 +101,18 @@ public class FXMLRemoverRestauranteController implements Initializable {
                                     txt.removeElement("Restaurant_Supermarket.txt", t.secondToString());
                                     util.Utility.getlGraphRestaurants_Supermarkets().removeVertex(t);
 
-                                    Alert u = new Alert(Alert.AlertType.INFORMATION);
-                                    u.setHeaderText("El restaurante ha sido eliminado correctamente");
-                                    u.showAndWait();
+                                    a5.setAlertType(Alert.AlertType.CONFIRMATION);
+                                    a5.setHeaderText("El restaurante ha sido eliminado correctamente");
+                                    a5.setContentText("");
+                                    a5.showAndWait();
                                 }
                             }
                         }
                     }
                 } catch (ListException es) {
-                    Alert a5 = new Alert(Alert.AlertType.ERROR);
+                    a5.setAlertType(Alert.AlertType.ERROR);
                     a5.setHeaderText("La lista de restaurantes esta vacia");
+                    a5.setContentText("");
                     a5.showAndWait();
                 } catch (GraphException ex) {
                     Logger.getLogger(FXMLRemoverRestauranteController.class.getName()).log(Level.SEVERE, null, ex);
@@ -125,8 +135,9 @@ public class FXMLRemoverRestauranteController implements Initializable {
 
     public boolean findProduct(int superID) throws TreeException {
         if (isEmpty()) {
-            Alert a5 = new Alert(Alert.AlertType.ERROR);
+            a5.setAlertType(Alert.AlertType.ERROR);
             a5.setHeaderText("El arbol esta vacio");
+            a5.setContentText("");
             a5.showAndWait();
         }
         return findProduct(util.Utility.getTreeFood().getRoot(), superID);
