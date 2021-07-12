@@ -1,6 +1,5 @@
 Chocolate,1200.0,13
 CACAO,12000.0,14
-dfffffffffs,4444.0,11
-faca,2222.0,12
 banano,2222.0,13
 pollo,7000.0,14
+Chocolate,100.0,14

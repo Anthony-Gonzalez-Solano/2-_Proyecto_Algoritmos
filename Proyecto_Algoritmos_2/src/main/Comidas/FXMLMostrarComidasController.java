@@ -92,7 +92,7 @@ public class FXMLMostrarComidasController implements Initializable {
         if (node != null) {
             Food f = (Food) node.data;
             list.add(f.getName());
-            list.add(f.getPrice()+"");
+            list.add(f.getPrice()+" ₡");
        
             for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
                 if (util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data.getClass()== Restaurant.class) {
@@ -103,7 +103,7 @@ public class FXMLMostrarComidasController implements Initializable {
                 }
             }
             if(list.size()==3){
-            tableViewComidas.getItems().add(list);//se llena la tabla
+                tableViewComidas.getItems().add(list);//se llena la tabla
             }
             preOrder(node.left);
             preOrder(node.right);

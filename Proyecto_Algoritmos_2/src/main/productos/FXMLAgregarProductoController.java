@@ -29,6 +29,7 @@ import util.FileTXT;
  * @author Adrian Ureña Moraga <Agitor Lucens V>
  */
 public class FXMLAgregarProductoController implements Initializable {
+
     private util.FileTXT txt;
     @FXML
     private ComboBox<String> cBoxSuper;
@@ -52,75 +53,86 @@ public class FXMLAgregarProductoController implements Initializable {
         });
         try {
             for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
-                Object a=util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
-                if(a instanceof Supermarket)
-                    this.cBoxSuper.getItems().add( ((Supermarket) a).getName());
-                    }
+                Object a = util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
+                if (a instanceof Supermarket) {
+                    this.cBoxSuper.getItems().add(((Supermarket) a).getName());
+                }
+            }
         } catch (ListException ex) {
             Logger.getLogger(FXMLAgregarProductoController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }    
+    }
 
     @FXML
     private void btnAdd(ActionEvent event) throws ListException, TreeException {
-        Product sT=null;
-        Supermarket c=null;
-        boolean found=false;
+        Product sT = null;
+        Supermarket c = null;
+        boolean found = false;
         for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
-                Object a=util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
-                if(a instanceof Supermarket){
-                    c=(Supermarket)a;
-                if(c.getName().equals(cBoxSuper.getValue())){
-                    sT=new Product(txtFieldName.getText(),Double.valueOf(this.txtFieldPrice.getText()),c.getId());
-                    if(!util.Utility.getTreeProducts().isEmpty()&&(util.Utility.getTreeProducts().contains(sT)))
-                        found=true;
-                            }
-                        }
+            Object a = util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
+            if (a instanceof Supermarket) {
+                c = (Supermarket) a;
+                if (c.getName().equals(cBoxSuper.getValue())) {
+                    sT = new Product(txtFieldName.getText(), Double.valueOf(this.txtFieldPrice.getText()), c.getId());
+                    if (!util.Utility.getTreeProducts().isEmpty() && (util.Utility.getTreeProducts().contains(sT))) {
+                        found = true;
                     }
-        if (txtFieldName.getText().isEmpty() || cBoxSuper.getValue().equals("")||this.txtFieldPrice.getText().isEmpty()) {//validaciones de campos vacios
+                }
+            }
+        }
+        if (txtFieldName.getText().isEmpty() || cBoxSuper.getValue().equals("") || this.txtFieldPrice.getText().isEmpty()) {//validaciones de campos vacios
             Alert a = new Alert(Alert.AlertType.INFORMATION);
             a.setHeaderText("No debe dejar campos vacios");
             a.showAndWait();
         }
-       if(found==true){
+        if (found == true) {
             Alert a = new Alert(Alert.AlertType.INFORMATION);
             a.setHeaderText("Producto ingresado ya existe");
             a.showAndWait();
-       }else{
-        Supermarket b=null;
-            if(util.Utility.getTreeProducts().isEmpty()){
+        } else {
+            Supermarket b = null;
+            if (util.Utility.getTreeProducts().isEmpty()) {
                 for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
-                Object a=util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
-                if(a instanceof Supermarket){
-                    b=(Supermarket)a;
-                if(b.getName().equals(cBoxSuper.getValue()))
-                    util.Utility.getTreeProducts().add(new Product(txtFieldName.getText(),Double.valueOf(this.txtFieldPrice.getText()),b.getId()));
+                    Object a = util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
+                    if (a instanceof Supermarket) {
+                        b = (Supermarket) a;
+                        if (b.getName().equals(cBoxSuper.getValue())) {
+                            Product p = new Product(txtFieldName.getText(), Double.valueOf(this.txtFieldPrice.getText()), b.getId());
+                            util.Utility.getTreeProducts().add(p);
+                            txtFieldName.setText("");
+                            txtFieldPrice.setText("");
+                            cBoxSuper.getSelectionModel().clearSelection();
+                            txt.writeFile("productos.txt", p.toString());
+                            Alert u = new Alert(Alert.AlertType.INFORMATION);
+                            u.setHeaderText("Producto ingresado existosamente");
+                            u.showAndWait();
+                        }
                     }
                 }
-            }else{
-                Product sT2=null;
+            } else {
+                Product sT2 = null;
                 for (int i = 0; i < util.Utility.getlGraphRestaurants_Supermarkets().size(); i++) {
-                Object a=util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
-                if(a instanceof Supermarket){
-                    b=(Supermarket)a;
-                if(b.getName().equals(cBoxSuper.getValue())){
-                    sT2=new Product(txtFieldName.getText(),Double.valueOf(this.txtFieldPrice.getText()),b.getId());
-                    
-                    if(found==false){
-                        util.Utility.getTreeProducts().add(sT2);
-                    txtFieldName.setText("");
-                    txtFieldPrice.setText("");
-                    cBoxSuper.getSelectionModel().clearSelection();
-                    txt.writeFile("productos.txt", sT2.toString());
-                    Alert u = new Alert(Alert.AlertType.INFORMATION);
-                    u.setHeaderText("Producto ingresado existosamente");
-                    u.showAndWait();
-                    }
+                    Object a = util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
+                    if (a instanceof Supermarket) {
+                        b = (Supermarket) a;
+                        if (b.getName().equals(cBoxSuper.getValue())) {
+                            sT2 = new Product(txtFieldName.getText(), Double.valueOf(this.txtFieldPrice.getText()), b.getId());
+
+                            if (found == false) {
+                                util.Utility.getTreeProducts().add(sT2);
+                                txtFieldName.setText("");
+                                txtFieldPrice.setText("");
+                                cBoxSuper.getSelectionModel().clearSelection();
+                                txt.writeFile("productos.txt", sT2.toString());
+                                Alert u = new Alert(Alert.AlertType.INFORMATION);
+                                u.setHeaderText("Producto ingresado existosamente");
+                                u.showAndWait();
                             }
                         }
                     }
+                }
             }
+        }
     }
-    }
-    
+
 }

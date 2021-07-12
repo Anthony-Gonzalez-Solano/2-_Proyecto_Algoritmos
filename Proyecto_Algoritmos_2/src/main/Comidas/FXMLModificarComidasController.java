@@ -54,7 +54,7 @@ public class FXMLModificarComidasController implements Initializable {
 
     @FXML
     private void comboComidas(ActionEvent event) {
-        if(comboComidas.getSelectionModel().getSelectedIndex()!=1){
+        if(comboComidas.getSelectionModel().getSelectedIndex()!=-1){
             textFieldNombre.setText(comboComidas.getSelectionModel().getSelectedItem().getName());
             textFieldPrecio.setText( comboComidas.getSelectionModel().getSelectedItem().getPrice()+"");
         }
@@ -71,10 +71,11 @@ public class FXMLModificarComidasController implements Initializable {
             try {
                 Food f = new Food(textFieldNombre.getText(), Double.valueOf(textFieldPrecio.getText()), comboComidas.getSelectionModel().getSelectedItem().getRestaurantID());
                 
-                txt.modifyFile("comidas.txt", comboComidas.getSelectionModel().getSelectedItem().secondToString(), f.secondToString());// se modifica el archivo
+               
                 if (util.Utility.getTreeFood().contains(comboComidas.getSelectionModel().getSelectedItem()) == true) {
                     util.Utility.getTreeFood().remove(comboComidas.getSelectionModel().getSelectedItem());
                     util.Utility.getTreeFood().add(f);
+                    txt.modifyFile("comidas.txt", comboComidas.getSelectionModel().getSelectedItem().secondToString(), f.secondToString());// se modifica el archivo
                     int x = comboComidas.getSelectionModel().getSelectedIndex(); // tomamos el valor del indice
                     comboComidas.getItems().remove(x); // se remueve
                     comboComidas.getItems().add(x, f);// se agregan de nuevo al comBox la comida modificado

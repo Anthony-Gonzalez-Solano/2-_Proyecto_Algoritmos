@@ -173,7 +173,7 @@ public class FXMLGrafoLugaresController implements Initializable {
                     x++;
                 }
             }
-            if(x<2){
+            if(x>2){
                 fillGraph();
                 num = grafoMatrix.size();
                 drawGraph(grafoMatrix);
@@ -207,56 +207,12 @@ public class FXMLGrafoLugaresController implements Initializable {
 
                 }
             }
-            /*
-            //Para la tabla
-            String[][] tableMatrix = new String[grafoMatrix.size() * grafoMatrix.size()][2];
-            tableMatrix[0][1] = "Origen, Destino";
-            tableMatrix[0][0] = "Distancia";
-            int contDirecciones = 1;
-
-            grafoList = new AdjacencyListGraph(grafoMatrix.size());
-            for (int i = 0; i < grafoMatrix.size(); i++) {
-                if (checkList != null) {
-                    if (checkList[i].isSelected()) {
-                        //Place place;
-                        //place = (Place) grafoMatrix.getVertexByIndex(i).add;
-                        grafoMatrix.addVertex(checkList[i].getText());
-                    }
-                }
-            }
-            */
             num = grafoMatrix.size();
             drawGraph(grafoMatrix);
             util.Utility.setmGraphPlace(grafoMatrix);
-            loadTable(tvDistancias, m);
+            //loadTable(tvDistancias, m);
         }
     }//btnDistancias
-/*
-    private void fillGraph(AdjacencyMatrixGraph grafo) throws GraphException, ListException {
-        for (int i = 0; i < num; i++) {
-            Character character = util.Utility.randAlphabet();
-            while (!grafo.isEmpty() && grafo.containsVertex(character)) {
-                character = util.Utility.randAlphabet();
-            }
-            grafo.addVertex(character);
-        }
-    }
-*/
-    public void chb() {
-        //Otra forma de llenar el grafo a partir de los chb seleccionados con un array de chb
-        
-        chbCaballoBlanco.setOnAction(e -> handleButtonAction(e));
-        chbCachi.setOnAction(e -> handleButtonAction(e));
-        chbCartago.setOnAction(e -> handleButtonAction(e));
-        chbCervantes.setOnAction(e -> handleButtonAction(e));
-        chbOrosi.setOnAction(e -> handleButtonAction(e));
-        chbParaiso.setOnAction(e -> handleButtonAction(e));
-        chbSantaRosa.setOnAction(e -> handleButtonAction(e));
-        chbTierraBlanca.setOnAction(e -> handleButtonAction(e));
-        chbTurrialba.setOnAction(e -> handleButtonAction(e));
-        chbUjarras.setOnAction(e -> handleButtonAction(e));
-        
-    }//chb
     
     private void drawGraph(Graph grafo) throws ListException, GraphException {
         apGraph.getChildren().clear();
@@ -265,10 +221,6 @@ public class FXMLGrafoLugaresController implements Initializable {
         buttonArray = new Button[grafo.size()];
         drawVertex(grafo);
         drawEdges(grafo);
-        //txtTitle = new Text("");
-        //apGraph.getChildren().add(ap);
-        //ap.toBack();
-        //apGraph.getChildren().add(txtTitle);
         
     }//drawGraph
 
@@ -356,17 +308,6 @@ public class FXMLGrafoLugaresController implements Initializable {
         }//for
         contEdges = contEdges / 2;
     }
-    
-//    private void randomDistancias() throws ListException, GraphException{
-//        for (int i = 0; i < grafoMatrix.size(); i++) {
-//            for (int j = 0; j < grafoMatrix.size(); j++) {
-//                if (!(grafoMatrix.getVertexByIndex(i).data.equals(grafoMatrix.getVertexByIndex(i).data))) {
-//                    grafoMatrix.addEdge(grafoMatrix.getVertexByIndex(i).data, grafoMatrix.getVertexByIndex(j).data);
-//                    grafoMatrix.addWeight(grafoMatrix.getVertexByIndex(i).data, grafoMatrix.getVertexByIndex(j).data, 5 + util.Utility.random(50));
-//                }//if
-//            }//for j
-//        }//for i
-//    }//randomDistancias
 
     private void loadTable(TableView<String[]> table, Object[][] distanceMatrix) {
         //columnOrigenDestino.setCellValueFactory(col -> new SimpleStringProperty(String.valueOf(tvDistancias)));
@@ -399,64 +340,7 @@ public class FXMLGrafoLugaresController implements Initializable {
         }
         table.setItems(data);
     }//loadPage
-    
-    
-//            for (int k = 1; k <= n; k++) { 
-//                for (int i = 0; i < 2; i++) {
-//                    int aux = util.Utility.random(9)+1;
-//                    while(g.containsEdge(g.getVertexByIndex(k).data, g.getVertexByIndex(aux).data)){
-//                        aux = util.Utility.random(9)+1;
-//                    }
-//                    g.addEdge(g.getVertexByIndex(k).data, g.getVertexByIndex(aux).data);
-//                    g.addWeight(g.getVertexByIndex(k).data, g.getVertexByIndex(aux).data, util.Utility.random());
-//                }
-//            }
 
-    @FXML
-    private void handleButtonAction(ActionEvent e) {
-        int cont = 0;
-        String choices = "";
-        if (chbCaballoBlanco.isSelected()) {
-            cont++;
-            choices+=chbCaballoBlanco.getText() + "\n";
-        }
-        if (chbCachi.isSelected()) {
-            cont++;
-            choices+=chbCachi.getText() + "\n";
-        }
-        if (chbCartago.isSelected()) {
-            cont++;
-            choices+=chbCartago.getText() + "\n";
-        }
-        if (chbCervantes.isSelected()) {
-            cont++;
-            choices+=chbCervantes.getText() + "\n";
-        }
-        if (chbOrosi.isSelected()) {
-            cont++;
-            choices+=chbOrosi.getText() + "\n";
-        }
-        if (chbParaiso.isSelected()) {
-            cont++;
-            choices+=chbParaiso.getText() + "\n";
-        }
-        if (chbSantaRosa.isSelected()) {
-            cont++;
-            choices+=chbSantaRosa.getText() + "\n";
-        }
-        if (chbTierraBlanca.isSelected()) {
-            cont++;
-            choices+=chbTierraBlanca.getText() + "\n";
-        }
-        if (chbTurrialba.isSelected()) {
-            cont++;
-            choices+=chbTurrialba.getText() + "\n";
-        }
-        if (chbUjarras.isSelected()) {
-            cont++;
-            choices+=chbUjarras.getText() + "\n";
-        }
-    }
     
     private Object[][] cleanTable(Object[][] m) {
         int cont = 0;

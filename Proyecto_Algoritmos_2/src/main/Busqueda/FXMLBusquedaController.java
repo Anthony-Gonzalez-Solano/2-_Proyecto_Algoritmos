@@ -7,7 +7,9 @@ package main.Busqueda;
 
 import domain.Dijkstra;
 import domain.Food;
+import domain.Product;
 import domain.Restaurant;
+import domain.Supermarket;
 import domain.graph.Vertex;
 import domain.list.ListException;
 import domain.tree.BTreeNode;
@@ -184,28 +186,41 @@ public class FXMLBusquedaController implements Initializable {
                         
                         
                         for (int j = 0; j < util.Utility.getlGraphRestaurants_Supermarkets().size(); j++) {
-                            Restaurant r = (Restaurant)util.Utility.getlGraphRestaurants_Supermarkets().getVertexList()[j].data;
-                            if(r.getLocation().equals(lbl_Ubicacion.getText())){
-                                if(Rbtn_Foods.isSelected()){
-                                    search(util.Utility.getTreeFood().getRoot(), r,cb_Comidas_Productos.getSelectionModel().getSelectedItem(),0);
-                                }else{
-                                    search(util.Utility.getTreeProducts().getRoot(), r,cb_Comidas_Productos.getSelectionModel().getSelectedItem(),0);
+                            if(Rbtn_Foods.isSelected())
+                                if(util.Utility.getlGraphRestaurants_Supermarkets().getVertexList()[j].data.getClass()==Restaurant.class){
+                                    Restaurant r = (Restaurant)util.Utility.getlGraphRestaurants_Supermarkets().getVertexList()[j].data;
+                                    if(r.getLocation().equals(lbl_Ubicacion.getText())){
+                                        searchFood(util.Utility.getTreeFood().getRoot(), r,cb_Comidas_Productos.getSelectionModel().getSelectedItem(),0);                                      
+                                    }
                                 }
-                            }
+                            else
+                               if(util.Utility.getlGraphRestaurants_Supermarkets().getVertexList()[j].data.getClass()==Supermarket.class){
+                                    Supermarket s = (Supermarket)util.Utility.getlGraphRestaurants_Supermarkets().getVertexList()[j].data;
+                                    if(s.getLocation().equals(lbl_Ubicacion.getText())){
+                                        searchProduct(util.Utility.getTreeProducts().getRoot(), null,cb_Comidas_Productos.getSelectionModel().getSelectedItem(),0);                     
+                                    }
+                                }     
                         } 
                         
                         if(Recomend[2].equals("-")){
                             for (int i = 0; i < distances.size(); i++) {
                                 String location = (String) util.Utility.getmGraphPlace().getVertexList()[Integer.parseInt(distances.get(i).split(",")[0].split("-")[1])].data;
+                                       
                                 for (int j = 0; j < util.Utility.getlGraphRestaurants_Supermarkets().size(); j++) {
-                                    Restaurant r = (Restaurant)util.Utility.getlGraphRestaurants_Supermarkets().getVertexList()[j].data;
-                                    if(r.getLocation().equals(location)){
-                                        if(Rbtn_Foods.isSelected()){
-                                            search(util.Utility.getTreeFood().getRoot(), r,cb_Comidas_Productos.getSelectionModel().getSelectedItem(),Integer.parseInt(distances.get(i).split(",")[1]));
-                                        }else{
-                                            search(util.Utility.getTreeProducts().getRoot(), r,cb_Comidas_Productos.getSelectionModel().getSelectedItem(),Integer.parseInt(distances.get(i).split(",")[1]));
+                                    if(Rbtn_Foods.isSelected())
+                                        if(util.Utility.getlGraphRestaurants_Supermarkets().getVertexList()[j].data.getClass()==Restaurant.class){
+                                            Restaurant r = (Restaurant)util.Utility.getlGraphRestaurants_Supermarkets().getVertexList()[j].data;
+                                            if(r.getLocation().equals(location)){
+                                                searchFood(util.Utility.getTreeFood().getRoot(), r,cb_Comidas_Productos.getSelectionModel().getSelectedItem(),0);                                      
+                                            }
                                         }
-                                    }
+                                    else
+                                       if(util.Utility.getlGraphRestaurants_Supermarkets().getVertexList()[j].data.getClass()==Supermarket.class){
+                                            Supermarket s = (Supermarket)util.Utility.getlGraphRestaurants_Supermarkets().getVertexList()[j].data;
+                                            if(s.getLocation().equals(location)){
+                                                searchProduct(util.Utility.getTreeProducts().getRoot(), s,cb_Comidas_Productos.getSelectionModel().getSelectedItem(),0);                     
+                                            }
+                                        }     
                                 }  
                             }
                         }
@@ -294,7 +309,7 @@ public class FXMLBusquedaController implements Initializable {
         }
     }
     
-    private void search(BTreeNode node,Restaurant r,String name,int dis){
+    private void searchFood(BTreeNode node,Restaurant r,String name,int dis){
         if(node!=null){
             Food f = (Food) node.data;
             if(f.getRestaurantID()==r.getId()){
@@ -313,8 +328,32 @@ public class FXMLBusquedaController implements Initializable {
                     }
                 }
             }
-            search(node.left,r,name,dis);
-            search(node.right,r,name,dis);
+            searchFood(node.left,r,name,dis);
+            searchFood(node.right,r,name,dis);
+        }
+    }
+    
+        private void searchProduct(BTreeNode node,Supermarket p,String name,int dis){
+        if(node!=null){
+            Product pro = (Product) node.data;
+            if(pro.getSupermarketID()==p.getId()){
+                if(pro.getName().equals(name)){
+                    if(Recomend[0].equals("-")){
+                        Recomend[0]="Supermercado "+p.getName()+" a "+dis+" km, en "+p.getLocation()+", a un precio de "+pro.getPrice()+" ₡";
+                    }
+                    if(Recomend[1].equals("-")){
+                        if(!Recomend[0].equals("Supermercado "+p.getName()+" a "+dis+" km, en "+p.getLocation()+", a un precio de "+pro.getPrice()+" ₡"))
+                            Recomend[1]="Supermercado "+p.getName()+" a "+dis+" km, en "+p.getLocation()+", a un precio de "+pro.getPrice()+" ₡";
+                    }
+                    if(Recomend[2].equals("-")){
+                        if(!Recomend[0].equals("Supermercado "+p.getName()+" a "+dis+" km, en "+p.getLocation()+", a un precio de "+pro.getPrice()+" ₡"))
+                            if(!Recomend[1].equals("Supermercado "+p.getName()+" a "+dis+" km, en "+p.getLocation()+", a un precio de "+pro.getPrice()+" ₡"))
+                                Recomend[2]="Supermercado "+p.getName()+" a "+dis+" km, en "+p.getLocation()+", a un precio de "+pro.getPrice()+" ₡";
+                    }
+                }
+            }
+            searchProduct(node.left,p,name,dis);
+            searchProduct(node.right,p,name,dis);
         }
     }
     

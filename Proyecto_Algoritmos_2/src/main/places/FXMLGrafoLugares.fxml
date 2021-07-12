@@ -10,7 +10,7 @@
 
 <AnchorPane id="AnchorPane" fx:id="ap" prefHeight="572.0" prefWidth="1010.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.places.FXMLGrafoLugaresController">
    <children>
-      <CheckBox fx:id="chbCartago" layoutX="53.0" layoutY="122.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Cartago">
+      <CheckBox fx:id="chbCartago" layoutX="53.0" layoutY="122.0" mnemonicParsing="false" text="Cartago">
          <opaqueInsets>
             <Insets bottom="20.0" left="20.0" right="20.0" />
          </opaqueInsets></CheckBox>
@@ -22,11 +22,11 @@
          <opaqueInsets>
             <Insets bottom="20.0" left="20.0" right="20.0" />
          </opaqueInsets></CheckBox>
-      <CheckBox fx:id="chbOrosi" layoutX="53.0" layoutY="182.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Orosi">
+      <CheckBox fx:id="chbOrosi" layoutX="53.0" layoutY="182.0" mnemonicParsing="false" text="Orosi">
          <opaqueInsets>
             <Insets bottom="20.0" left="20.0" right="20.0" />
          </opaqueInsets></CheckBox>
-      <CheckBox fx:id="chbCachi" layoutX="53.0" layoutY="92.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Cachí">
+      <CheckBox fx:id="chbCachi" layoutX="53.0" layoutY="92.0" mnemonicParsing="false" text="Cachí">
          <opaqueInsets>
             <Insets bottom="20.0" left="20.0" right="20.0" />
          </opaqueInsets></CheckBox>
@@ -34,7 +34,7 @@
          <opaqueInsets>
             <Insets bottom="20.0" left="20.0" right="20.0" />
          </opaqueInsets></CheckBox>
-      <CheckBox fx:id="chbCervantes" layoutX="53.0" layoutY="152.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Cervantes">
+      <CheckBox fx:id="chbCervantes" layoutX="53.0" layoutY="152.0" mnemonicParsing="false" text="Cervantes">
          <opaqueInsets>
             <Insets bottom="20.0" left="20.0" right="20.0" />
          </opaqueInsets></CheckBox>
@@ -47,7 +47,7 @@
             <Insets bottom="20.0" left="20.0" right="20.0" />
          </opaqueInsets>
       </CheckBox>
-      <CheckBox fx:id="chbCaballoBlanco" layoutX="53.0" layoutY="62.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Caballo Blanco">
+      <CheckBox fx:id="chbCaballoBlanco" layoutX="53.0" layoutY="62.0" mnemonicParsing="false" text="Caballo Blanco">
          <opaqueInsets>
             <Insets bottom="20.0" left="20.0" right="20.0" />
          </opaqueInsets>
@@ -56,7 +56,7 @@
       <Button fx:id="btnGenerarGrafo" layoutX="59.0" layoutY="394.0" mnemonicParsing="false" onAction="#btnGenerarGrafo" text="Generar Grafo" />
       <AnchorPane fx:id="apGraph" layoutX="202.0" layoutY="19.0" prefHeight="404.0" prefWidth="652.0">
          <children>
-            <TextField fx:id="txtVertexGraph" disable="true" layoutX="307.0" layoutY="190.0" prefHeight="25.0" prefWidth="39.0" />
+            <TextField fx:id="txtVertexGraph" disable="true" layoutX="307.0" layoutY="190.0" prefHeight="25.0" prefWidth="39.0" visible="false" />
          </children></AnchorPane>
       <TableView fx:id="tblVDistancias" layoutX="53.0" layoutY="425.0" prefHeight="127.0" prefWidth="450.0" />
       <Label fx:id="lblDistancias" layoutX="519.0" layoutY="425.0" prefHeight="127.0" prefWidth="216.0" />

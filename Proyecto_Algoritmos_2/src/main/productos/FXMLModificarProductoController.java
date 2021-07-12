@@ -70,7 +70,7 @@ public class FXMLModificarProductoController implements Initializable {
             a.showAndWait();
         } else {
                 Product c = findProduct(cBoxProduct.getValue());
-                Product p = new Product(txtFieldName.getText(), Double.valueOf(txtFieldPrice.getText()), c.getSupermarketID());
+                Product p = new Product(txtFieldName.getText(), Double.valueOf(txtFieldPrice.getText()), c.getSupermarketID(),c.getID());
                 if (util.Utility.getTreeProducts().contains(c) == true) {
                     util.Utility.getTreeProducts().remove(c);
                     util.Utility.getTreeProducts().add(p);

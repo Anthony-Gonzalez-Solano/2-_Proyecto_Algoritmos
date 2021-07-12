@@ -178,11 +178,11 @@ public class Utility {
             case "product":
                 Product p1 = (Product) a;
                 Product p2 = (Product) b;
-                return p1.getName().compareToIgnoreCase(p2.getName()) < 0;
+                return p1.getName().compareToIgnoreCase(p2.getName()) < 0 || p1.getSupermarketID() > p2.getSupermarketID();
             case "food":
                 Food f1 = (Food) a;
                 Food f2 = (Food) b;
-                return f1.getName().compareToIgnoreCase(f2.getName()) < 0;
+                return f1.getName().compareToIgnoreCase(f2.getName())  < 0 || f1.getRestaurantID() < f2.getRestaurantID();
 
         }
         return false; //en cualquier otro caso
@@ -205,11 +205,11 @@ public class Utility {
             case "product":
                 Product p1 = (Product) a;
                 Product p2 = (Product) b;
-                return p1.getName().compareToIgnoreCase(p2.getName()) > 0;
+                return p1.getName().compareToIgnoreCase(p2.getName()) > 0 || p1.getSupermarketID() > p2.getSupermarketID();
             case "food":
                 Food f1 = (Food) a;
                 Food f2 = (Food) b;
-                return f1.getName().compareToIgnoreCase(f2.getName()) > 0;
+                return f1.getName().compareToIgnoreCase(f2.getName()) > 0 || f1.getRestaurantID() > f2.getRestaurantID();
         }
         return false; //en cualquier otro caso
     }

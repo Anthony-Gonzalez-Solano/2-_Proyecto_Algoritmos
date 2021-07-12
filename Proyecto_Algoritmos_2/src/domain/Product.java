@@ -23,6 +23,13 @@ public class Product {
         autoID++;
     }
 
+    public Product(String Name, Double Price, int SupermarketID,int id){
+        this.Name=Name;
+        this.Price=Price;
+        this.SupermarketID=SupermarketID;
+        this.ID=id;
+    }
+    
     public int getID() {
         return ID;
     }
