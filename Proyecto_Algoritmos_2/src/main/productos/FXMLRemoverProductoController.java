@@ -74,7 +74,7 @@ public class FXMLRemoverProductoController implements Initializable {
 
                     Optional<ButtonType> option = a.showAndWait();
                     if (option.get() == yes) {//pregunta si queire remover el producto
-                        txt.removeElement("productos.txt", p);
+                        txt.removeElement("productos.txt", p.secondToSting());
                         a.setAlertType(Alert.AlertType.CONFIRMATION);
                         a.setHeaderText(" El producto " + cBoxProducts.getValue() + "   ha sido eliminada correctamente");
                         a.showAndWait();

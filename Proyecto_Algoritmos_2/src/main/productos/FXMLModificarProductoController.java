@@ -80,7 +80,7 @@ public class FXMLModificarProductoController implements Initializable {
                 if (util.Utility.getTreeProducts().contains(c) == true) {//se asegura que contenga el objeto
                     util.Utility.getTreeProducts().remove(c);//remueve el producto
                     util.Utility.getTreeProducts().add(p);//lo agrega de nuevo pero con los cambios hechos
-                    txt.modifyFile("productos.txt", c.toString(), p.toString());// se modifica el archivo
+                    txt.modifyFile("productos.txt", c.secondToSting(), p.secondToSting());// se modifica el archivo
                     int x = cBoxProduct.getSelectionModel().getSelectedIndex(); // tomamos el valor del indice
                     cBoxProduct.getItems().remove(cBoxProduct.getValue()); // se remueve
                     cBoxProduct.getItems().add(x, p.getName());// se agregan de nuevo al comBox la comida modificado

@@ -140,7 +140,6 @@ public class FXMLGrafoLugaresController implements Initializable {
             for (int i = 0; i < 10; i++) {
                 if(checkList[i].isSelected()){
                     grafoMatrix.addVertex(checkList[i].getText());
-                    System.out.println(checkList[i].getText());
                 }
             }
             for (int k = 0; k < grafoMatrix.size(); k++) {

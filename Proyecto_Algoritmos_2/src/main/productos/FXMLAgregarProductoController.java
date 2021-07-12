@@ -107,7 +107,7 @@ public class FXMLAgregarProductoController implements Initializable {
                             txtFieldName.setText("");
                             txtFieldPrice.setText("");
                             cBoxSuper.getSelectionModel().clearSelection();
-                            txt.writeFile("productos.txt", p.toString());
+                            txt.writeFile("productos.txt", p.secondToSting());
                             a.setAlertType(Alert.AlertType.INFORMATION);
                             a.setHeaderText("Producto ingresado existosamente");
                             a.showAndWait();
@@ -128,7 +128,7 @@ public class FXMLAgregarProductoController implements Initializable {
                                 txtFieldName.setText("");//se limpia textfields
                                 txtFieldPrice.setText("");
                                 cBoxSuper.getSelectionModel().clearSelection();
-                                txt.writeFile("productos.txt", sT2.toString());
+                                txt.writeFile("productos.txt", sT2.secondToSting());
                                 a.setAlertType(Alert.AlertType.INFORMATION);
                                 a.setHeaderText("Producto ingresado existosamente");
                                 a.showAndWait();
