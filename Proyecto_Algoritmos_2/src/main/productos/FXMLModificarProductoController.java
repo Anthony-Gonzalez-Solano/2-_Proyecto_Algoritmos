@@ -62,7 +62,7 @@ public class FXMLModificarProductoController implements Initializable {
                preOrder();//metodo que recorre el arbol de productos y los agrega al combobox
             
         } catch (TreeException ex) {//valida que haya objetos
-            a = new Alert(Alert.AlertType.INFORMATION);
+            a.setAlertType(Alert.AlertType.INFORMATION);
             a.setHeaderText("No hay productos para modificar");
             a.showAndWait();
         }
@@ -71,7 +71,7 @@ public class FXMLModificarProductoController implements Initializable {
     @FXML
     private void btnModify(ActionEvent event) throws TreeException {
         if (txtFieldName.getText().isEmpty() || txtFieldPrice.getText().isEmpty()) { //validamos campos vacios
-            a = new Alert(Alert.AlertType.INFORMATION);
+            a.setAlertType(Alert.AlertType.INFORMATION);
             a.setHeaderText("No debe dejar campos vacios. Ingrese un nombre y precio para poder modificarlo");
             a.showAndWait();
         } else {
@@ -87,7 +87,7 @@ public class FXMLModificarProductoController implements Initializable {
                     cBoxProduct.getSelectionModel().clearSelection();//limpiamos el comboBox
 
                     
-                    a = new Alert(Alert.AlertType.CONFIRMATION);
+                    a.setAlertType(Alert.AlertType.CONFIRMATION);
                     a.setHeaderText("La comida ha sido mofificada correctamente");
                     a.showAndWait();
                     txtFieldName.setText("");

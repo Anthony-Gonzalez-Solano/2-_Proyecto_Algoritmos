@@ -49,7 +49,7 @@ public class FXMLRemoverProductoController implements Initializable {
         try {
             preOrder();//metodo que recorre el arbol de productos y los va agregando al combobox
         } catch (TreeException ex) {
-            a = new Alert(Alert.AlertType.INFORMATION);
+            a.setAlertType(Alert.AlertType.INFORMATION);
             a.setHeaderText("No hay productos para eliminar");
             a.showAndWait();
         }
@@ -58,14 +58,14 @@ public class FXMLRemoverProductoController implements Initializable {
     @FXML
     private void btnRemove(ActionEvent event) throws TreeException {
     if (cBoxProducts.getSelectionModel().isEmpty()) {//se asegura que se haya seleccionado un objeto
-            a = new Alert(Alert.AlertType.ERROR);
+            a.setAlertType(Alert.AlertType.ERROR);
             a.setHeaderText("Necesita escoger un producto");
             a.showAndWait();
         } else {
         Product p=(Product)findProduct(cBoxProducts.getValue());
         if (util.Utility.getTreeProducts().contains(p) == true) {
 
-                    a = new Alert(Alert.AlertType.INFORMATION);
+                    a.setAlertType(Alert.AlertType.INFORMATION);
                     a.setHeaderText("¿Esta seguro que quiere remover esta comida: " + cBoxProducts.getValue() + " ?");
                     ButtonType yes = new ButtonType("Si");
                     ButtonType no = new ButtonType("No");
@@ -75,7 +75,7 @@ public class FXMLRemoverProductoController implements Initializable {
                     Optional<ButtonType> option = a.showAndWait();
                     if (option.get() == yes) {//pregunta si queire remover el producto
                         txt.removeElement("productos.txt", p);
-                        a = new Alert(Alert.AlertType.CONFIRMATION);
+                        a.setAlertType(Alert.AlertType.CONFIRMATION);
                         a.setHeaderText(" El producto " + cBoxProducts.getValue() + "   ha sido eliminada correctamente");
                         a.showAndWait();
                         util.Utility.getTreeProducts().remove(p);//remueve el producto de la lsita

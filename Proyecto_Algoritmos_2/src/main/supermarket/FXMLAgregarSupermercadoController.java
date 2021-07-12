@@ -69,12 +69,12 @@ public class FXMLAgregarSupermercadoController implements Initializable {
         Supermarket t;
         t = new Supermarket(txtFieldName.getText(), cBoxPlace.getValue());
         if (txtFieldName.getText().isEmpty() || cBoxPlace.getValue().equals("")) {//validaciones de campos vacios
-            a = new Alert(Alert.AlertType.INFORMATION);
+            a.setAlertType(Alert.AlertType.INFORMATION);
             a.setHeaderText("No debe dejar campos vacios");
             a.showAndWait();
         } else {//se asegura que la lista no este vacia y que no contenga el objeto
             if (!util.Utility.getlGraphRestaurants_Supermarkets().isEmpty() && util.Utility.getlGraphRestaurants_Supermarkets().containsVertex(t)) {
-                a = new Alert(Alert.AlertType.INFORMATION);
+                a.setAlertType(Alert.AlertType.INFORMATION);
                 a.setHeaderText("Supermercado ya existe");
                 a.showAndWait();
             } else {
@@ -82,7 +82,7 @@ public class FXMLAgregarSupermercadoController implements Initializable {
 
                     util.Utility.getlGraphRestaurants_Supermarkets().addVertex(t);
                     txt.writeFile("Restaurant_Supermarket.txt", t.toString());
-                    a = new Alert(Alert.AlertType.INFORMATION);
+                    a.setAlertType(Alert.AlertType.INFORMATION);
                     a.setHeaderText("Supermercado ingresado correctamente");
                     a.showAndWait();
                     txtFieldName.setText("");
@@ -102,7 +102,7 @@ public class FXMLAgregarSupermercadoController implements Initializable {
                     }
                     txt.writeFile("aristas.txt", util.Utility.getlGraphRestaurants_Supermarkets().toString());//se escribe en el txt
                     txt.writeFile("Restaurant_Supermarket.txt", t.toString());// escribimos en los txt
-                    a = new Alert(Alert.AlertType.INFORMATION);
+                    a.setAlertType(Alert.AlertType.INFORMATION);
                     a.setHeaderText("Supermercado ingresado correctamente");
                     a.showAndWait();
                     txtFieldName.setText("");

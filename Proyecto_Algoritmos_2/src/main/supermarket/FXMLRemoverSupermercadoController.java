@@ -65,12 +65,12 @@ public class FXMLRemoverSupermercadoController implements Initializable {
     @FXML
     private void btnRemove(ActionEvent event) throws GraphException, ListException, TreeException {
         if (cBoxSupermarkets.getSelectionModel().isEmpty()) {//se asegura que el haya seleccionado un supermercado a eliminar
-            a = new Alert(Alert.AlertType.ERROR);
+            a.setAlertType(Alert.AlertType.ERROR);
             a.setHeaderText("Debe seleccionar un restaurante para poder removerlo");
             a.showAndWait();
         } else {
 
-            a = new Alert(Alert.AlertType.INFORMATION);//se pregunta si se quiere remover el supermercado
+            a.setAlertType(Alert.AlertType.CONFIRMATION);//se pregunta si se quiere remover el supermercado
             a.setHeaderText("¿Esta seguro que quiere remover el Supermercado: " + cBoxSupermarkets.getSelectionModel().getSelectedItem() + "?");
             ButtonType yes = new ButtonType("Si");
             ButtonType no = new ButtonType("No");
@@ -85,7 +85,7 @@ public class FXMLRemoverSupermercadoController implements Initializable {
                         Supermarket t = (Supermarket) util.Utility.getlGraphRestaurants_Supermarkets().getVertexByIndex(i).data;
                         if (t.getName().equals(this.cBoxSupermarkets.getValue())) {
                             if (!(util.Utility.getTreeProducts().isEmpty()) && findProduct(t.getId()) == true) {//si la lista no esta vacia y encontro un producto ligado al supermercado niega la peticion
-                                a = new Alert(Alert.AlertType.ERROR);
+                                a.setAlertType(Alert.AlertType.ERROR);
                                 a.setHeaderText("No ha podido ser removido porque existen productos ligados al supermercado");
                                 a.showAndWait();
                             } else {
@@ -94,7 +94,7 @@ public class FXMLRemoverSupermercadoController implements Initializable {
                                 cBoxSupermarkets.getSelectionModel().clearSelection();//limpiamos el comboBox
                                 util.Utility.getlGraphRestaurants_Supermarkets().removeVertex(t);//se remueve el supermercado
                                 txt.removeElement("Restaurant_Supermarket.txt", t.toString());
-                                a = new Alert(Alert.AlertType.INFORMATION);
+                                a.setAlertType(Alert.AlertType.INFORMATION);
                                 a.setHeaderText("Removido exitosamente");
                                 a.showAndWait();
                             }

@@ -86,12 +86,12 @@ public class FXMLAgregarProductoController implements Initializable {
             }
         }
         if (txtFieldName.getText().isEmpty() || cBoxSuper.getValue().equals("") || this.txtFieldPrice.getText().isEmpty()) {//validaciones de campos vacios
-            a = new Alert(Alert.AlertType.INFORMATION);//se valida que los campos no esten vacios
+            a.setAlertType(Alert.AlertType.INFORMATION);//se valida que los campos no esten vacios
             a.setHeaderText("No debe dejar campos vacios");
             a.showAndWait();
         }
         if (found == true) {
-            a = new Alert(Alert.AlertType.INFORMATION);
+            a.setAlertType(Alert.AlertType.INFORMATION);
             a.setHeaderText("Producto ingresado ya existe");//se valida que no exista
             a.showAndWait();
         } else {
@@ -108,7 +108,7 @@ public class FXMLAgregarProductoController implements Initializable {
                             txtFieldPrice.setText("");
                             cBoxSuper.getSelectionModel().clearSelection();
                             txt.writeFile("productos.txt", p.toString());
-                            a = new Alert(Alert.AlertType.INFORMATION);
+                            a.setAlertType(Alert.AlertType.INFORMATION);
                             a.setHeaderText("Producto ingresado existosamente");
                             a.showAndWait();
                         }
@@ -129,7 +129,7 @@ public class FXMLAgregarProductoController implements Initializable {
                                 txtFieldPrice.setText("");
                                 cBoxSuper.getSelectionModel().clearSelection();
                                 txt.writeFile("productos.txt", sT2.toString());
-                                a = new Alert(Alert.AlertType.INFORMATION);
+                                a.setAlertType(Alert.AlertType.INFORMATION);
                                 a.setHeaderText("Producto ingresado existosamente");
                                 a.showAndWait();
                             }

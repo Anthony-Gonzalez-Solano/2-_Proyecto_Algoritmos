@@ -74,7 +74,7 @@ public class FXMLModificarSuperMercadoController implements Initializable {
     @FXML
     private void btnModify(ActionEvent event) throws GraphException, ListException {
         if (txtFieldName.getText().isEmpty()) {//validaciones de campos vacios
-            a = new Alert(Alert.AlertType.INFORMATION);
+            a.setAlertType(Alert.AlertType.INFORMATION);
             a.setHeaderText("No debe dejar campos vacios");
             a.showAndWait();
         } else {
@@ -99,7 +99,7 @@ public class FXMLModificarSuperMercadoController implements Initializable {
             this.txtFieldName.setText("");//limpia texfield
             cBoxPlace.getSelectionModel().clearSelection();
             fillcBoxSuper();//actualiza el combobox
-            a = new Alert(Alert.AlertType.INFORMATION);
+            a.setAlertType(Alert.AlertType.INFORMATION);
             a.setHeaderText(sT.getName() + " modificado exitosamente!");
             a.showAndWait();
         }

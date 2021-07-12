@@ -61,7 +61,7 @@ public class FXMLMostrarProductosController implements Initializable {
         try {
             preOrder();//metodo que recorre el arbol en preOrden y se van agregando sus elementos a la tabla
         } catch (TreeException ex) {
-            a = new Alert(Alert.AlertType.INFORMATION);
+            a.setAlertType(Alert.AlertType.INFORMATION);
             a.setHeaderText("No hay productos para mostrar");
             a.showAndWait();
         } catch (ListException ex) {
@@ -99,7 +99,7 @@ public class FXMLMostrarProductosController implements Initializable {
                     }
                 }
             }
-            if (list.size() == 3) {
+            if (list.size() == 2) {
                 tableView.getItems().add(list);//se llena la tabla
             }
             list.add(String.valueOf(p.getID()));
