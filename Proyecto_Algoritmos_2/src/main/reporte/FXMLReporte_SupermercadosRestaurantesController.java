@@ -201,17 +201,15 @@ public class FXMLReporte_SupermercadosRestaurantesController implements Initiali
             Paragraph parrafo = new Paragraph();
             parrafo.setAlignment(Paragraph.ALIGN_CENTER);
             parrafo.add("\n\nNo hay supermercados resgistrados por el momento\n\n");
-            document.add(tableSuper);//Agrega la tabla al documento 
             document.add(parrafo);
             document.add(parrafo);//se agrega el contenido
         }//if supermarket
-        //document.add(tableSuper);
         //aqui el footer
         Paragraph footer = new Paragraph();
         footer.setAlignment(Paragraph.ALIGN_BOTTOM);
         footer.setFont(FontFactory.getFont("Tahoma", 14, Font.NORMAL, BaseColor.DARK_GRAY));
         footer.add("\n\nSherchplit Sistema de Sugerencias de Restaurantes y Supermercados\n\n"
-                + "Av. 258 San Jose, Costa Rica\n\nTelefono 8888-8888\n\nxx.ucrfake.xx@gmail.com");
+                + "Av. 21 Cartago, Costa Rica\n\nTelefono 8888-8888\n\nxx.ucrfake.xx@gmail.com");
         document.add(footer);
         /*
         if (found == false) {

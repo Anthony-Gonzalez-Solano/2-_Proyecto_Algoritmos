@@ -158,11 +158,6 @@ public class FXMLReporte_HistoricoController implements Initializable {
                 document.add(parrafoSearch);
 
             }//for
-            /*
-            for (int i = 0; i < search.size(); i++) {
-
-            }//for
-            */
         } else {
             //content += "\n" + sup.getAutoID() + " " + sup.getName() + " " + sup.getLocation() + " " /*+ rest.getId() + " "*/ + "\n";
             Paragraph parrafo = new Paragraph();
@@ -172,13 +167,12 @@ public class FXMLReporte_HistoricoController implements Initializable {
             document.add(parrafo);
             document.add(parrafo);//se agrega el contenido
         }//if search
-        document.add(tableSearch);
         //aqui el footer
         Paragraph footer = new Paragraph();
         footer.setAlignment(Paragraph.ALIGN_BOTTOM);
         footer.setFont(FontFactory.getFont("Tahoma", 14, Font.NORMAL, BaseColor.DARK_GRAY));
         footer.add("\n\nSherchplit Sistema de Sugerencias de Restaurantes y Supermercados\n\n"
-                + "Av. 258 San Jose, Costa Rica\n\nTelefono 8888-8888\n\nCorreo");
+                + "Av. 21 Cartago, Costa Rica\n\nTelefono 8888-8888\n\nxx.ucrfake.xx@gmail.com");
         document.add(footer);
         /*
         if (found == false) {
